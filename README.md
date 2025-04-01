@@ -8,3 +8,6 @@ Sanity check that you are able to run the code, which by default will only run a
 
 The torch.nn.Embedding routine is used to transform the words/tokens into dense vectors of fixed size. This is useful in NLP tasks--the words/tokens have semantic meanings, so similar words with similar meaning will have similr vector representations. This will help the network learn relationships better.
 The embedding layer is initialized with random values and is trained during the training phase.
+
+# TO DO:
+Keep answering questions here...
