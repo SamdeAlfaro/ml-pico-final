@@ -161,8 +161,17 @@ class KGramMLPSeqModel(nn.Module):
         self.chunk_size = chunk_size
 
         # fill in
+        self.embedding = nn.Embedding(vocab_size, embed_size)
 
-        self.net = None
+        layers = []
+        input_dim = k * embed_size
+
+        for _ in range(num_inner_layers): # Not necessary to loop, but good in case inne layer num changes
+            layers.append(nn.Linear(input_dim, input_dim))
+            layers.append(nn.ReLU())
+
+        layers.append(nn.Linear(input_dim, vocab_size))
+        self.net = nn.Sequential(*layers)
 
     def forward(self, tokens_seq):
         """
