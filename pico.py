@@ -160,18 +160,22 @@ class KGramMLPSeqModel(nn.Module):
         self.num_inner_layers = num_inner_layers
         self.chunk_size = chunk_size
 
-        # fill in
+        # Embedding layer to map tokens to embeddings
         self.embedding = nn.Embedding(vocab_size, embed_size)
 
+        # Define the MLP layers
         layers = []
-        input_dim = k * embed_size
+        input_dim = k * embed_size  # Input size is k * embed_size
 
-        for _ in range(num_inner_layers): # Not necessary to loop, but good in case inne layer num changes
+        # Add inner layers (Linear -> ReLU)
+        for _ in range(num_inner_layers):
             layers.append(nn.Linear(input_dim, input_dim))
             layers.append(nn.ReLU())
 
+        # Final layer to map to vocab size
         layers.append(nn.Linear(input_dim, vocab_size))
         self.net = nn.Sequential(*layers)
+        #print("LAYERS", (layers[2]))
 
     def forward(self, tokens_seq):
         """
@@ -191,16 +195,14 @@ class KGramMLPSeqModel(nn.Module):
                 for b in range(batch_size):
                     if t < self.k:
                         needed = self.k - t
-                        context_ids = [0]*needed + tokens_seq[:t, b].tolist()
+                        context_ids = [0] * needed + tokens_seq[:t, b].tolist()
                     else:
-                        context_ids = tokens_seq[t-self.k:t, b].tolist()
+                        context_ids = tokens_seq[t - self.k:t, b].tolist()
 
-                    context_oh = F.one_hot(
-                        torch.tensor(context_ids, dtype=torch.long, device=tokens_seq.device),
-                        num_classes=self.vocab_size
-                    )
-                    context_flat = context_oh.flatten().float().unsqueeze(0)
-                    logits_b = self.net(context_flat)  # (1, vocab_size)
+                    context_ids = torch.tensor(context_ids, dtype=torch.long, device=tokens_seq.device)
+                    # Use embedding instead of one-hot encoding
+                    context_embeds = self.embedding(context_ids).flatten().unsqueeze(0)  # (1, k * embed_size)
+                    logits_b = self.net(context_embeds)  # (1, vocab_size)
                     batch_logits.append(logits_b)
                 block_outputs.append(torch.cat(batch_logits, dim=0).unsqueeze(0))  # (1, batch, vocab_size)
 
@@ -274,36 +276,7 @@ def monosemantic_analysis_for_token(token_id, model, enc, device="cpu", top_n=5)
 ################################################################################
 
 def nucleus_sampling(logits, p=0.95):
-    # Convert logits to probabilities
-    probs = torch.softmax(logits, dim=-1)
-
-    # Sort token indices by descending probability
-    sorted_probs, sorted_indices = torch.sort(probs, descending=True)
-
-    # Compute cumulative probability
-    cumulative_probs = torch.cumsum(sorted_probs, dim=0)
-
-    # Find the smallest set of tokens whose cumulative probability exceeds p
-    cutoff_indices = torch.where(cumulative_probs >= p)[0]
-
-    if cutoff_indices.numel() == 0:
-        # If no token meets the threshold, fall back to greedy sampling (argmax)
-        return torch.argmax(probs).item()
-
-    cutoff_index = cutoff_indices[0].item()
-
-    # Keep only the top-k tokens
-    top_probs = sorted_probs[:cutoff_index + 1]
-    top_indices = sorted_indices[:cutoff_index + 1]
-
-    # Normalize the probabilities
-    top_probs /= top_probs.sum()
-
-    # Sample from the filtered distribution
-    sampled_index = torch.multinomial(top_probs, 1).item()
-
-    # Return the original token ID
-    return top_indices[sampled_index].item()
+    return torch.argmax(logits).item()
 
 
 def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
@@ -580,7 +553,7 @@ def main():
     ).to(device)
 
     models = {
-      # "kgram_mlp_seq": kgram_model,
+        "kgram_mlp_seq": kgram_model,
         "lstm_seq": lstm_model,
       # "kvcache_transformer": kv_transformer,
     }
