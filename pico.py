@@ -161,21 +161,28 @@ class KGramMLPSeqModel(nn.Module):
         self.chunk_size = chunk_size
 
         # Embedding layer to map tokens to embeddings
+
         self.embedding = nn.Embedding(vocab_size, embed_size)
 
-        # Define the MLP layers
         layers = []
-        input_dim = k * embed_size  # Input size is k * embed_size
+        input_dim = k * embed_size
 
-        # Add inner layers (Linear -> ReLU)
         for _ in range(num_inner_layers):
-            layers.append(nn.Linear(input_dim, input_dim))
+            layers.append(nn.LayerNorm(input_dim))  # Improved stability
+            linear_layer = nn.Linear(input_dim, input_dim)
+            nn.init.xavier_uniform_(linear_layer.weight)  # Xavier Initialization
+            nn.init.zeros_(linear_layer.bias)  # Zero Bias for Stability
+            layers.append(linear_layer)
             layers.append(nn.ReLU())
+            layers.append(nn.Dropout(0.1))  # Dropout to prevent overfitting
 
-        # Final layer to map to vocab size
-        layers.append(nn.Linear(input_dim, vocab_size))
+        # Final projection to vocab size
+        final_layer = nn.Linear(input_dim, vocab_size)
+        nn.init.xavier_uniform_(final_layer.weight)  # Xavier Initialization
+        nn.init.zeros_(final_layer.bias)  # Zero Bias
+        layers.append(final_layer)
+
         self.net = nn.Sequential(*layers)
-        #print("LAYERS", (layers[2]))
 
     def forward(self, tokens_seq):
         """
