@@ -200,10 +200,14 @@ class KGramMLPSeqModel(nn.Module):
             for t in range(start, end):
                 batch_logits = []
                 for b in range(batch_size):
-                    context_ids = tokens_seq[max(0, t - self.k):t, b].tolist()
-                    needed_padding = max(0, self.k - len(context_ids))
-                    context_ids = [0] * needed_padding + context_ids  # pad with 0 if needed
+                    if t < self.k:
+                        needed = self.k - t
+                        context_ids = [0] * needed + tokens_seq[:t, b].tolist()
+                    else:
+                        context_ids = tokens_seq[t - self.k:t, b].tolist()
+
                     context_ids = torch.tensor(context_ids, dtype=torch.long, device=tokens_seq.device)
+                    # Use embedding instead of one-hot encoding
                     context_embeds = self.embedding(context_ids).flatten().unsqueeze(0)  # (1, k * embed_size)
                     logits_b = self.net(context_embeds)  # (1, vocab_size)
                     batch_logits.append(logits_b)
