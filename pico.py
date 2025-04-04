@@ -357,7 +357,27 @@ def monosemantic_analysis_for_token(token_id, model, enc, device="cpu", top_n=5)
 ################################################################################
 
 def nucleus_sampling(logits, p=0.95):
-    return torch.argmax(logits).item()
+    # Apply softmax to the logits to get probabilities
+    probs = F.softmax(logits, dim=-1)
+    
+    # Sort the probabilities in descending order and get the indices
+    sorted_probs, sorted_indices = torch.sort(probs, descending=True)
+    
+    # Compute the cumulative sum of sorted probabilities
+    cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
+    
+    # Find the smallest k such that the cumulative sum of the top k probs >= p
+    k = torch.sum(cumulative_probs < p).item() + 1  # +1 to include the k-th token
+    
+    # Get the top k indices and their corresponding probabilities
+    top_k_indices = sorted_indices[:k]
+    top_k_probs = sorted_probs[:k]
+    
+    # Sample a token from the top k
+    sampled_index = torch.multinomial(top_k_probs, 1)
+    sampled_token = top_k_indices[sampled_index]
+    
+    return sampled_token.item()
 
 
 def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
