@@ -255,11 +255,85 @@ class RMSNorm(nn.Module):
         norm = x.pow(2).mean(dim=-1, keepdim=True).add(self.eps).sqrt()
         return self.weight * (x / norm)
 
+class MultiHeadSelfAttention(nn.Module):
+    def __init__(self, d_model, n_heads):
+        super().__init__()
+        self.n_heads = n_heads
+        self.d_head = d_model // n_heads
+        
+        self.W_q = nn.Linear(d_model, d_model, bias=False)
+        self.W_k = nn.Linear(d_model, d_model, bias=False)
+        self.W_v = nn.Linear(d_model, d_model, bias=False)
+        self.W_o = nn.Linear(d_model, d_model, bias=False)
+        
+        self.dropout = nn.Dropout(0.1)
+
+    def forward(self, x):
+        B, T, C = x.shape
+        q = self.W_q(x).view(B, T, self.n_heads, self.d_head).transpose(1, 2)
+        k = self.W_k(x).view(B, T, self.n_heads, self.d_head).transpose(1, 2)
+        v = self.W_v(x).view(B, T, self.n_heads, self.d_head).transpose(1, 2)
+
+        scores = torch.matmul(q, k.transpose(-2, -1)) / (self.d_head ** 0.5)
+
+        # Causal mask
+        causal_mask = torch.tril(torch.ones(T, T, device=x.device)).unsqueeze(0).unsqueeze(0)
+        scores = scores.masked_fill(causal_mask == 0, float("-inf"))
+
+        # Handle -inf for stability (optional extra safety)
+        scores = scores.masked_fill(torch.isnan(scores), -1e9)
+
+        attn_weights = F.softmax(scores, dim=-1)
+        attn_weights = self.dropout(attn_weights)
+
+        attn_output = torch.matmul(attn_weights, v).transpose(1, 2).contiguous().view(B, T, C)
+        return self.W_o(attn_output)
+
+class TransformerBlock(nn.Module):
+    def __init__(self, d_model, n_heads):
+        super().__init__()
+        self.attn = MultiHeadSelfAttention(d_model, n_heads)
+        self.norm1 = RMSNorm(d_model)
+        self.norm2 = RMSNorm(d_model)
+        
+        self.mlp = nn.Sequential(
+            nn.Linear(d_model, 4 * d_model),
+            nn.GELU(),
+            nn.Linear(4 * d_model, d_model),
+            nn.Dropout(0.1),
+        )
+
+    def forward(self, x):
+        x = x + self.attn(self.norm1(x))
+        x = x + self.mlp(self.norm2(x))
+        return x
+
 class TransformerModel(nn.Module):
     def __init__(self, vocab_size=50257, d_model=1024, n_heads=2, n_blocks=4):
         super().__init__()
+        self.embedding = nn.Embedding(vocab_size, d_model)
+        self.pos_embedding = nn.Embedding(2048, d_model)
 
-        pass
+        self.blocks = nn.ModuleList([TransformerBlock(d_model, n_heads) for _ in range(n_blocks)])
+        self.norm_final = RMSNorm(d_model)
+        self.unembed = nn.Linear(d_model, vocab_size, bias=False)
+
+    def forward(self, x):
+        B, T = x.shape
+        positions = torch.arange(T, device=x.device).unsqueeze(0).expand(B, T)
+        x = self.embedding(x) + self.pos_embedding(positions)
+
+        for block in self.blocks:
+            x = block(x)
+
+        x = self.norm_final(x)
+        logits = self.unembed(x)
+
+        # 🔒 Gradient clipping added here — must call .backward() before this takes effect
+        torch.nn.utils.clip_grad_norm_(self.parameters(), max_norm=1.0)
+
+        return logits
+
 
 
 ################################################################################
@@ -550,12 +624,16 @@ def main():
     ).to(device)
 
     transformer = TransformerModel(
+        vocab_size=50257,
+        d_model=512,
+        n_heads=8,
+        n_blocks=6
     ).to(device)
 
     models = {
         "kgram_mlp_seq": kgram_model,
         "lstm_seq": lstm_model,
-      # "kvcache_transformer": kv_transformer,
+        "kvcache_transformer": transformer,
     }
 
 
