@@ -180,24 +180,12 @@ def compute_next_token_loss(logits, tokens):
     return F.cross_entropy(preds, gold)
 
 
-import torch
-import torch.nn as nn
-
 class KGramMLPSeqModel(nn.Module):
     """
-    This model predicts the next token based on the previous `k` tokens.
+    For each position t in [0..seq_len-1], gather the last k tokens => one-hot => MLP => logits.
+    Return (seq_len, batch, vocab_size).
 
-    For each position t in [0..seq_len-1]:
-      1. Gather the last k tokens before t.
-      2. Convert to embeddings.
-      3. Concatenate into a single vector.
-      4. Feed through MLP to get logits (unnormalized predictions) for next token.
-
-    Memory usage can be high due to:
-      - Long sequences
-      - Large vocab
-      - Large embedding dimensions
-    So we process in chunks with `chunk_size`.
+    Potentially very large memory usage for big vocab or seq_len. chunk_size helps mitigate overhead.
     """
 
     def __init__(self, vocab_size, k=3, embed_size=1024, num_inner_layers=1, chunk_size=1):
@@ -208,101 +196,64 @@ class KGramMLPSeqModel(nn.Module):
         self.num_inner_layers = num_inner_layers
         self.chunk_size = chunk_size
 
-        # Learnable lookup table: token ID -> dense vector of size embed_size
+        # Embedding layer to map tokens to embeddings
+
         self.embedding = nn.Embedding(vocab_size, embed_size)
 
         layers = []
-        input_dim = k * embed_size  # Because we're concatenating k embeddings
+        input_dim = k * embed_size
 
         for _ in range(num_inner_layers):
-            # LayerNorm stabilizes training
-            layers.append(nn.LayerNorm(input_dim))
-
-            # Fully connected layer (keeps input_dim unchanged)
+            layers.append(nn.LayerNorm(input_dim))  # Improved stability
             linear_layer = nn.Linear(input_dim, input_dim)
-
-            # Xavier initialization improves convergence for deep nets
-            nn.init.xavier_uniform_(linear_layer.weight)
-            nn.init.zeros_(linear_layer.bias)  # Zero bias for better initialization
-
-            # Activation and regularization
+            nn.init.xavier_uniform_(linear_layer.weight)  # Xavier Initialization
+            nn.init.zeros_(linear_layer.bias)  # Zero Bias for Stability
             layers.append(linear_layer)
             layers.append(nn.ReLU())
-            layers.append(nn.Dropout(0.1))
-            layers.append(nn.Dropout(0.1))
+            layers.append(nn.Dropout(0.1))  # Dropout to prevent overfitting
 
-        # Final linear layer that projects to logits over vocab
+        # Final projection to vocab size
         final_layer = nn.Linear(input_dim, vocab_size)
-        nn.init.xavier_uniform_(final_layer.weight)
-        nn.init.zeros_(final_layer.bias)
-
+        nn.init.xavier_uniform_(final_layer.weight)  # Xavier Initialization
+        nn.init.zeros_(final_layer.bias)  # Zero Bias
         layers.append(final_layer)
 
-        # Combine all layers into a single sequential model
         self.net = nn.Sequential(*layers)
 
     def forward(self, tokens_seq):
         """
         tokens_seq: (seq_len, batch)
-            A sequence of token indices for each item in the batch.
-
-        Output:
-            logits: (seq_len, batch, vocab_size)
+        return: (seq_len, batch, vocab_size)
+        We'll do a loop over time steps. chunk_size can reduce overhead.
         """
-
         seq_len, batch_size = tokens_seq.shape
         outputs = []
 
-        # We process the sequence in chunks to save memory
         start = 0
         while start < seq_len:
             end = min(start + self.chunk_size, seq_len)
             block_outputs = []
-
-            # Iterate over time steps in this chunk
             for t in range(start, end):
                 batch_logits = []
-
-                # Iterate over batch elements
                 for b in range(batch_size):
-                    # Get the context (previous k tokens before time t)
                     if t < self.k:
                         needed = self.k - t
-                        # Not enough history: pad with zeros
                         context_ids = [0] * needed + tokens_seq[:t, b].tolist()
                     else:
-                        # Sufficient history: use the last k tokens
                         context_ids = tokens_seq[t - self.k:t, b].tolist()
-                # Efficient batch processing
-                if t < self.k:
-                    needed = self.k - t
-                    context_ids = torch.cat([
-                        torch.zeros(needed, batch_size, dtype=torch.long, device=tokens_seq.device),
-                        tokens_seq[:t, :]
-                    ], dim=0)
-                else:
-                    context_ids = tokens_seq[t - self.k:t, :]
 
-                # Get embeddings for all batch elements at once
-                context_embeds = self.embedding(context_ids)  # (k, batch, embed_size)
-                context_embeds = context_embeds.permute(1, 0, 2).reshape(batch_size, -1)  # (batch, k * embed_size)
+                    context_ids = torch.tensor(context_ids, dtype=torch.long, device=tokens_seq.device)
+                    # Use embedding instead of one-hot encoding
+                    context_embeds = self.embedding(context_ids).flatten().unsqueeze(0)  # (1, k * embed_size)
+                    logits_b = self.net(context_embeds)  # (1, vocab_size)
+                    batch_logits.append(logits_b)
+                block_outputs.append(torch.cat(batch_logits, dim=0).unsqueeze(0))  # (1, batch, vocab_size)
 
-                logits_b = self.net(context_embeds)  # (batch, vocab_size)
-                block_outputs.append(logits_b.unsqueeze(0))  # (1, batch, vocab_size)
-
-                # Combine logits for the full batch at time t
-                # shape: (1, batch, vocab_size)
-                block_outputs.append(torch.cat(batch_logits, dim=0).unsqueeze(0))
-
-            # shape: (chunk_size, batch, vocab_size)
-            block_outputs = torch.cat(block_outputs, dim=0)
+            block_outputs = torch.cat(block_outputs, dim=0)  # (chunk_size, batch, vocab_size)
             outputs.append(block_outputs)
+            start = end
 
-            start = end  # Move to next chunk
-
-        # Combine all chunks to get final logits over the entire sequence
-        # shape: (seq_len, batch, vocab_size)
-        outputs = torch.cat(outputs, dim=0)
+        outputs = torch.cat(outputs, dim=0)  # (seq_len, batch, vocab_size)
         return outputs
 
 
@@ -890,8 +841,8 @@ def main():
 
     models = {
         "kgram_mlp_seq": kgram_model,
-        #"lstm_seq": lstm_model,
-        #"kvcache_transformer": transformer,
+        "lstm_seq": lstm_model,
+        "kvcache_transformer": transformer,
     }
 
 
