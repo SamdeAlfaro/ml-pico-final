@@ -70,37 +70,52 @@ class MixedSequenceDataset(torch.utils.data.Dataset):
     Return that entire sequence as a 1D LongTensor.
     """
     def __init__(self, tinystories_seqs, other_seqs, p_tiny: float):
+        # Call parent constructor (Dataset)
         super().__init__()
+        # Store the two input lists of token sequences
         self.tinystories_seqs = tinystories_seqs
         self.other_seqs = other_seqs
+        # Store the probability of sampling from tinystories_seqs
         self.p_tiny = p_tiny
 
+        # Flags to indicate whether each list has any sequences
         self.has_tinystories = (len(self.tinystories_seqs) > 0)
         self.has_other = (len(self.other_seqs) > 0)
 
+        # Total number of sequences across both datasets
         self.total_length = len(self.tinystories_seqs) + len(self.other_seqs)
+        # Raise an error if both lists are empty
         if self.total_length == 0:
             raise ValueError("No data found! Both TinyStories and other sets are empty.")
 
     def __len__(self):
+        # Return the total number of sequences
         return self.total_length
 
     def __getitem__(self, idx):
+        # Generate a random float between 0 and 1
         r = random.random()
+
+        # If both datasets are available
         if self.has_tinystories and self.has_other:
             if r < self.p_tiny:
+                # Sample from tinystories_seqs with probability p_tiny
                 i = random.randint(0, len(self.tinystories_seqs) - 1)
                 seq = self.tinystories_seqs[i]
             else:
+                # Otherwise, sample from other_seqs
                 i = random.randint(0, len(self.other_seqs) - 1)
                 seq = self.other_seqs[i]
         elif self.has_tinystories:
+            # If only tinystories are available, sample from it
             i = random.randint(0, len(self.tinystories_seqs) - 1)
             seq = self.tinystories_seqs[i]
         else:
+            # If only other_seqs are available, sample from it
             i = random.randint(0, len(self.other_seqs) - 1)
             seq = self.other_seqs[i]
 
+        # Convert the selected sequence into a 1D LongTensor
         return torch.tensor(seq, dtype=torch.long)
 
 
@@ -111,14 +126,19 @@ def seq_collate_fn(batch):
     2) pad with zeros
     3) shape => (max_len, batch_size)
     """
+    # Step 1: Determine the maximum sequence length in the batch
     max_len = max(len(seq) for seq in batch)
     batch_size = len(batch)
 
+    # Step 2: Create a zero-padded tensor of shape (max_len, batch_size)
     padded = torch.zeros(max_len, batch_size, dtype=torch.long)
+    
+    # Step 3: Copy each sequence into the padded tensor column-wise
     for i, seq in enumerate(batch):
         seq_len = seq.size(0)
         padded[:seq_len, i] = seq
 
+    # Return the padded tensor
     return padded
 
 
@@ -129,27 +149,52 @@ def seq_collate_fn(batch):
 def compute_next_token_loss(logits, tokens):
     """
     logits: (seq_len, batch, vocab_size)
+        Model outputs: raw, unnormalized scores for each vocabulary word.
     tokens: (seq_len, batch)
+        Ground-truth tokens corresponding to each timestep and batch element.
+
     Next-token prediction => we shift target by 1.
+    That means: the model’s prediction at position t should match the token at position t+1.
     """
     seq_len, batch_size, vocab_size = logits.shape
+
+    # If sequence is too short to predict next token, return dummy loss
     if seq_len < 2:
         return torch.tensor(0.0, device=logits.device, requires_grad=True)
 
-    preds = logits[:-1, :, :]  # (seq_len-1, batch, vocab_size)
-    gold = tokens[1:, :]       # (seq_len-1, batch)
+    # Remove the last time step from logits
+    # These will be used to predict the *next* token
+    preds = logits[:-1, :, :]  # shape: (seq_len-1, batch, vocab_size)
 
+    # Remove the first token from the targets
+    # These are the actual next tokens
+    gold = tokens[1:, :]       # shape: (seq_len-1, batch)
+
+    # Flatten both tensors so we can apply cross-entropy:
+    #   preds: (total_positions, vocab_size)
+    #   gold: (total_positions,)
     preds = preds.reshape(-1, vocab_size)
     gold = gold.reshape(-1)
+
+    # Standard classification loss: log_softmax + NLL
     return F.cross_entropy(preds, gold)
 
 
 class KGramMLPSeqModel(nn.Module):
     """
-    For each position t in [0..seq_len-1], gather the last k tokens => one-hot => MLP => logits.
-    Return (seq_len, batch, vocab_size).
+    This model predicts the next token based on the previous `k` tokens.
 
-    Potentially very large memory usage for big vocab or seq_len. chunk_size helps mitigate overhead.
+    For each position t in [0..seq_len-1]:
+      1. Gather the last k tokens before t.
+      2. Convert to embeddings.
+      3. Concatenate into a single vector.
+      4. Feed through MLP to get logits (unnormalized predictions) for next token.
+
+    Memory usage can be high due to:
+      - Long sequences
+      - Large vocab
+      - Large embedding dimensions
+    So we process in chunks with `chunk_size`.
     """
 
     def __init__(self, vocab_size, k=3, embed_size=1024, num_inner_layers=1, chunk_size=1):
@@ -160,64 +205,96 @@ class KGramMLPSeqModel(nn.Module):
         self.num_inner_layers = num_inner_layers
         self.chunk_size = chunk_size
 
-        # Embedding layer to map tokens to embeddings
-
+        # Learnable lookup table: token ID -> dense vector of size embed_size
         self.embedding = nn.Embedding(vocab_size, embed_size)
 
         layers = []
-        input_dim = k * embed_size
+        input_dim = k * embed_size  # Because we're concatenating k embeddings
 
         for _ in range(num_inner_layers):
-            layers.append(nn.LayerNorm(input_dim))  # Improved stability
+            # LayerNorm stabilizes training
+            layers.append(nn.LayerNorm(input_dim))
+
+            # Fully connected layer (keeps input_dim unchanged)
             linear_layer = nn.Linear(input_dim, input_dim)
-            nn.init.xavier_uniform_(linear_layer.weight)  # Xavier Initialization
-            nn.init.zeros_(linear_layer.bias)  # Zero Bias for Stability
+
+            # Xavier initialization improves convergence for deep nets
+            nn.init.xavier_uniform_(linear_layer.weight)
+            nn.init.zeros_(linear_layer.bias)  # Zero bias for better initialization
+
+            # Activation and regularization
             layers.append(linear_layer)
             layers.append(nn.ReLU())
-            layers.append(nn.Dropout(0.1))  # Dropout to prevent overfitting
+            layers.append(nn.Dropout(0.1))
 
-        # Final projection to vocab size
+        # Final linear layer that projects to logits over vocab
         final_layer = nn.Linear(input_dim, vocab_size)
-        nn.init.xavier_uniform_(final_layer.weight)  # Xavier Initialization
-        nn.init.zeros_(final_layer.bias)  # Zero Bias
+        nn.init.xavier_uniform_(final_layer.weight)
+        nn.init.zeros_(final_layer.bias)
+
         layers.append(final_layer)
 
+        # Combine all layers into a single sequential model
         self.net = nn.Sequential(*layers)
 
     def forward(self, tokens_seq):
         """
         tokens_seq: (seq_len, batch)
-        return: (seq_len, batch, vocab_size)
-        We'll do a loop over time steps. chunk_size can reduce overhead.
+            A sequence of token indices for each item in the batch.
+
+        Output:
+            logits: (seq_len, batch, vocab_size)
         """
+
         seq_len, batch_size = tokens_seq.shape
         outputs = []
 
+        # We process the sequence in chunks to save memory
         start = 0
         while start < seq_len:
             end = min(start + self.chunk_size, seq_len)
             block_outputs = []
+
+            # Iterate over time steps in this chunk
             for t in range(start, end):
                 batch_logits = []
+
+                # Iterate over batch elements
                 for b in range(batch_size):
+                    # Get the context (previous k tokens before time t)
                     if t < self.k:
                         needed = self.k - t
+                        # Not enough history: pad with zeros
                         context_ids = [0] * needed + tokens_seq[:t, b].tolist()
                     else:
+                        # Sufficient history: use the last k tokens
                         context_ids = tokens_seq[t - self.k:t, b].tolist()
 
+                    # Convert context to tensor
                     context_ids = torch.tensor(context_ids, dtype=torch.long, device=tokens_seq.device)
-                    # Use embedding instead of one-hot encoding
-                    context_embeds = self.embedding(context_ids).flatten().unsqueeze(0)  # (1, k * embed_size)
-                    logits_b = self.net(context_embeds)  # (1, vocab_size)
+
+                    # Get embeddings and flatten them into one long vector
+                    context_embeds = self.embedding(context_ids).flatten().unsqueeze(0)  # shape: (1, k * embed_size)
+
+                    # Forward pass through the MLP to get logits
+                    logits_b = self.net(context_embeds)  # shape: (1, vocab_size)
+
+                    # Collect logits for this batch element
                     batch_logits.append(logits_b)
-                block_outputs.append(torch.cat(batch_logits, dim=0).unsqueeze(0))  # (1, batch, vocab_size)
 
-            block_outputs = torch.cat(block_outputs, dim=0)  # (chunk_size, batch, vocab_size)
+                # Combine logits for the full batch at time t
+                # shape: (1, batch, vocab_size)
+                block_outputs.append(torch.cat(batch_logits, dim=0).unsqueeze(0))
+
+            # shape: (chunk_size, batch, vocab_size)
+            block_outputs = torch.cat(block_outputs, dim=0)
             outputs.append(block_outputs)
-            start = end
 
-        outputs = torch.cat(outputs, dim=0)  # (seq_len, batch, vocab_size)
+            start = end  # Move to next chunk
+
+        # Combine all chunks to get final logits over the entire sequence
+        # shape: (seq_len, batch, vocab_size)
+        outputs = torch.cat(outputs, dim=0)
         return outputs
 
 
@@ -228,24 +305,52 @@ class KGramMLPSeqModel(nn.Module):
 class LSTMSeqModel(nn.Module):
     def __init__(self, vocab_size, embed_size=1024, hidden_size=1024):
         super().__init__()
-        self.vocab_size = vocab_size
-        self.embed_size = embed_size
-        self.hidden_size = hidden_size
 
+        self.vocab_size = vocab_size         # Size of vocabulary (number of unique tokens)
+        self.embed_size = embed_size         # Size of token embedding vectors
+        self.hidden_size = hidden_size       # Number of hidden units in the LSTM
+
+        # Learnable embedding table: maps token IDs to vectors of size `embed_size`
         self.embedding = nn.Embedding(vocab_size, embed_size)
+
+        # LSTM layer:
+        #   Input size = embed_size
+        #   Hidden state size = hidden_size
+        #   batch_first=False => input shape is (seq_len, batch, embed_size)
         self.lstm = nn.LSTM(embed_size, hidden_size, batch_first=False)
+
+        # Final linear layer:
+        #   Maps LSTM outputs to vocab-size logits for next-token prediction
         self.linear = nn.Linear(hidden_size, vocab_size)
 
     def forward(self, tokens_seq):
         """
         tokens_seq: (seq_len, batch)
-        => (seq_len, batch, vocab_size)
+            A sequence of token indices for each batch element.
+
+        Returns:
+            logits: (seq_len, batch, vocab_size)
+            Unnormalized predictions of the next token at each time step.
         """
-        emb = self.embedding(tokens_seq)   # (seq_len, batch, embed)
+
+        # Step 1: Convert token indices to embeddings
+        # Output shape: (seq_len, batch, embed_size)
+        emb = self.embedding(tokens_seq)
+
+        # Step 2 (optional but recommended): optimize LSTM weight layout for faster GPU training
         self.lstm.flatten_parameters()
-        out, _ = self.lstm(emb)           # (seq_len, batch, hidden)
-        logits = self.linear(out)         # (seq_len, batch, vocab_size)
+
+        # Step 3: Run the sequence through the LSTM
+        # Output `out`: (seq_len, batch, hidden_size)
+        # We discard the second output (_) which contains the final hidden and cell states
+        out, _ = self.lstm(emb)
+
+        # Step 4: Map LSTM outputs to logits over the vocabulary
+        # Output shape: (seq_len, batch, vocab_size)
+        logits = self.linear(out)
+
         return logits
+
 
 
 ################################################################################
@@ -257,86 +362,125 @@ class RMSNorm(nn.Module):
     def __init__(self, dim, eps=1e-5):
         super().__init__()
         self.eps = eps
+        # Learnable scaling parameter, one per feature dimension
         self.weight = nn.Parameter(torch.ones(dim))
+
     def forward(self, x):
+        # Root Mean Square Normalization (like LayerNorm but no mean subtraction)
+        # Compute norm = sqrt(mean(x^2) + eps) across the last dimension
         norm = x.pow(2).mean(dim=-1, keepdim=True).add(self.eps).sqrt()
+        # Normalize and scale with learned weights
         return self.weight * (x / norm)
 
 class MultiHeadSelfAttention(nn.Module):
     def __init__(self, d_model, n_heads):
         super().__init__()
         self.n_heads = n_heads
-        self.d_head = d_model // n_heads
-        
+        self.d_head = d_model // n_heads  # Each head gets d_head dimensions
+
+        # Linear projections for Q, K, V — no bias for simplicity
         self.W_q = nn.Linear(d_model, d_model, bias=False)
         self.W_k = nn.Linear(d_model, d_model, bias=False)
         self.W_v = nn.Linear(d_model, d_model, bias=False)
+
+        # Final projection after concatenating heads
         self.W_o = nn.Linear(d_model, d_model, bias=False)
-        
-        self.dropout = nn.Dropout(0.1)
+
+        self.dropout = nn.Dropout(0.1)  # Dropout on attention weights
 
     def forward(self, x):
-        B, T, C = x.shape
+        B, T, C = x.shape  # Batch size, sequence length, model dim
+
+        # Project input to Q, K, V and reshape to (B, n_heads, T, d_head)
         q = self.W_q(x).view(B, T, self.n_heads, self.d_head).transpose(1, 2)
         k = self.W_k(x).view(B, T, self.n_heads, self.d_head).transpose(1, 2)
         v = self.W_v(x).view(B, T, self.n_heads, self.d_head).transpose(1, 2)
 
-        scores = torch.matmul(q, k.transpose(-2, -1)) / (self.d_head ** 0.5)
+        # Compute scaled dot-product attention
+        scores = torch.matmul(q, k.transpose(-2, -1)) / (self.d_head ** 0.5)  # (B, n_heads, T, T)
 
-        # Causal mask
+        # Causal mask: prevent attending to future tokens
         causal_mask = torch.tril(torch.ones(T, T, device=x.device)).unsqueeze(0).unsqueeze(0)
         scores = scores.masked_fill(causal_mask == 0, float("-inf"))
 
-        # Handle -inf for stability (optional extra safety)
+        # Extra safety: ensure no NaNs in scores
         scores = scores.masked_fill(torch.isnan(scores), -1e9)
 
+        # Softmax to get attention weights
         attn_weights = F.softmax(scores, dim=-1)
         attn_weights = self.dropout(attn_weights)
 
-        attn_output = torch.matmul(attn_weights, v).transpose(1, 2).contiguous().view(B, T, C)
+        # Weighted sum of values
+        attn_output = torch.matmul(attn_weights, v)  # (B, n_heads, T, d_head)
+
+        # Merge heads: transpose back and reshape to (B, T, C)
+        attn_output = attn_output.transpose(1, 2).contiguous().view(B, T, C)
+
+        # Final output projection
         return self.W_o(attn_output)
 
 class TransformerBlock(nn.Module):
     def __init__(self, d_model, n_heads):
         super().__init__()
-        self.attn = MultiHeadSelfAttention(d_model, n_heads)
-        self.norm1 = RMSNorm(d_model)
-        self.norm2 = RMSNorm(d_model)
-        
+
+        self.attn = MultiHeadSelfAttention(d_model, n_heads)  # Self-attention module
+        self.norm1 = RMSNorm(d_model)  # Norm before attention
+        self.norm2 = RMSNorm(d_model)  # Norm before MLP
+
+        # Feedforward network (MLP) with expansion
         self.mlp = nn.Sequential(
-            nn.Linear(d_model, 4 * d_model),
-            nn.GELU(),
-            nn.Linear(4 * d_model, d_model),
-            nn.Dropout(0.1),
+            nn.Linear(d_model, 4 * d_model),  # Expand
+            nn.GELU(),                        # Non-linearity
+            nn.Linear(4 * d_model, d_model),  # Project back
+            nn.Dropout(0.1),                  # Regularization
         )
 
     def forward(self, x):
+        # Residual + Attention + Norm
         x = x + self.attn(self.norm1(x))
+        # Residual + MLP + Norm
         x = x + self.mlp(self.norm2(x))
         return x
 
 class TransformerModel(nn.Module):
     def __init__(self, vocab_size=50257, d_model=1024, n_heads=2, n_blocks=4):
         super().__init__()
+
+        # Token embedding: maps each token ID to a d_model-dimensional vector
         self.embedding = nn.Embedding(vocab_size, d_model)
+
+        # Positional embedding: learnable position encodings (max length = 2048)
         self.pos_embedding = nn.Embedding(2048, d_model)
 
-        self.blocks = nn.ModuleList([TransformerBlock(d_model, n_heads) for _ in range(n_blocks)])
+        # Stack of Transformer blocks
+        self.blocks = nn.ModuleList([
+            TransformerBlock(d_model, n_heads) for _ in range(n_blocks)
+        ])
+
+        # Final RMSNorm before output
         self.norm_final = RMSNorm(d_model)
+
+        # Final projection back to vocab size for logits
         self.unembed = nn.Linear(d_model, vocab_size, bias=False)
 
     def forward(self, x):
-        B, T = x.shape
-        positions = torch.arange(T, device=x.device).unsqueeze(0).expand(B, T)
-        x = self.embedding(x) + self.pos_embedding(positions)
+        B, T = x.shape  # Batch size, sequence length
 
+        # Create position indices [0, 1, ..., T-1] for each sample
+        positions = torch.arange(T, device=x.device).unsqueeze(0).expand(B, T)
+
+        # Add token + position embeddings
+        x = self.embedding(x) + self.pos_embedding(positions)  # (B, T, d_model)
+
+        # Pass through each Transformer block
         for block in self.blocks:
             x = block(x)
 
+        # Normalize and project to vocab-size logits
         x = self.norm_final(x)
-        logits = self.unembed(x)
+        logits = self.unembed(x)  # (B, T, vocab_size)
 
-        # 🔒 Gradient clipping added here — must call .backward() before this takes effect
+        # Gradient clipping (has no effect until .backward() is called)
         torch.nn.utils.clip_grad_norm_(self.parameters(), max_norm=1.0)
 
         return logits
@@ -392,49 +536,67 @@ def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
       - We pick next token (greedy or top-p), append to context_tokens.
       - Optionally do monosemantic analysis on that newly generated token.
     """
-    was_training = model.training
-    model.eval()
-    with torch.no_grad():
-        context_tokens = enc.encode(init_text)
-        annotation_list = []
+    was_training = model.training         # Save the current training/eval mode of the model
+    model.eval()                          # Set model to evaluation mode for inference
+    with torch.no_grad():                # Disable gradient calculation for efficiency
+        context_tokens = enc.encode(init_text)  # Tokenize the initial input text
+        annotation_list = []                   # Store monosemantic annotations if needed
 
         for step_i in range(max_new_tokens):
+            # Create input tensor (seq_len, 1) and move to the appropriate device
             seq_tensor = torch.tensor(context_tokens, dtype=torch.long, device=device).unsqueeze(1)
-            logits_seq = model(seq_tensor)              # (seq_len,1,vocab_size)
-            next_logits = logits_seq[-1, 0, :]         # shape (vocab_size,)
+
+            # Forward pass: get logits for the entire sequence
+            logits_seq = model(seq_tensor)              # (seq_len, 1, vocab_size)
+
+            # Get logits for the last time step only (shape: vocab_size,)
+            next_logits = logits_seq[-1, 0, :]
 
             if top_p is None:
-                # greedy
+                # Greedy decoding: choose the most likely token
                 chosen_token = torch.argmax(next_logits).item()
             else:
+                # Top-p (nucleus) sampling: choose from top tokens whose cumulative prob ≤ p
                 chosen_token = nucleus_sampling(next_logits, p=top_p)
 
+            # Add chosen token to context for the next round
             context_tokens.append(chosen_token)
 
             if do_monosemantic and monosemantic_info is not None:
+                # Optional: analyze which neurons were responsible for generating this token
                 neighbors = monosemantic_analysis_for_token(
                     chosen_token, model, monosemantic_info, enc, device=device, top_n=5
                 )
                 annotation_list.append((chosen_token, neighbors))
             else:
+                # If no monosemantic info, just record the token without neighbors
                 annotation_list.append((chosen_token, []))
 
-    model.train(was_training)
+    model.train(was_training)  # Restore original training/eval mode
 
+    # Decode the full generated sequence (initial + generated tokens)
     final_text = enc.decode(context_tokens)
+
+    # Decode only the original input (before generation)
     prefix_text = enc.decode(context_tokens[:-max_new_tokens])
-    annotated_strs = [prefix_text]
+
+    annotated_strs = [prefix_text]  # Start annotated version with prefix
+
+    # Add annotations (e.g., nearest neighbors) to each generated token
     for (tid, neighs) in annotation_list:
         token_str = enc.decode([tid])
         if neighs:
+            # Decode each neighbor and add annotation
             neighbor_strs = [f"{enc.decode([x[1]])}" for x in neighs]
             annotated = f"{token_str}[NN={neighbor_strs}]"
         else:
             annotated = token_str
         annotated_strs.append(annotated)
 
+    # Join annotated tokens into a string
     annotated_text = "".join(annotated_strs)
-    return final_text, annotated_text
+
+    return final_text, annotated_text  # Return both raw and annotated outputs
 
 
 ################################################################################
@@ -454,38 +616,53 @@ def train_one_model(model,
                     monosemantic_info=None,
                     prompt="Once upon a"):
     """
-    We add `prompt` as an explicit argument so we can pass it down from main().
-    """
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    Train a language model for a number of epochs using a tokenized dataset loader.
 
-    start_time = time.time()
-    next_sample_time = start_time
-    global_step = 0
+    Args:
+        model: the language model to train.
+        loader: a PyTorch DataLoader yielding batches of token sequences.
+        epochs: number of full passes through the dataset.
+        model_name: identifier for logging.
+        device: where to move data/model (e.g. "cuda" or "cpu").
+        lr: learning rate.
+        log_steps: how often to log loss stats.
+        sample_interval: seconds between generating samples.
+        max_steps_per_epoch: optionally cap the number of training steps per epoch.
+        enc: tokenizer/decoder (optional, used for generating text samples).
+        monosemantic_info: data for monosemantic analysis (optional).
+        prompt: initial prompt for generating text during training.
+    """
+    optimizer = optim.Adam(model.parameters(), lr=lr)  # Optimizer setup
+
+    start_time = time.time()           # Track when training started
+    next_sample_time = start_time      # Time threshold for generating samples
+    global_step = 0                    # Total number of steps (across epochs)
 
     for epoch in range(1, epochs + 1):
-        model.train()
-        total_loss = 0.0
-        partial_loss = 0.0
-        partial_count = 0
+        model.train()                 # Enable training mode (dropout, gradients, etc.)
+        total_loss = 0.0             # Tracks cumulative loss per epoch
+        partial_loss = 0.0           # Tracks loss for logging intervals
+        partial_count = 0            # Tracks # of steps for log intervals
 
-        step_in_epoch = 0
+        step_in_epoch = 0            # Number of steps completed in current epoch
         for batch_idx, batch_tokens in enumerate(loader, start=1):
             step_in_epoch += 1
             global_step += 1
 
-            batch_tokens = batch_tokens.to(device)  # (seq_len, batch)
+            batch_tokens = batch_tokens.to(device)  # Move batch to GPU/CPU
 
-            logits = model(batch_tokens)  # (seq_len, batch, vocab_size)
-            loss = compute_next_token_loss(logits, batch_tokens)
+            logits = model(batch_tokens)            # Forward pass
+            loss = compute_next_token_loss(logits, batch_tokens)  # Compute token prediction loss
 
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            optimizer.zero_grad()   # Clear gradients
+            loss.backward()         # Backprop
+            optimizer.step()        # Update weights
 
-            total_loss += loss.item()
-            partial_loss += loss.item()
-            partial_count += 1
+            total_loss += loss.item()         # Add to epoch total
+            partial_loss += loss.item()       # Add to rolling total for logging
+            partial_count += 1                # Increment for average calculation
 
+            # Logging every `log_steps` steps
             if batch_idx % log_steps == 0:
                 avg_part_loss = partial_loss / partial_count
                 print(f"[{model_name}] Epoch {epoch}/{epochs}, "
@@ -494,6 +671,7 @@ def train_one_model(model,
                 partial_loss = 0.0
                 partial_count = 0
 
+            # Periodically generate sample text to track model behavior
             current_time = time.time()
             if current_time >= next_sample_time and enc is not None:
                 with torch.no_grad():
@@ -517,7 +695,7 @@ def train_one_model(model,
                     print(f" Top-p (p=0.95) Sample: {text_topp}")
                     print(f" Annotated: {ann_topp}\n")
 
-                    # third generation => top-p=1.0 => full distribution random sampling
+                    # top-p=1.0 = full sampling from softmax (no cutoff)
                     print(f"[{model_name}] Generating sample text (top-p=1.0) at epoch={epoch}, step={batch_idx}...")
                     text_topp1, ann_topp1 = generate_text(
                         model, enc, prompt, max_new_tokens=20, device=device,
@@ -530,10 +708,12 @@ def train_one_model(model,
 
                 next_sample_time = current_time + sample_interval
 
+            # Optional early stopping within epoch
             if max_steps_per_epoch is not None and step_in_epoch >= max_steps_per_epoch:
                 print(f"[{model_name}] Reached max_steps_per_epoch={max_steps_per_epoch}, ending epoch {epoch} early.")
                 break
 
+        # Print average loss for this epoch
         avg_loss = total_loss / step_in_epoch
         print(f"[{model_name}] *** End of Epoch {epoch} *** Avg Loss: {avg_loss:.4f}")
 
@@ -543,6 +723,48 @@ def train_one_model(model,
 ################################################################################
 
 def main():
+    """
+    Entry point for training and evaluating multiple language models on a mixed dataset.
+
+    This function performs the following:
+    1. Parses command-line arguments to configure model and training settings.
+    2. Loads tokenized datasets from HuggingFace's TinyStories and/or custom input files.
+    3. Combines datasets with a weighted sampling scheme.
+    4. Initializes three models: KGramMLP, LSTM, and Transformer.
+    5. Trains each model over a number of epochs using a shared data loader.
+    6. Periodically logs loss and generates samples during training using different decoding strategies:
+       - Greedy decoding
+       - Top-p sampling (p=0.95)
+       - Random sampling (top-p=1.0)
+    7. After training, performs final text generation using the provided prompt.
+    8. Prints final annotated generations for qualitative evaluation.
+
+    Models trained:
+        - KGramMLPSeqModel
+        - LSTMSeqModel
+        - TransformerModel (GPT-like)
+
+    Important arguments expected from the CLI (via argparse):
+        - kgram_k: context window size for KGramMLP
+        - kgram_chunk_size: chunk size for KGramMLP internal processing
+        - embed_size: embedding dimension
+        - block_size: max sequence length
+        - device_id: CUDA/CPU device string (e.g., "cuda:0" or "cpu")
+        - tinystories_weight: probability of sampling from TinyStories vs. other data
+        - input_files: optional list of custom text file paths
+        - prompt: text prompt to use for generation
+        - max_steps_per_epoch: early stopping point for each training epoch
+        - num_inner_mlp_layers: depth of the MLP in KGramMLP
+
+    Side Effects:
+        - Prints training logs and model outputs to stdout.
+        - Uses the `generate_text` function to decode and optionally annotate output.
+        - Performs training and evaluation directly, without returning anything.
+
+    Note:
+        This function is designed to be used as the main script in a command-line context.
+    """
+        
     args = parse_args()
 
     # Additional local variables from arguments
