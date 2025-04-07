@@ -180,6 +180,9 @@ def compute_next_token_loss(logits, tokens):
     return F.cross_entropy(preds, gold)
 
 
+import torch
+import torch.nn as nn
+
 class KGramMLPSeqModel(nn.Module):
     """
     This model predicts the next token based on the previous `k` tokens.
@@ -226,6 +229,7 @@ class KGramMLPSeqModel(nn.Module):
             layers.append(linear_layer)
             layers.append(nn.ReLU())
             layers.append(nn.Dropout(0.1))
+            layers.append(nn.Dropout(0.1))
 
         # Final linear layer that projects to logits over vocab
         final_layer = nn.Linear(input_dim, vocab_size)
@@ -269,18 +273,22 @@ class KGramMLPSeqModel(nn.Module):
                     else:
                         # Sufficient history: use the last k tokens
                         context_ids = tokens_seq[t - self.k:t, b].tolist()
+                # Efficient batch processing
+                if t < self.k:
+                    needed = self.k - t
+                    context_ids = torch.cat([
+                        torch.zeros(needed, batch_size, dtype=torch.long, device=tokens_seq.device),
+                        tokens_seq[:t, :]
+                    ], dim=0)
+                else:
+                    context_ids = tokens_seq[t - self.k:t, :]
 
-                    # Convert context to tensor
-                    context_ids = torch.tensor(context_ids, dtype=torch.long, device=tokens_seq.device)
+                # Get embeddings for all batch elements at once
+                context_embeds = self.embedding(context_ids)  # (k, batch, embed_size)
+                context_embeds = context_embeds.permute(1, 0, 2).reshape(batch_size, -1)  # (batch, k * embed_size)
 
-                    # Get embeddings and flatten them into one long vector
-                    context_embeds = self.embedding(context_ids).flatten().unsqueeze(0)  # shape: (1, k * embed_size)
-
-                    # Forward pass through the MLP to get logits
-                    logits_b = self.net(context_embeds)  # shape: (1, vocab_size)
-
-                    # Collect logits for this batch element
-                    batch_logits.append(logits_b)
+                logits_b = self.net(context_embeds)  # (batch, vocab_size)
+                block_outputs.append(logits_b.unsqueeze(0))  # (1, batch, vocab_size)
 
                 # Combine logits for the full batch at time t
                 # shape: (1, batch, vocab_size)
@@ -296,6 +304,7 @@ class KGramMLPSeqModel(nn.Module):
         # shape: (seq_len, batch, vocab_size)
         outputs = torch.cat(outputs, dim=0)
         return outputs
+
 
 
 ################################################################################
@@ -881,8 +890,8 @@ def main():
 
     models = {
         "kgram_mlp_seq": kgram_model,
-        "lstm_seq": lstm_model,
-        "kvcache_transformer": transformer,
+        #"lstm_seq": lstm_model,
+        #"kvcache_transformer": transformer,
     }
 
 
