@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+import graph_dat_shit as gds
 
 # We do not import numpy or scikit-learn, so we implement a naive k-means in pure PyTorch.
 # If you prefer scikit-learn, you can adapt the code.
@@ -452,6 +453,9 @@ def train_one_model(model,
     """
     We add `prompt` as an explicit argument so we can pass it down from main().
     """
+    interior_array_loss = []
+    array_of_losses = []
+
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
     start_time = time.time()
@@ -487,6 +491,7 @@ def train_one_model(model,
                 print(f"[{model_name}] Epoch {epoch}/{epochs}, "
                       f"Step {batch_idx}/{len(loader)} (global step: {global_step}) "
                       f"Partial Avg Loss: {avg_part_loss:.4f}")
+                interior_array_loss.append(avg_part_loss) #ADD Losses to array
                 partial_loss = 0.0
                 partial_count = 0
 
@@ -529,9 +534,14 @@ def train_one_model(model,
             if max_steps_per_epoch is not None and step_in_epoch >= max_steps_per_epoch:
                 print(f"[{model_name}] Reached max_steps_per_epoch={max_steps_per_epoch}, ending epoch {epoch} early.")
                 break
-
+        #EPOCH has ended so append the losses to the array
+        array_of_losses.append(interior_array_loss)
+            
         avg_loss = total_loss / step_in_epoch
         print(f"[{model_name}] *** End of Epoch {epoch} *** Avg Loss: {avg_loss:.4f}")
+        array_of_losses.append([avg_loss]) #ADD avg loss from the entire epoch to the array
+        interior_array_loss = [] # clear the array so that it is ready to be rerun for the next epoch
+    return array_of_losses
 
 
 ################################################################################
@@ -655,17 +665,23 @@ def main():
 
     models = {
         "kgram_mlp_seq": kgram_model,
-        #"lstm_seq": lstm_model,
-        #"kvcache_transformer": transformer,
+        "lstm_seq": lstm_model,
+        "kvcache_transformer": transformer,
     }
 
-
+    #these arrays will be of the form: 
+    # [[loss_epoch1],[avg_loss_epoch],[loss_epoch2],[avg_loss_epoch2],...]
+    # [[>1],[=1],[>1],[=1],...]
+    kgram_losses = []
+    lstm_losses = []
+    transformer_losses = []
+    
     ############################################################################
     # Train each model
     ############################################################################
     for model_name, model in models.items():
         print(f"\n=== Training model: {model_name} ===")
-        train_one_model(
+        loss_array = train_one_model(
             model=model,
             loader=train_loader,
             epochs=num_epochs,
@@ -678,6 +694,12 @@ def main():
             enc=enc,
             prompt=args.prompt  # <--- Pass the user-specified prompt here
         )
+        if model_name == "kgram_mlp_seq":
+            kgram_losses = loss_array
+        elif model_name == "lstm_seq":
+            lstm_losses = loss_array
+        elif model_name == "kvcache_transformer":
+            transformer_losses = loss_array
 
         # Final generation from the user-provided prompt (args.prompt).
         with torch.no_grad():
@@ -712,7 +734,9 @@ def main():
 
     # Finally, let's share how I'm feeling:
     print("\n*** I'm feeling great today! Hope you're well, too. ***")
-
+    gds.plot_loss_array(data=kgram_losses, title="KGram Losses")
+    gds.plot_loss_array(data=lstm_losses, title="LSTM Losses")
+    gds.plot_loss_array(data=transformer_losses, title="Transformer Losses")
 
 if __name__ == "__main__":
     main()
