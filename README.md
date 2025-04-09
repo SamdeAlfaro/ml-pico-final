@@ -32,3 +32,26 @@ Nucleus sampling chooses the next token randomly, but only from the smallest pos
 
 This allows: balance between coherence and diversity, avoiding degenerate or repetitive outputs, allowing creative or unexpected continuations.
 It allows your model to show off more of what it’s learned by breaking out of the most-likely path and exploring creative possibilities. It’s especially useful for generative tasks like storytelling or dialogue.
+
+
+
+
+# Harrys Question answers
+## Q1
+We use the embedding routine to convert the token IDs into a vector repersentation which we can then pipeline through the LSTM model. The embedding layer is a lookup table that stores embeddings of a fixed dictionary and size. The input to the layer is a list of indices, and the output is the corresponding list of embeddings. This allows us to convert our token IDs into a more meaningful representation that can be used in our model. 
+
+## Q2
+I believe we still want to use the embedding routine here, as we want to parse our tokens as vectors with semantic weights (else we are not processing anything at all). Even though we're processing the sequence as a sliding window over the tokens, as opposed to the full sequence processing in the LSTM, we still need to represent the tokens as vectors to do anything important(i.e chain words together). 
+
+## Q3
+With the input file as the bible, the prompt as 'god', here are the outputs from both greedy and the nucleus sampling method:
+
+kvcache_transformer] Generating sample text (greedy) at epoch=1, step=1...
+ Greedy Sample: god!!!!!!!!!!!!!!!!!!!!
+ Annotated: god!!!!!!!!!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=1...
+ Top-p (p=0.95) Sample: god Morales governorsFel Chimera centimeters Soldier neutralwangBonStudent Entercourt lifestyles Rossiopausalי� textbooks Oil leapt781
+ Annotated: god Morales governorsFel Chimera centimeters Soldier neutralwangBonStudent Entercourt lifestyles Rossiopausalי� textbooks Oil leapt781
+
+By using nucleus sampling we intend, and seem to result in, a wider and more diverse range of potential outputs from the model. The greedy sampling method, which is supposed to grab the token with highest probability, results in a bunch of exclamation points, which seem to be consistently the most likely token to follow any input we give the llm. 
