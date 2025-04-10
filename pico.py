@@ -179,11 +179,6 @@ def compute_next_token_loss(logits, tokens):
     # Standard classification loss: log_softmax + NLL
     return F.cross_entropy(preds, gold)
 
-
-# Import the necessary PyTorch neural network module
-import torch
-import torch.nn as nn
-
 # Define the neural network model class, inheriting from PyTorch's base module class nn.Module
 class KGramMLPSeqModel(nn.Module):
     """
