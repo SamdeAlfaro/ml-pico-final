@@ -440,8 +440,14 @@ class TransformerModel(nn.Module):
         x = self.norm_final(x)
         logits = self.unembed(x)  # (B, T, vocab_size)
 
-        # Gradient clipping (has no effect until .backward() is called)
-        torch.nn.utils.clip_grad_norm_(self.parameters(), max_norm=1.0)
+        # NOTE: `clip_grad_norm_` modifies gradients IN-PLACE and is typically called *after* `loss.backward()`
+        # and *before* `optimizer.step()` during the training loop.
+        # Placing it here inside the `forward` pass means it's called *before* any gradients exist.
+        # This line, as placed here, will likely have NO EFFECT on training, unless gradients
+        # from a previous iteration somehow persist (which they shouldn't in standard loops).
+        # Its purpose is to prevent exploding gradients by scaling gradients if their overall norm exceeds `max_norm`.
+        # It should be moved to the training loop for its intended effect.
+        # torch.nn.utils.clip_grad_norm_(self.parameters(), max_norm=1.0)
 
         return logits
 
