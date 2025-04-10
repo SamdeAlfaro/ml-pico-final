@@ -144,10 +144,6 @@ def compute_next_token_loss(logits, tokens):
     gold = gold.reshape(-1)
     return F.cross_entropy(preds, gold)
 
-
-import torch
-import torch.nn as nn
-
 class KGramMLPSeqModel(nn.Module):
     """
     K-gram MLP-based sequence model.
