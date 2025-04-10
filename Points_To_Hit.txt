@@ -1,0 +1,38 @@
+Outline for Presentation With Matus:
+- Start with the KGRAM_MLP Mode:
+    - Explain approach we went at for the model (i.e. generally how it works)
+        - Used nn.Embedding to map the embed_size dimensional vector
+        - For the MLP construction we did an input size of k * embed_size. This was a bit of a challenging step for us
+        since at first we kept thinking it was supposed to be k * vocab_size, but when we ran it like that the program would
+        continually hang and not produce outputs. Of course, wehn you take a step back and think about it you see that 
+        doing k * vocab_size would invovle very large and sapre vectors being put into the model directly. I.e. what we were
+        seeing was the program trying to (and being unable to) handle the large, spare vocab_size vectors. 
+        - Changes we made to the KGRAM forward function:
+            - We changed it from using one-hot encodings manually to instead using nn.Embedding to get dense learned vectors
+            Current Embeds: 
+                context_embeds = self.embedding(context_ids)
+                context_embeds = context_embeds.permute(1, 0, 2).reshape(batch_size, -1)
+            Old Embeds:
+                context_oh = F.one_hot(...)
+                context_flat = context_oh.flatten().float().unsqueeze(0)
+    
+            - Instead of looping over every batch element indivudally we vectorized it and use batch processing matrix
+            Current Batching:
+                # All batch elements handled in one go
+                context_ids = tokens_seq[t - self.k:t, :]
+                context_embeds = self.embedding(context_ids)
+            Old Batching:
+                for b in range(batch_size):
+                    ...
+                    context_oh = F.one_hot(...)
+                    logits_b = self.net(context_flat)
+
+            - As discussed above we changed the shape to  (batch, k * embed_size) for efficency instead of (1, k * vocab_size)
+            * another problem we had with origional shape of input was we constantly were getting sizing mismatch errors
+            because of our mismatched inputs from __init__ to forward()
+            - The final important change we made was to optimize it for GPU so that I could run it more efficently on Desktop. 
+            In other words, by changing from one-hot version to an embedding version we were able to run things on GPU better. 
+    - Show the two loss plots for KGRAM_MLP (compared with LSTM)
+    - Explain drawbacks (speed, efficency)
+        - Tie these drawbacks in with the ! problem from greedy text generation and how we needed nucleus sampling in order to get more sensible shit.
+        - Even with GPU speed it still moved *incrdibly* slow (compared to LSTM & Transformer)
