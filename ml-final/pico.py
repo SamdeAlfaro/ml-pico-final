@@ -406,6 +406,7 @@ def nucleus_sampling(logits, p=0.95):
 
 def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
                   top_p=None,
+                  temperature=1.0,
                   monosemantic_info=None,
                   do_monosemantic=False):
     """
@@ -432,11 +433,18 @@ def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
             # Get logits for the last time step only (shape: vocab_size,)
             next_logits = logits_seq[-1, 0, :]
 
+            if temperature != 1.0:
+                next_logits = next_logits / temperature
+
             if top_p is None:
                 # Greedy decoding: choose the most likely token
                 chosen_token = torch.argmax(next_logits).item()
+            elif top_p == 1.0:
+                # Full sampling (softmax with temperature)
+                probs = F.softmax(next_logits, dim=-1)
+                chosen_token = torch.multinomial(probs, 1).item()
             else:
-                # Top-p (nucleus) sampling: choose from top tokens whose cumulative prob ≤ p
+                # Top-p (nucleus) sampling with temperature
                 chosen_token = nucleus_sampling(next_logits, p=top_p)
 
             # Add chosen token to context for the next round
@@ -810,36 +818,30 @@ def main():
             prompt=args.prompt  # <--- Pass the user-specified prompt here
         )
 
-        # Final generation from the user-provided prompt (args.prompt).
         with torch.no_grad():
-            # 1) Greedy
-            text_greedy, ann_greedy = generate_text(
-                model, enc, args.prompt, max_new_tokens=20, device=device,
-                top_p=None,
-            )
-            # 2) top-p=0.95
-            text_topp, ann_topp = generate_text(
-                model, enc, args.prompt, max_new_tokens=20, device=device,
-                top_p=0.95,
-            )
-            # 3) top-p=1.0 => full distribution random sampling
-            text_topp1, ann_topp1 = generate_text(
-                model, enc, args.prompt, max_new_tokens=20, device=device,
-                top_p=1.0,
-            )
+            temperatures = [0.7, 1.0, 1.5]
+            top_ps = [None, 0.95, 1.0]  # None = greedy, 0.95 = nucleus, 1.0 = full distribution
 
-        print(f"[{model_name}] Final sample (greedy) from prompt: '{args.prompt}'")
-        print(text_greedy)
-        print(f"Annotated:\n{ann_greedy}\n")
+            for top_p in top_ps:
+                for temp in temperatures:
+                    tag = (
+                        "greedy" if top_p is None else
+                        f"top-p={top_p}"
+                    )
+                    print(f"[{model_name}] Sample ({tag}, temperature={temp}) from prompt: '{args.prompt}'")
 
-        print(f"[{model_name}] Final sample (top-p=0.95) from prompt: '{args.prompt}'")
-        print(text_topp)
-        print(f"Annotated:\n{ann_topp}\n")
+                    text, ann = generate_text(
+                        model, enc, args.prompt,
+                        max_new_tokens=20,
+                        device=device,
+                        top_p=top_p,
+                        temperature=temp,
+                    )
 
-        print(f"[{model_name}] Final sample (top-p=1.0) from prompt: '{args.prompt}'")
-        print(text_topp1)
-        print(f"Annotated:\n{ann_topp1}")
-        print("--------------------------------------------------")
+                    print(text)
+                    print(f"Annotated:\n{ann}\n")
+
+            print("--------------------------------------------------")
 
     # Finally, let's share how I'm feeling:
     print("\n*** I'm feeling great today! Hope you're well, too. ***")
