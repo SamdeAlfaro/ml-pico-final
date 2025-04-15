@@ -284,8 +284,13 @@ class TransformerBlock(nn.Module):
         super().__init__()
 
         self.attn = MultiHeadSelfAttention(d_model, n_heads)
-        self.norm1 = RMSNorm(d_model)
-        self.norm2 = RMSNorm(d_model)
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+
+        # Testing layernorm - might be best for small datasets
+        # self.norm1 = RMSNorm(d_model)
+        # self.norm2 = RMSNorm(d_model)
+        
         self.mlp = nn.Sequential(
             nn.Linear(d_model, 4 * d_model),
             nn.GELU(),
@@ -329,7 +334,10 @@ class TransformerModel(nn.Module):
             TransformerBlock(d_model, n_heads) for _ in range(n_blocks)
         ])
 
-        self.norm_final = RMSNorm(d_model)
+        self.norm_final = nn.LayerNorm(d_model)
+
+        # Same here: testing layernorm
+        # self.norm_final = RMSNorm(d_model)
         self.unembed = nn.Linear(d_model, vocab_size, bias=False)
 
     def forward(self, x):
