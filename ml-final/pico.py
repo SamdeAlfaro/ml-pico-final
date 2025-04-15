@@ -325,19 +325,14 @@ class TransformerModel(nn.Module):
         n_heads (int): The number of attention heads in each Transformer block. Defaults to 2.
         n_blocks (int): The number of Transformer blocks to stack. Defaults to 4.
     """
-    def __init__(self, vocab_size=50257, d_model=1024, n_heads=2, n_blocks=4):
+    def __init__(self, vocab_size=50257, d_model=1280, n_heads=10, n_blocks=4):
         super().__init__()
         self.embedding = nn.Embedding(vocab_size, d_model)
-        self.pos_embedding = nn.Embedding(2048, d_model) # Max sequence length of 2048
-
+        self.pos_embedding = nn.Embedding(2048, d_model)
         self.blocks = nn.ModuleList([
             TransformerBlock(d_model, n_heads) for _ in range(n_blocks)
         ])
-
         self.norm_final = nn.LayerNorm(d_model)
-
-        # Same here: testing layernorm
-        # self.norm_final = RMSNorm(d_model)
         self.unembed = nn.Linear(d_model, vocab_size, bias=False)
 
     def forward(self, x):
