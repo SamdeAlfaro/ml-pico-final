@@ -239,10 +239,7 @@ class MultiHeadSelfAttention(nn.Module):
         self.W_q = nn.Linear(d_model, d_model, bias=False) # Query projection
         self.W_k = nn.Linear(d_model, d_model, bias=False) # Key projection
         self.W_v = nn.Linear(d_model, d_model, bias=False) # Value projection
-
         self.W_o = nn.Linear(d_model, d_model, bias=False) # Output projection
-
-        self.dropout = nn.Dropout(0.1) # Dropout probability of 0.1
 
     def forward(self, x):
         """
@@ -266,15 +263,11 @@ class MultiHeadSelfAttention(nn.Module):
 
         causal_mask = torch.tril(torch.ones(T, T, device=x.device)).unsqueeze(0).unsqueeze(0)
         scores = scores.masked_fill(causal_mask == 0, float("-inf"))
-
         scores = scores.masked_fill(torch.isnan(scores), -1e9) # Using -1e9 as a proxy for -inf
 
         attn_weights = F.softmax(scores, dim=-1)
 
-        attn_weights = self.dropout(attn_weights)
-
         attn_output = torch.matmul(attn_weights, v)
-
         attn_output = attn_output.transpose(1, 2).contiguous().view(B, T, C)
 
         return self.W_o(attn_output)
@@ -293,12 +286,10 @@ class TransformerBlock(nn.Module):
         self.attn = MultiHeadSelfAttention(d_model, n_heads)
         self.norm1 = RMSNorm(d_model)
         self.norm2 = RMSNorm(d_model)
-
         self.mlp = nn.Sequential(
             nn.Linear(d_model, 4 * d_model),
             nn.GELU(),
             nn.Linear(4 * d_model, d_model),
-            nn.Dropout(0.1),
         )
 
     def forward(self, x):
@@ -314,9 +305,7 @@ class TransformerBlock(nn.Module):
                           Shape: (batch_size, seq_len, d_model)
         """
         x = x + self.attn(self.norm1(x))
-
         x = x + self.mlp(self.norm2(x))
-
         return x
 
 # Define the complete Transformer Model
