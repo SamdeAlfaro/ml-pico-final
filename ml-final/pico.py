@@ -325,7 +325,7 @@ class TransformerModel(nn.Module):
         n_heads (int): The number of attention heads in each Transformer block. Defaults to 2.
         n_blocks (int): The number of Transformer blocks to stack. Defaults to 4.
     """
-    def __init__(self, vocab_size=50257, d_model=1280, n_heads=10, n_blocks=4):
+    def __init__(self, vocab_size=50257, d_model=1280, n_heads=10, n_blocks=8):
         super().__init__()
         self.embedding = nn.Embedding(vocab_size, d_model)
         self.pos_embedding = nn.Embedding(2048, d_model)
