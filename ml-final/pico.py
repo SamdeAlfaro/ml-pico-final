@@ -491,38 +491,49 @@ def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
 # 8. Training
 ################################################################################
 
-def compute_next_token_loss(logits, tokens):
-    """
-    logits: (seq_len, batch, vocab_size)
-        Model outputs: raw, unnormalized scores for each vocabulary word.
-    tokens: (seq_len, batch)
-        Ground-truth tokens corresponding to each timestep and batch element.
+import re
 
-    Next-token prediction => we shift target by 1.
-    That means: the model’s prediction at position t should match the token at position t+1.
+def compute_loss_with_structure_penalty(
+    logits, tokens, model, enc, prompt, device,
+    monosemantic_info=None, penalty_weight=1.0,
+    step=None, penalty_every_n_steps=20
+):
+    """
+    Compute loss and apply penalty for overuse of 'A:' and repeated exclamation marks (!!, !!!, etc.).
     """
     seq_len, batch_size, vocab_size = logits.shape
 
-    # If sequence is too short to predict next token, return dummy loss
     if seq_len < 2:
-        return torch.tensor(0.0, device=logits.device, requires_grad=True)
+        return torch.tensor(0.0, device=device, requires_grad=True)
 
-    # Remove the last time step from logits
-    # These will be used to predict the *next* token
-    preds = logits[:-1, :, :]  # shape: (seq_len-1, batch, vocab_size)
+    preds = logits[:-1, :, :].reshape(-1, vocab_size)
+    gold = tokens[1:, :].reshape(-1)
+    loss = F.cross_entropy(preds, gold)
 
-    # Remove the first token from the targets
-    # These are the actual next tokens
-    gold = tokens[1:, :]       # shape: (seq_len-1, batch)
+    if enc is not None and (step is None or step % penalty_every_n_steps == 0):
+        with torch.no_grad():
+            generated_text, _ = generate_text(
+                model, enc, prompt, max_new_tokens=30, device=device,
+                top_p=None,
+                monosemantic_info=monosemantic_info,
+                do_monosemantic=(monosemantic_info is not None)
+            )
 
-    # Flatten both tensors so we can apply cross-entropy:
-    #   preds: (total_positions, vocab_size)
-    #   gold: (total_positions,)
-    preds = preds.reshape(-1, vocab_size)
-    gold = gold.reshape(-1)
+        # Count how many times "A:" appears
+        a_count = generated_text.count("A:")
+        a_penalty = penalty_weight * max(0, a_count - 1)
 
-    # Standard classification loss: log_softmax + NLL
-    return F.cross_entropy(preds, gold)
+        # Count how many sequences of two or more ! appear (e.g. !! or !!!)
+        exclaim_penalty_count = len(re.findall(r"!{2,}", generated_text))
+        exclaim_penalty = penalty_weight * exclaim_penalty_count
+
+        total_penalty = a_penalty + exclaim_penalty
+        if total_penalty > 0:
+            penalty_tensor = torch.tensor(total_penalty, device=device)
+            loss = loss + penalty_tensor
+
+    return loss
+
 
 def train_one_model(model,
                     loader,
@@ -573,7 +584,15 @@ def train_one_model(model,
             batch_tokens = batch_tokens.to(device)  # Move batch to GPU/CPU
 
             logits = model(batch_tokens)            # Forward pass
-            loss = compute_next_token_loss(logits, batch_tokens)  # Compute token prediction loss
+            loss = compute_loss_with_structure_penalty(
+                logits, batch_tokens, model, enc, prompt, device,
+                monosemantic_info=monosemantic_info,
+                penalty_weight=0.5,
+                step=global_step,                  # add global step tracking
+                penalty_every_n_steps=50          # only penalize every N steps
+            )
+
+  # Compute token prediction loss
 
             optimizer.zero_grad()   # Clear gradients
             loss.backward()         # Backprop
@@ -832,7 +851,7 @@ def main():
 
                     text, ann = generate_text(
                         model, enc, args.prompt,
-                        max_new_tokens=20,
+                        max_new_tokens=100,
                         device=device,
                         top_p=top_p,
                         temperature=temp,

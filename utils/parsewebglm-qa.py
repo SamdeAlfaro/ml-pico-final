@@ -2,7 +2,8 @@ import json
 import argparse
 import pandas as pd    
 
-# Script for parsing webglm-qa data (cloned from https://huggingface.co/datasets/THUDM/webglm-qa)into a Q/A text format 
+# Script for parsing webglm-qa data (cloned from https://huggingface.co/datasets/THUDM/webglm-qa)
+# into a Q/A text format 
 # for training. Run from root directory as
 # `python parsewebglm-qa.py training_data/SQuAD/train-00000-of-00001.parquet`
 
