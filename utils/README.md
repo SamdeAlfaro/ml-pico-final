@@ -7,9 +7,9 @@ to which you are cloning your data sets via git from hugging face.
 Be sure to install
 pyarrow and pandas for processing parquet files.
 
-Training data for each script are sourced on hugging face 
-at the following links:
+Training data for each script are sourced from the following locations:
 
 [SQuAD](https://huggingface.co/datasets/rajpurkar/squad)
 [TriviaQA](https://huggingface.co/datasets/mandarjoshi/trivia_qa)
 [webglm-qa](https://huggingface.co/datasets/THUDM/webglm-qa)
+[WebstersEnglishDictionary](https://github.com/matthewreagan/WebstersEnglishDictionary)
