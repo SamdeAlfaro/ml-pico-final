@@ -273,13 +273,16 @@ class MultiHeadSelfAttention(nn.Module):
         return self.W_o(attn_output)
 
 # Define a single block of the Transformer
+
+class Swiglu(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x):
+        x1, x2 = x.chunk(2, dim=-1)  # Split last dim in half
+        return x1 * F.silu(x2)       # Swiglu activation
+
 class TransformerBlock(nn.Module):
-    """
-    A single Transformer block, combining Multi-Head Self-Attention and a Feedforward Network (MLP).
-    Args:
-        d_model (int): The dimensionality of the input/output features.
-        n_heads (int): The number of attention heads for the self-attention module.
-    """
     def __init__(self, d_model, n_heads):
         super().__init__()
 
@@ -287,31 +290,17 @@ class TransformerBlock(nn.Module):
         self.norm1 = nn.LayerNorm(d_model)
         self.norm2 = nn.LayerNorm(d_model)
 
-        # Testing layernorm - might be best for small datasets
-        # self.norm1 = RMSNorm(d_model)
-        # self.norm2 = RMSNorm(d_model)
-        
         self.mlp = nn.Sequential(
-            nn.Linear(d_model, 4 * d_model),
-            nn.GELU(),
-            nn.Linear(4 * d_model, d_model),
+            nn.Linear(d_model, 2 * 4 * d_model),  # double hidden dim for chunking
+            Swiglu(),
+            nn.Linear(4 * d_model, d_model),      # project back to d_model
         )
 
     def forward(self, x):
-        """
-        Perform the forward pass for a single Transformer block.
-
-        Args:
-            x (torch.Tensor): Input tensor.
-                              Expected shape: (batch_size, seq_len, d_model)
-
-        Returns:
-            torch.Tensor: Output tensor after passing through the block.
-                          Shape: (batch_size, seq_len, d_model)
-        """
         x = x + self.attn(self.norm1(x))
         x = x + self.mlp(self.norm2(x))
         return x
+
 
 # Define the complete Transformer Model
 class TransformerModel(nn.Module):
