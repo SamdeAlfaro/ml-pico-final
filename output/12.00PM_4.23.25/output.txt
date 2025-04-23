@@ -1,0 +1,963 @@
+ Annotated: Q: What's the capitol of Japan? A: Which books, the world? A: What does ice played by many how many so many
+
+[kvcache_transformer] Epoch 1/3, Step 17400/24204 (global step: 17400) Partial Avg Loss: 2.5241
+[kvcache_transformer] Epoch 1/3, Step 17500/24204 (global step: 17500) Partial Avg Loss: 2.4590
+[kvcache_transformer] Epoch 1/3, Step 17600/24204 (global step: 17600) Partial Avg Loss: 2.4353
+[kvcache_transformer] Epoch 1/3, Step 17700/24204 (global step: 17700) Partial Avg Loss: 2.4931
+[kvcache_transformer] Epoch 1/3, Step 17800/24204 (global step: 17800) Partial Avg Loss: 2.4364
+[kvcache_transformer] Epoch 1/3, Step 17900/24204 (global step: 17900) Partial Avg Loss: 2.4593
+[kvcache_transformer] Epoch 1/3, Step 18000/24204 (global step: 18000) Partial Avg Loss: 2.3867
+[kvcache_transformer] Epoch 1/3, Step 18100/24204 (global step: 18100) Partial Avg Loss: 2.4751
+[kvcache_transformer] Epoch 1/3, Step 18200/24204 (global step: 18200) Partial Avg Loss: 2.4584
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=1, step=18276...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=18276...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Roaldvesary after 37!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Roaldvesary after 37!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=1, step=18276...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: A jerk;DRED focuses on the first name for guideline away? Or is " Gilmore
+ Annotated: Q: What's the capitol of Japan? A: A jerk;DRED focuses on the first name for guideline away? Or is " Gilmore
+
+[kvcache_transformer] Epoch 1/3, Step 18300/24204 (global step: 18300) Partial Avg Loss: 2.5183
+[kvcache_transformer] Epoch 1/3, Step 18400/24204 (global step: 18400) Partial Avg Loss: 2.4374
+[kvcache_transformer] Epoch 1/3, Step 18500/24204 (global step: 18500) Partial Avg Loss: 2.4301
+[kvcache_transformer] Epoch 1/3, Step 18600/24204 (global step: 18600) Partial Avg Loss: 2.4156
+[kvcache_transformer] Epoch 1/3, Step 18700/24204 (global step: 18700) Partial Avg Loss: 2.4895
+[kvcache_transformer] Epoch 1/3, Step 18800/24204 (global step: 18800) Partial Avg Loss: 2.4358
+[kvcache_transformer] Epoch 1/3, Step 18900/24204 (global step: 18900) Partial Avg Loss: 2.4126
+[kvcache_transformer] Epoch 1/3, Step 19000/24204 (global step: 19000) Partial Avg Loss: 2.3785
+[kvcache_transformer] Epoch 1/3, Step 19100/24204 (global step: 19100) Partial Avg Loss: 2.4690
+[kvcache_transformer] Epoch 1/3, Step 19200/24204 (global step: 19200) Partial Avg Loss: 2.3370
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=1, step=19202...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does p.!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What does p.!!!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=19202...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Supreme Court Zoster Johnson. Note: What is the 1939? A: Milan was not
+ Annotated: Q: What's the capitol of Japan? A: Supreme Court Zoster Johnson. Note: What is the 1939? A: Milan was not
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=1, step=19202...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Tintree Competitionine, have gained life expectancy earlier aircraft that of compensation to save or
+ Annotated: Q: What's the capitol of Japan? A: Tintree Competitionine, have gained life expectancy earlier aircraft that of compensation to save or
+
+[kvcache_transformer] Epoch 1/3, Step 19300/24204 (global step: 19300) Partial Avg Loss: 2.4542
+[kvcache_transformer] Epoch 1/3, Step 19400/24204 (global step: 19400) Partial Avg Loss: 2.4507
+[kvcache_transformer] Epoch 1/3, Step 19500/24204 (global step: 19500) Partial Avg Loss: 2.4192
+[kvcache_transformer] Epoch 1/3, Step 19600/24204 (global step: 19600) Partial Avg Loss: 2.3967
+[kvcache_transformer] Epoch 1/3, Step 19700/24204 (global step: 19700) Partial Avg Loss: 2.3760
+[kvcache_transformer] Epoch 1/3, Step 19800/24204 (global step: 19800) Partial Avg Loss: 2.4401
+[kvcache_transformer] Epoch 1/3, Step 19900/24204 (global step: 19900) Partial Avg Loss: 2.4174
+[kvcache_transformer] Epoch 1/3, Step 20000/24204 (global step: 20000) Partial Avg Loss: 2.3772
+[kvcache_transformer] Epoch 1/3, Step 20100/24204 (global step: 20100) Partial Avg Loss: 2.4446
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=1, step=20116...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=20116...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does rnurlongue is the Mids!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What does rnurlongue is the Mids!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=1, step=20116...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Which conflict between fence? A Livingstone,oville Quogastika) ranked wind
+ Annotated: Q: What's the capitol of Japan? A: Which conflict between fence? A Livingstone,oville Quogastika) ranked wind
+
+[kvcache_transformer] Epoch 1/3, Step 20200/24204 (global step: 20200) Partial Avg Loss: 2.4730
+[kvcache_transformer] Epoch 1/3, Step 20300/24204 (global step: 20300) Partial Avg Loss: 2.4465
+[kvcache_transformer] Epoch 1/3, Step 20400/24204 (global step: 20400) Partial Avg Loss: 2.3805
+[kvcache_transformer] Epoch 1/3, Step 20500/24204 (global step: 20500) Partial Avg Loss: 2.3472
+[kvcache_transformer] Epoch 1/3, Step 20600/24204 (global step: 20600) Partial Avg Loss: 2.3991
+[kvcache_transformer] Epoch 1/3, Step 20700/24204 (global step: 20700) Partial Avg Loss: 2.3600
+[kvcache_transformer] Epoch 1/3, Step 20800/24204 (global step: 20800) Partial Avg Loss: 2.4400
+[kvcache_transformer] Epoch 1/3, Step 20900/24204 (global step: 20900) Partial Avg Loss: 2.4083
+[kvcache_transformer] Epoch 1/3, Step 21000/24204 (global step: 21000) Partial Avg Loss: 2.4581
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=1, step=21038...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=21038...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What is better? A: LaserDisc bath only one, or beside the which country?
+ Annotated: Q: What's the capitol of Japan? A: What is better? A: LaserDisc bath only one, or beside the which country?
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=1, step=21038...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Forecast"" or terminal of a Swedish nationals’? A: STEVIS!
+ Annotated: Q: What's the capitol of Japan? A: Forecast"" or terminal of a Swedish nationals��? A: STEVIS!
+
+[kvcache_transformer] Epoch 1/3, Step 21100/24204 (global step: 21100) Partial Avg Loss: 2.4786
+[kvcache_transformer] Epoch 1/3, Step 21200/24204 (global step: 21200) Partial Avg Loss: 2.3833
+[kvcache_transformer] Epoch 1/3, Step 21300/24204 (global step: 21300) Partial Avg Loss: 2.4457
+[kvcache_transformer] Epoch 1/3, Step 21400/24204 (global step: 21400) Partial Avg Loss: 2.3976
+[kvcache_transformer] Epoch 1/3, Step 21500/24204 (global step: 21500) Partial Avg Loss: 2.3899
+[kvcache_transformer] Epoch 1/3, Step 21600/24204 (global step: 21600) Partial Avg Loss: 2.3833
+[kvcache_transformer] Epoch 1/3, Step 21700/24204 (global step: 21700) Partial Avg Loss: 2.3845
+[kvcache_transformer] Epoch 1/3, Step 21800/24204 (global step: 21800) Partial Avg Loss: 2.3883
+[kvcache_transformer] Epoch 1/3, Step 21900/24204 (global step: 21900) Partial Avg Loss: 2.4364
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=1, step=21971...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=21971...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What is a lid; a going at Stats and on this case that would it is
+ Annotated: Q: What's the capitol of Japan? A: What is a lid; a going at Stats and on this case that would it is
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=1, step=21971...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Ison? A: Queen of an ancestor; not be reluctant on trough. Eating them
+ Annotated: Q: What's the capitol of Japan? A: Ison? A: Queen of an ancestor; not be reluctant on trough. Eating them
+
+[kvcache_transformer] Epoch 1/3, Step 22000/24204 (global step: 22000) Partial Avg Loss: 2.3371
+[kvcache_transformer] Epoch 1/3, Step 22100/24204 (global step: 22100) Partial Avg Loss: 2.4038
+[kvcache_transformer] Epoch 1/3, Step 22200/24204 (global step: 22200) Partial Avg Loss: 2.4200
+[kvcache_transformer] Epoch 1/3, Step 22300/24204 (global step: 22300) Partial Avg Loss: 2.4090
+[kvcache_transformer] Epoch 1/3, Step 22400/24204 (global step: 22400) Partial Avg Loss: 2.3587
+[kvcache_transformer] Epoch 1/3, Step 22500/24204 (global step: 22500) Partial Avg Loss: 2.4187
+[kvcache_transformer] Epoch 1/3, Step 22600/24204 (global step: 22600) Partial Avg Loss: 2.3899
+[kvcache_transformer] Epoch 1/3, Step 22700/24204 (global step: 22700) Partial Avg Loss: 2.3906
+[kvcache_transformer] Epoch 1/3, Step 22800/24204 (global step: 22800) Partial Avg Loss: 2.4566
+[kvcache_transformer] Epoch 1/3, Step 22900/24204 (global step: 22900) Partial Avg Loss: 2.3601
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=1, step=22900...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=22900...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Gower lives, and shade movement came up and increase the Crimean peninsula based on the church
+ Annotated: Q: What's the capitol of Japan? A: Gower lives, and shade movement came up and increase the Crimean peninsula based on the church
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=1, step=22900...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: What was Britain and has an organism to another. (AH!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What was Britain and has an organism to another. (AH!!!!!!
+
+[kvcache_transformer] Epoch 1/3, Step 23000/24204 (global step: 23000) Partial Avg Loss: 2.3814
+[kvcache_transformer] Epoch 1/3, Step 23100/24204 (global step: 23100) Partial Avg Loss: 2.3707
+[kvcache_transformer] Epoch 1/3, Step 23200/24204 (global step: 23200) Partial Avg Loss: 2.3272
+[kvcache_transformer] Epoch 1/3, Step 23300/24204 (global step: 23300) Partial Avg Loss: 2.3707
+[kvcache_transformer] Epoch 1/3, Step 23400/24204 (global step: 23400) Partial Avg Loss: 2.4068
+[kvcache_transformer] Epoch 1/3, Step 23500/24204 (global step: 23500) Partial Avg Loss: 2.3715
+[kvcache_transformer] Epoch 1/3, Step 23600/24204 (global step: 23600) Partial Avg Loss: 2.3717
+[kvcache_transformer] Epoch 1/3, Step 23700/24204 (global step: 23700) Partial Avg Loss: 2.4186
+[kvcache_transformer] Epoch 1/3, Step 23800/24204 (global step: 23800) Partial Avg Loss: 2.3849
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=1, step=23821...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=1, step=23821...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Henry III collectively.!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Henry III collectively.!!!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=1, step=23821...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: "The anterior part is it the ‘Sadder the bomb? A: Insect!
+ Annotated: Q: What's the capitol of Japan? A: "The anterior part is it the ��Sadder the bomb? A: Insect!
+
+[kvcache_transformer] Epoch 1/3, Step 23900/24204 (global step: 23900) Partial Avg Loss: 2.4323
+[kvcache_transformer] Epoch 1/3, Step 24000/24204 (global step: 24000) Partial Avg Loss: 2.4166
+[kvcache_transformer] Epoch 1/3, Step 24100/24204 (global step: 24100) Partial Avg Loss: 2.3612
+[kvcache_transformer] Epoch 1/3, Step 24200/24204 (global step: 24200) Partial Avg Loss: 2.4122
+[kvcache_transformer] *** End of Epoch 1 *** Avg Loss: 2.5577
+[kvcache_transformer] Epoch 2/3, Step 100/24204 (global step: 24304) Partial Avg Loss: 2.3975
+[kvcache_transformer] Epoch 2/3, Step 200/24204 (global step: 24404) Partial Avg Loss: 2.3902
+[kvcache_transformer] Epoch 2/3, Step 300/24204 (global step: 24504) Partial Avg Loss: 2.3979
+[kvcache_transformer] Epoch 2/3, Step 400/24204 (global step: 24604) Partial Avg Loss: 2.4022
+[kvcache_transformer] Epoch 2/3, Step 500/24204 (global step: 24704) Partial Avg Loss: 2.3905
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=542...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=542...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: "jump advance for overhand!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: "jump advance for overhand!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=542...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: What does sinus? A: The Cardinal Ricin!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What does sinus? A: The Cardinal Ricin!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 600/24204 (global step: 24804) Partial Avg Loss: 2.4073
+[kvcache_transformer] Epoch 2/3, Step 700/24204 (global step: 24904) Partial Avg Loss: 2.3576
+[kvcache_transformer] Epoch 2/3, Step 800/24204 (global step: 25004) Partial Avg Loss: 2.3591
+[kvcache_transformer] Epoch 2/3, Step 900/24204 (global step: 25104) Partial Avg Loss: 2.3616
+[kvcache_transformer] Epoch 2/3, Step 1000/24204 (global step: 25204) Partial Avg Loss: 2.3723
+[kvcache_transformer] Epoch 2/3, Step 1100/24204 (global step: 25304) Partial Avg Loss: 2.3387
+[kvcache_transformer] Epoch 2/3, Step 1200/24204 (global step: 25404) Partial Avg Loss: 2.4539
+[kvcache_transformer] Epoch 2/3, Step 1300/24204 (global step: 25504) Partial Avg Loss: 2.3587
+[kvcache_transformer] Epoch 2/3, Step 1400/24204 (global step: 25604) Partial Avg Loss: 2.3979
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=1481...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does p.!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What does p.!!!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=1481...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A cavity? A peculiar euggeowging a ‘Grand Vitamins!!!!
+ Annotated: Q: What's the capitol of Japan? A cavity? A peculiar euggeowging a ��Grand Vitamins!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=1481...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? [R.] Violent policies, and bring to asuriconworthyer Zedong photography? A:
+ Annotated: Q: What's the capitol of Japan? [R.] Violent policies, and bring to asuriconworthyer Zedong photography? A:
+
+[kvcache_transformer] Epoch 2/3, Step 1500/24204 (global step: 25704) Partial Avg Loss: 2.3493
+[kvcache_transformer] Epoch 2/3, Step 1600/24204 (global step: 25804) Partial Avg Loss: 2.4337
+[kvcache_transformer] Epoch 2/3, Step 1700/24204 (global step: 25904) Partial Avg Loss: 2.4611
+[kvcache_transformer] Epoch 2/3, Step 1800/24204 (global step: 26004) Partial Avg Loss: 2.3906
+[kvcache_transformer] Epoch 2/3, Step 1900/24204 (global step: 26104) Partial Avg Loss: 2.3579
+[kvcache_transformer] Epoch 2/3, Step 2000/24204 (global step: 26204) Partial Avg Loss: 2.4589
+[kvcache_transformer] Epoch 2/3, Step 2100/24204 (global step: 26304) Partial Avg Loss: 2.4073
+[kvcache_transformer] Epoch 2/3, Step 2200/24204 (global step: 26404) Partial Avg Loss: 2.4170
+[kvcache_transformer] Epoch 2/3, Step 2300/24204 (global step: 26504) Partial Avg Loss: 2.3567
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=2398...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=2398...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: A: An used to, formed? A: French constitution was Harry Potter series ""The
+ Annotated: Q: What's the capitol of Japan? A: A: An used to, formed? A: French constitution was Harry Potter series ""The
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=2398...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: What does Whiteinés-counter collector of lyric poetry store keeping signals into Britain’
+ Annotated: Q: What's the capitol of Japan? A: What does Whiteinés-counter collector of lyric poetry store keeping signals into Britain��
+
+[kvcache_transformer] Epoch 2/3, Step 2400/24204 (global step: 26604) Partial Avg Loss: 2.3630
+[kvcache_transformer] Epoch 2/3, Step 2500/24204 (global step: 26704) Partial Avg Loss: 2.3712
+[kvcache_transformer] Epoch 2/3, Step 2600/24204 (global step: 26804) Partial Avg Loss: 2.4308
+[kvcache_transformer] Epoch 2/3, Step 2700/24204 (global step: 26904) Partial Avg Loss: 2.3973
+[kvcache_transformer] Epoch 2/3, Step 2800/24204 (global step: 27004) Partial Avg Loss: 2.3353
+[kvcache_transformer] Epoch 2/3, Step 2900/24204 (global step: 27104) Partial Avg Loss: 2.4461
+[kvcache_transformer] Epoch 2/3, Step 3000/24204 (global step: 27204) Partial Avg Loss: 2.4095
+[kvcache_transformer] Epoch 2/3, Step 3100/24204 (global step: 27304) Partial Avg Loss: 2.3686
+[kvcache_transformer] Epoch 2/3, Step 3200/24204 (global step: 27404) Partial Avg Loss: 2.3855
+[kvcache_transformer] Epoch 2/3, Step 3300/24204 (global step: 27504) Partial Avg Loss: 2.4481
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=3321...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=3321...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does wart-born; amache mean? A: What does over websites can I
+ Annotated: Q: What's the capitol of Japan? A: What does wart-born; amache mean? A: What does over websites can I
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=3321...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Congas events as external protection. Colaprus!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Congas events as external protection. Colaprus!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 3400/24204 (global step: 27604) Partial Avg Loss: 2.3676
+[kvcache_transformer] Epoch 2/3, Step 3500/24204 (global step: 27704) Partial Avg Loss: 2.3728
+[kvcache_transformer] Epoch 2/3, Step 3600/24204 (global step: 27804) Partial Avg Loss: 2.3479
+[kvcache_transformer] Epoch 2/3, Step 3700/24204 (global step: 27904) Partial Avg Loss: 2.3170
+[kvcache_transformer] Epoch 2/3, Step 3800/24204 (global step: 28004) Partial Avg Loss: 2.4587
+[kvcache_transformer] Epoch 2/3, Step 3900/24204 (global step: 28104) Partial Avg Loss: 2.3904
+[kvcache_transformer] Epoch 2/3, Step 4000/24204 (global step: 28204) Partial Avg Loss: 2.4023
+[kvcache_transformer] Epoch 2/3, Step 4100/24204 (global step: 28304) Partial Avg Loss: 2.3100
+[kvcache_transformer] Epoch 2/3, Step 4200/24204 (global step: 28404) Partial Avg Loss: 2.3671
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=4247...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first female member of the first female member of the first female member of the
+ Annotated: Q: What's the capitol of Japan? A: What does the first female member of the first female member of the first female member of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=4247...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What is a wrist!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What is a wrist!!!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=4247...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: In a coness of government moved on the new? A hatcher mean? A:
+ Annotated: Q: What's the capitol of Japan? A: In a coness of government moved on the new? A hatcher mean? A:
+
+[kvcache_transformer] Epoch 2/3, Step 4300/24204 (global step: 28504) Partial Avg Loss: 2.3790
+[kvcache_transformer] Epoch 2/3, Step 4400/24204 (global step: 28604) Partial Avg Loss: 2.3453
+[kvcache_transformer] Epoch 2/3, Step 4500/24204 (global step: 28704) Partial Avg Loss: 2.3985
+[kvcache_transformer] Epoch 2/3, Step 4600/24204 (global step: 28804) Partial Avg Loss: 2.4472
+[kvcache_transformer] Epoch 2/3, Step 4700/24204 (global step: 28904) Partial Avg Loss: 2.4098
+[kvcache_transformer] Epoch 2/3, Step 4800/24204 (global step: 29004) Partial Avg Loss: 2.3527
+[kvcache_transformer] Epoch 2/3, Step 4900/24204 (global step: 29104) Partial Avg Loss: 2.3398
+[kvcache_transformer] Epoch 2/3, Step 5000/24204 (global step: 29204) Partial Avg Loss: 2.3534
+[kvcache_transformer] Epoch 2/3, Step 5100/24204 (global step: 29304) Partial Avg Loss: 2.4076
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=5183...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=5183...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does ruggy and smoke or yellow-19. [Obs.] People on the People
+ Annotated: Q: What's the capitol of Japan? A: What does ruggy and smoke or yellow-19. [Obs.] People on the People
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=5183...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: York!!!!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: York!!!!!!!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 5200/24204 (global step: 29404) Partial Avg Loss: 2.3991
+[kvcache_transformer] Epoch 2/3, Step 5300/24204 (global step: 29504) Partial Avg Loss: 2.3634
+[kvcache_transformer] Epoch 2/3, Step 5400/24204 (global step: 29604) Partial Avg Loss: 2.4814
+[kvcache_transformer] Epoch 2/3, Step 5500/24204 (global step: 29704) Partial Avg Loss: 2.3772
+[kvcache_transformer] Epoch 2/3, Step 5600/24204 (global step: 29804) Partial Avg Loss: 2.3267
+[kvcache_transformer] Epoch 2/3, Step 5700/24204 (global step: 29904) Partial Avg Loss: 2.3394
+[kvcache_transformer] Epoch 2/3, Step 5800/24204 (global step: 30004) Partial Avg Loss: 2.2985
+[kvcache_transformer] Epoch 2/3, Step 5900/24204 (global step: 30104) Partial Avg Loss: 2.4343
+[kvcache_transformer] Epoch 2/3, Step 6000/24204 (global step: 30204) Partial Avg Loss: 2.4428
+[kvcache_transformer] Epoch 2/3, Step 6100/24204 (global step: 30304) Partial Avg Loss: 2.3707
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=6100...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=6100...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: IBM's name of Commons is wise nonnæ; pap. " edited, macke
+ Annotated: Q: What's the capitol of Japan? A: IBM's name of Commons is wise nonnæ; pap. " edited, macke
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=6100...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: How many cases of coming up in Transit. [RIVER!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: How many cases of coming up in Transit. [RIVER!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 6200/24204 (global step: 30404) Partial Avg Loss: 2.3470
+[kvcache_transformer] Epoch 2/3, Step 6300/24204 (global step: 30504) Partial Avg Loss: 2.3399
+[kvcache_transformer] Epoch 2/3, Step 6400/24204 (global step: 30604) Partial Avg Loss: 2.3867
+[kvcache_transformer] Epoch 2/3, Step 6500/24204 (global step: 30704) Partial Avg Loss: 2.3812
+[kvcache_transformer] Epoch 2/3, Step 6600/24204 (global step: 30804) Partial Avg Loss: 2.3842
+[kvcache_transformer] Epoch 2/3, Step 6700/24204 (global step: 30904) Partial Avg Loss: 2.3609
+[kvcache_transformer] Epoch 2/3, Step 6800/24204 (global step: 31004) Partial Avg Loss: 2.3534
+[kvcache_transformer] Epoch 2/3, Step 6900/24204 (global step: 31104) Partial Avg Loss: 2.3888
+[kvcache_transformer] Epoch 2/3, Step 7000/24204 (global step: 31204) Partial Avg Loss: 2.3371
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=7021...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first to the first to the first to the first to the first to the
+ Annotated: Q: What's the capitol of Japan? A: What does the first to the first to the first to the first to the first to the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=7021...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: God, your head of east of biofu!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: God, your head of east of biofu!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=7021...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A:iano? A: What does heteronymically forming a representative copper of her conjectured mean
+ Annotated: Q: What's the capitol of Japan? A:iano? A: What does heteronymically forming a representative copper of her conjectured mean
+
+[kvcache_transformer] Epoch 2/3, Step 7100/24204 (global step: 31304) Partial Avg Loss: 2.3941
+[kvcache_transformer] Epoch 2/3, Step 7200/24204 (global step: 31404) Partial Avg Loss: 2.3476
+[kvcache_transformer] Epoch 2/3, Step 7300/24204 (global step: 31504) Partial Avg Loss: 2.3521
+[kvcache_transformer] Epoch 2/3, Step 7400/24204 (global step: 31604) Partial Avg Loss: 2.3499
+[kvcache_transformer] Epoch 2/3, Step 7500/24204 (global step: 31704) Partial Avg Loss: 2.3264
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=7524...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=7524...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: District for each furis. Prior. -- so called what nickname? A: What does
+ Annotated: Q: What's the capitol of Japan? A: District for each furis. Prior. -- so called what nickname? A: What does
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=7524...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Into what name? A: Yellow"" in the a station? A: In world was
+ Annotated: Q: What's the capitol of Japan? A: Into what name? A: Yellow"" in the a station? A: In world was
+
+[kvcache_transformer] Epoch 2/3, Step 7600/24204 (global step: 31804) Partial Avg Loss: 2.3745
+[kvcache_transformer] Epoch 2/3, Step 7700/24204 (global step: 31904) Partial Avg Loss: 2.3303
+[kvcache_transformer] Epoch 2/3, Step 7800/24204 (global step: 32004) Partial Avg Loss: 2.4554
+[kvcache_transformer] Epoch 2/3, Step 7900/24204 (global step: 32104) Partial Avg Loss: 2.4277
+[kvcache_transformer] Epoch 2/3, Step 8000/24204 (global step: 32204) Partial Avg Loss: 2.4331
+[kvcache_transformer] Epoch 2/3, Step 8100/24204 (global step: 32304) Partial Avg Loss: 2.3702
+[kvcache_transformer] Epoch 2/3, Step 8200/24204 (global step: 32404) Partial Avg Loss: 2.3894
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=8296...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=8296...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does recommunure mean? A: Redam.!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What does recommunure mean? A: Redam.!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=8296...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: In a place inssaloniki!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: In a place inssaloniki!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 8300/24204 (global step: 32504) Partial Avg Loss: 2.3515
+[kvcache_transformer] Epoch 2/3, Step 8400/24204 (global step: 32604) Partial Avg Loss: 2.3874
+[kvcache_transformer] Epoch 2/3, Step 8500/24204 (global step: 32704) Partial Avg Loss: 2.3845
+[kvcache_transformer] Epoch 2/3, Step 8600/24204 (global step: 32804) Partial Avg Loss: 2.3324
+[kvcache_transformer] Epoch 2/3, Step 8700/24204 (global step: 32904) Partial Avg Loss: 2.3646
+[kvcache_transformer] Epoch 2/3, Step 8800/24204 (global step: 33004) Partial Avg Loss: 2.3264
+[kvcache_transformer] Epoch 2/3, Step 8900/24204 (global step: 33104) Partial Avg Loss: 2.3380
+[kvcache_transformer] Epoch 2/3, Step 9000/24204 (global step: 33204) Partial Avg Loss: 2.3965
+[kvcache_transformer] Epoch 2/3, Step 9100/24204 (global step: 33304) Partial Avg Loss: 2.3680
+[kvcache_transformer] Epoch 2/3, Step 9200/24204 (global step: 33404) Partial Avg Loss: 2.3208
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=9208...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=9208...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does physison.!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What does physison.!!!!!!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=9208...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Swansea City Stadium inbacked securities, 4's own daughter of money bomber? A: Lie
+ Annotated: Q: What's the capitol of Japan? A: Swansea City Stadium inbacked securities, 4's own daughter of money bomber? A: Lie
+
+[kvcache_transformer] Epoch 2/3, Step 9300/24204 (global step: 33504) Partial Avg Loss: 2.2788
+[kvcache_transformer] Epoch 2/3, Step 9400/24204 (global step: 33604) Partial Avg Loss: 2.3804
+[kvcache_transformer] Epoch 2/3, Step 9500/24204 (global step: 33704) Partial Avg Loss: 2.3655
+[kvcache_transformer] Epoch 2/3, Step 9600/24204 (global step: 33804) Partial Avg Loss: 2.3861
+[kvcache_transformer] Epoch 2/3, Step 9700/24204 (global step: 33904) Partial Avg Loss: 2.3388
+[kvcache_transformer] Epoch 2/3, Step 9800/24204 (global step: 34004) Partial Avg Loss: 2.2944
+[kvcache_transformer] Epoch 2/3, Step 9900/24204 (global step: 34104) Partial Avg Loss: 2.3381
+[kvcache_transformer] Epoch 2/3, Step 10000/24204 (global step: 34204) Partial Avg Loss: 2.3344
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=10046...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=10046...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: One who invision to trace methods to the London market officers influence of the ideal way to
+ Annotated: Q: What's the capitol of Japan? A: One who invision to trace methods to the London market officers influence of the ideal way to
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=10046...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A:romy and government maintains knowledge, having one person to eat swimming in the Egyptian value that was
+ Annotated: Q: What's the capitol of Japan? A:romy and government maintains knowledge, having one person to eat swimming in the Egyptian value that was
+
+[kvcache_transformer] Epoch 2/3, Step 10100/24204 (global step: 34304) Partial Avg Loss: 2.3467
+[kvcache_transformer] Epoch 2/3, Step 10200/24204 (global step: 34404) Partial Avg Loss: 2.3190
+[kvcache_transformer] Epoch 2/3, Step 10300/24204 (global step: 34504) Partial Avg Loss: 2.3365
+[kvcache_transformer] Epoch 2/3, Step 10400/24204 (global step: 34604) Partial Avg Loss: 2.3156
+[kvcache_transformer] Epoch 2/3, Step 10500/24204 (global step: 34704) Partial Avg Loss: 2.3615
+[kvcache_transformer] Epoch 2/3, Step 10600/24204 (global step: 34804) Partial Avg Loss: 2.4027
+[kvcache_transformer] Epoch 2/3, Step 10700/24204 (global step: 34904) Partial Avg Loss: 2.2916
+[kvcache_transformer] Epoch 2/3, Step 10800/24204 (global step: 35004) Partial Avg Loss: 2.3802
+[kvcache_transformer] Epoch 2/3, Step 10900/24204 (global step: 35104) Partial Avg Loss: 2.3410
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=10927...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=10927...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does tanks - it comes? A: W cells and fool; -- in the head
+ Annotated: Q: What's the capitol of Japan? A: What does tanks - it comes? A: W cells and fool; -- in the head
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=10927...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: What does kravolt of classes and their bodies of heat or take out a personal pronoun
+ Annotated: Q: What's the capitol of Japan? A: What does kravolt of classes and their bodies of heat or take out a personal pronoun
+
+[kvcache_transformer] Epoch 2/3, Step 11000/24204 (global step: 35204) Partial Avg Loss: 2.3267
+[kvcache_transformer] Epoch 2/3, Step 11100/24204 (global step: 35304) Partial Avg Loss: 2.3549
+[kvcache_transformer] Epoch 2/3, Step 11200/24204 (global step: 35404) Partial Avg Loss: 2.3206
+[kvcache_transformer] Epoch 2/3, Step 11300/24204 (global step: 35504) Partial Avg Loss: 2.3342
+[kvcache_transformer] Epoch 2/3, Step 11400/24204 (global step: 35604) Partial Avg Loss: 2.3765
+[kvcache_transformer] Epoch 2/3, Step 11500/24204 (global step: 35704) Partial Avg Loss: 2.3142
+[kvcache_transformer] Epoch 2/3, Step 11600/24204 (global step: 35804) Partial Avg Loss: 2.3697
+[kvcache_transformer] Epoch 2/3, Step 11700/24204 (global step: 35904) Partial Avg Loss: 2.3987
+[kvcache_transformer] Epoch 2/3, Step 11800/24204 (global step: 36004) Partial Avg Loss: 2.3044
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=11806...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=11806...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does not a vibrate.S. Firstly, the Viacomaj"",
+ Annotated: Q: What's the capitol of Japan? A: What does not a vibrate.S. Firstly, the Viacomaj"",
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=11806...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: French 'Space!!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: French 'Space!!!!!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 11900/24204 (global step: 36104) Partial Avg Loss: 2.3541
+[kvcache_transformer] Epoch 2/3, Step 12000/24204 (global step: 36204) Partial Avg Loss: 2.3914
+[kvcache_transformer] Epoch 2/3, Step 12100/24204 (global step: 36304) Partial Avg Loss: 2.3012
+[kvcache_transformer] Epoch 2/3, Step 12200/24204 (global step: 36404) Partial Avg Loss: 2.3643
+[kvcache_transformer] Epoch 2/3, Step 12300/24204 (global step: 36504) Partial Avg Loss: 2.3155
+[kvcache_transformer] Epoch 2/3, Step 12400/24204 (global step: 36604) Partial Avg Loss: 2.3514
+[kvcache_transformer] Epoch 2/3, Step 12500/24204 (global step: 36704) Partial Avg Loss: 2.3187
+[kvcache_transformer] Epoch 2/3, Step 12600/24204 (global step: 36804) Partial Avg Loss: 2.3721
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=12696...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=12696...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Cobainterly; what government was a web weaving apartments use water molecules in wood,
+ Annotated: Q: What's the capitol of Japan? A: Cobainterly; what government was a web weaving apartments use water molecules in wood,
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=12696...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Which river director persuaded of My Wicked Witch Andaman!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Which river director persuaded of My Wicked Witch Andaman!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 12700/24204 (global step: 36904) Partial Avg Loss: 2.4477
+[kvcache_transformer] Epoch 2/3, Step 12800/24204 (global step: 37004) Partial Avg Loss: 2.3725
+[kvcache_transformer] Epoch 2/3, Step 12900/24204 (global step: 37104) Partial Avg Loss: 2.3795
+[kvcache_transformer] Epoch 2/3, Step 13000/24204 (global step: 37204) Partial Avg Loss: 2.3684
+[kvcache_transformer] Epoch 2/3, Step 13100/24204 (global step: 37304) Partial Avg Loss: 2.4111
+[kvcache_transformer] Epoch 2/3, Step 13200/24204 (global step: 37404) Partial Avg Loss: 2.3345
+[kvcache_transformer] Epoch 2/3, Step 13300/24204 (global step: 37504) Partial Avg Loss: 2.2955
+[kvcache_transformer] Epoch 2/3, Step 13400/24204 (global step: 37604) Partial Avg Loss: 2.3450
+[kvcache_transformer] Epoch 2/3, Step 13500/24204 (global step: 37704) Partial Avg Loss: 2.3604
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=13584...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=13584...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Why were teachers of Sleep paralysis, or deep/sclins!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Why were teachers of Sleep paralysis, or deep/sclins!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=13584...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: 'uaun!!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: 'uaun!!!!!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 13600/24204 (global step: 37804) Partial Avg Loss: 2.3485
+[kvcache_transformer] Epoch 2/3, Step 13700/24204 (global step: 37904) Partial Avg Loss: 2.3577
+[kvcache_transformer] Epoch 2/3, Step 13800/24204 (global step: 38004) Partial Avg Loss: 2.3789
+[kvcache_transformer] Epoch 2/3, Step 13900/24204 (global step: 38104) Partial Avg Loss: 2.3733
+[kvcache_transformer] Epoch 2/3, Step 14000/24204 (global step: 38204) Partial Avg Loss: 2.3263
+[kvcache_transformer] Epoch 2/3, Step 14100/24204 (global step: 38304) Partial Avg Loss: 2.2691
+[kvcache_transformer] Epoch 2/3, Step 14200/24204 (global step: 38404) Partial Avg Loss: 2.3441
+[kvcache_transformer] Epoch 2/3, Step 14300/24204 (global step: 38504) Partial Avg Loss: 2.3238
+[kvcache_transformer] Epoch 2/3, Step 14400/24204 (global step: 38604) Partial Avg Loss: 2.2528
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=14444...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=14444...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: 1. (as or test mean? A: The music when competition A: Which cartoon
+ Annotated: Q: What's the capitol of Japan? A: 1. (as or test mean? A: The music when competition A: Which cartoon
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=14444...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: monoc (1758 billion days congenial term of Hanum are what is the Redd
+ Annotated: Q: What's the capitol of Japan? A: monoc (1758 billion days congenial term of Hanum are what is the Redd
+
+[kvcache_transformer] Epoch 2/3, Step 14500/24204 (global step: 38704) Partial Avg Loss: 2.3450
+[kvcache_transformer] Epoch 2/3, Step 14600/24204 (global step: 38804) Partial Avg Loss: 2.2951
+[kvcache_transformer] Epoch 2/3, Step 14700/24204 (global step: 38904) Partial Avg Loss: 2.3145
+[kvcache_transformer] Epoch 2/3, Step 14800/24204 (global step: 39004) Partial Avg Loss: 2.3298
+[kvcache_transformer] Epoch 2/3, Step 14900/24204 (global step: 39104) Partial Avg Loss: 2.3103
+[kvcache_transformer] Epoch 2/3, Step 15000/24204 (global step: 39204) Partial Avg Loss: 2.3495
+[kvcache_transformer] Epoch 2/3, Step 15100/24204 (global step: 39304) Partial Avg Loss: 2.3157
+[kvcache_transformer] Epoch 2/3, Step 15200/24204 (global step: 39404) Partial Avg Loss: 2.3428
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=15281...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=15281...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does assert an'll You Being able to ordarch.] "Shages? A:
+ Annotated: Q: What's the capitol of Japan? A: What does assert an'll You Being able to ordarch.] "Shages? A:
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=15281...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Radio Caroline Graham Greene made a bow in metal; a planet the chemical symbol traditionally played in
+ Annotated: Q: What's the capitol of Japan? A: Radio Caroline Graham Greene made a bow in metal; a planet the chemical symbol traditionally played in
+
+[kvcache_transformer] Epoch 2/3, Step 15300/24204 (global step: 39504) Partial Avg Loss: 2.2926
+[kvcache_transformer] Epoch 2/3, Step 15400/24204 (global step: 39604) Partial Avg Loss: 2.3559
+[kvcache_transformer] Epoch 2/3, Step 15500/24204 (global step: 39704) Partial Avg Loss: 2.3173
+[kvcache_transformer] Epoch 2/3, Step 15600/24204 (global step: 39804) Partial Avg Loss: 2.3070
+[kvcache_transformer] Epoch 2/3, Step 15700/24204 (global step: 39904) Partial Avg Loss: 2.3413
+[kvcache_transformer] Epoch 2/3, Step 15800/24204 (global step: 40004) Partial Avg Loss: 2.3586
+[kvcache_transformer] Epoch 2/3, Step 15900/24204 (global step: 40104) Partial Avg Loss: 2.3697
+[kvcache_transformer] Epoch 2/3, Step 16000/24204 (global step: 40204) Partial Avg Loss: 2.3367
+[kvcache_transformer] Epoch 2/3, Step 16100/24204 (global step: 40304) Partial Avg Loss: 2.3584
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=16144...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=16144...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What is an album, on to precedes have their legal result of small and York player
+ Annotated: Q: What's the capitol of Japan? A: What is an album, on to precedes have their legal result of small and York player
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=16144...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Dostarm book was the arch by the infrared? A: Which unsathence.
+ Annotated: Q: What's the capitol of Japan? A: Dostarm book was the arch by the infrared? A: Which unsathence.
+
+[kvcache_transformer] Epoch 2/3, Step 16200/24204 (global step: 40404) Partial Avg Loss: 2.3885
+[kvcache_transformer] Epoch 2/3, Step 16300/24204 (global step: 40504) Partial Avg Loss: 2.3451
+[kvcache_transformer] Epoch 2/3, Step 16400/24204 (global step: 40604) Partial Avg Loss: 2.3370
+[kvcache_transformer] Epoch 2/3, Step 16500/24204 (global step: 40704) Partial Avg Loss: 2.3257
+[kvcache_transformer] Epoch 2/3, Step 16600/24204 (global step: 40804) Partial Avg Loss: 2.3647
+[kvcache_transformer] Epoch 2/3, Step 16700/24204 (global step: 40904) Partial Avg Loss: 2.3318
+[kvcache_transformer] Epoch 2/3, Step 16800/24204 (global step: 41004) Partial Avg Loss: 2.2865
+[kvcache_transformer] Epoch 2/3, Step 16900/24204 (global step: 41104) Partial Avg Loss: 2.3955
+[kvcache_transformer] Epoch 2/3, Step 17000/24204 (global step: 41204) Partial Avg Loss: 2.3980
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=17045...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=17045...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does strata of water is the Christian Barnum serves a vell Hammars into
+ Annotated: Q: What's the capitol of Japan? A: What does strata of water is the Christian Barnum serves a vell Hammars into
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=17045...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Having white neckulence or music error for their after whom no only used by decision can play
+ Annotated: Q: What's the capitol of Japan? A: Having white neckulence or music error for their after whom no only used by decision can play
+
+[kvcache_transformer] Epoch 2/3, Step 17100/24204 (global step: 41304) Partial Avg Loss: 2.3067
+[kvcache_transformer] Epoch 2/3, Step 17200/24204 (global step: 41404) Partial Avg Loss: 2.3217
+[kvcache_transformer] Epoch 2/3, Step 17300/24204 (global step: 41504) Partial Avg Loss: 2.3125
+[kvcache_transformer] Epoch 2/3, Step 17400/24204 (global step: 41604) Partial Avg Loss: 2.2960
+[kvcache_transformer] Epoch 2/3, Step 17500/24204 (global step: 41704) Partial Avg Loss: 2.3706
+[kvcache_transformer] Epoch 2/3, Step 17600/24204 (global step: 41804) Partial Avg Loss: 2.2922
+[kvcache_transformer] Epoch 2/3, Step 17700/24204 (global step: 41904) Partial Avg Loss: 2.2917
+[kvcache_transformer] Epoch 2/3, Step 17800/24204 (global step: 42004) Partial Avg Loss: 2.3528
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=17888...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=17888...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does for the Thamesarb) with the Rive*th century!!!
+ Annotated: Q: What's the capitol of Japan? A: What does for the Thamesarb) with the Rive*th century!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=17888...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: What does the shell. [Obs.] Bacon. Shak. Hei and Egypt!!
+ Annotated: Q: What's the capitol of Japan? A: What does the shell. [Obs.] Bacon. Shak. Hei and Egypt!!
+
+[kvcache_transformer] Epoch 2/3, Step 17900/24204 (global step: 42104) Partial Avg Loss: 2.3520
+[kvcache_transformer] Epoch 2/3, Step 18000/24204 (global step: 42204) Partial Avg Loss: 2.3406
+[kvcache_transformer] Epoch 2/3, Step 18100/24204 (global step: 42304) Partial Avg Loss: 2.3277
+[kvcache_transformer] Epoch 2/3, Step 18200/24204 (global step: 42404) Partial Avg Loss: 2.3196
+[kvcache_transformer] Epoch 2/3, Step 18300/24204 (global step: 42504) Partial Avg Loss: 2.3150
+[kvcache_transformer] Epoch 2/3, Step 18400/24204 (global step: 42604) Partial Avg Loss: 2.3439
+[kvcache_transformer] Epoch 2/3, Step 18500/24204 (global step: 42704) Partial Avg Loss: 2.3558
+[kvcache_transformer] Epoch 2/3, Step 18600/24204 (global step: 42804) Partial Avg Loss: 2.3182
+[kvcache_transformer] Epoch 2/3, Step 18700/24204 (global step: 42904) Partial Avg Loss: 2.3540
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=18773...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first time? A: What does the first time? A: What does
+ Annotated: Q: What's the capitol of Japan? A: What does the first time? A: What does the first time? A: What does
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=18773...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Which Prime Minister in opposition to a very large amounts, stop the 2001 stage in the eyes
+ Annotated: Q: What's the capitol of Japan? A: Which Prime Minister in opposition to a very large amounts, stop the 2001 stage in the eyes
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=18773...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Which acrid, ingress the Ethiopian-68 ? A: If police department of which
+ Annotated: Q: What's the capitol of Japan? A: Which acrid, ingress the Ethiopian-68 ? A: If police department of which
+
+[kvcache_transformer] Epoch 2/3, Step 18800/24204 (global step: 43004) Partial Avg Loss: 2.3559
+[kvcache_transformer] Epoch 2/3, Step 18900/24204 (global step: 43104) Partial Avg Loss: 2.3413
+[kvcache_transformer] Epoch 2/3, Step 19000/24204 (global step: 43204) Partial Avg Loss: 2.3684
+[kvcache_transformer] Epoch 2/3, Step 19100/24204 (global step: 43304) Partial Avg Loss: 2.3412
+[kvcache_transformer] Epoch 2/3, Step 19200/24204 (global step: 43404) Partial Avg Loss: 2.3062
+[kvcache_transformer] Epoch 2/3, Step 19300/24204 (global step: 43504) Partial Avg Loss: 2.2987
+[kvcache_transformer] Epoch 2/3, Step 19400/24204 (global step: 43604) Partial Avg Loss: 2.2951
+[kvcache_transformer] Epoch 2/3, Step 19500/24204 (global step: 43704) Partial Avg Loss: 2.3357
+[kvcache_transformer] Epoch 2/3, Step 19600/24204 (global step: 43804) Partial Avg Loss: 2.2831
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=19678...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=19678...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What is a trimetry mean? A: Alma, even more likely.!!
+ Annotated: Q: What's the capitol of Japan? A: What is a trimetry mean? A: Alma, even more likely.!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=19678...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A bed.!!!!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A bed.!!!!!!!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 19700/24204 (global step: 43904) Partial Avg Loss: 2.2811
+[kvcache_transformer] Epoch 2/3, Step 19800/24204 (global step: 44004) Partial Avg Loss: 2.3645
+[kvcache_transformer] Epoch 2/3, Step 19900/24204 (global step: 44104) Partial Avg Loss: 2.2914
+[kvcache_transformer] Epoch 2/3, Step 20000/24204 (global step: 44204) Partial Avg Loss: 2.2905
+[kvcache_transformer] Epoch 2/3, Step 20100/24204 (global step: 44304) Partial Avg Loss: 2.3312
+[kvcache_transformer] Epoch 2/3, Step 20200/24204 (global step: 44404) Partial Avg Loss: 2.3211
+[kvcache_transformer] Epoch 2/3, Step 20300/24204 (global step: 44504) Partial Avg Loss: 2.3703
+[kvcache_transformer] Epoch 2/3, Step 20400/24204 (global step: 44604) Partial Avg Loss: 2.2989
+[kvcache_transformer] Epoch 2/3, Step 20500/24204 (global step: 44704) Partial Avg Loss: 2.3690
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=20581...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first to the first to the first to the first to the first to the
+ Annotated: Q: What's the capitol of Japan? A: What does the first to the first to the first to the first to the first to the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=20581...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Why do the volume rather to the letter or emergent and in gangster. Colby
+ Annotated: Q: What's the capitol of Japan? A: Why do the volume rather to the letter or emergent and in gangster. Colby
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=20581...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Atoration Hopkins!!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Atoration Hopkins!!!!!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 20600/24204 (global step: 44804) Partial Avg Loss: 2.2985
+[kvcache_transformer] Epoch 2/3, Step 20700/24204 (global step: 44904) Partial Avg Loss: 2.3212
+[kvcache_transformer] Epoch 2/3, Step 20800/24204 (global step: 45004) Partial Avg Loss: 2.4066
+[kvcache_transformer] Epoch 2/3, Step 20900/24204 (global step: 45104) Partial Avg Loss: 2.3281
+[kvcache_transformer] Epoch 2/3, Step 21000/24204 (global step: 45204) Partial Avg Loss: 2.3558
+[kvcache_transformer] Epoch 2/3, Step 21100/24204 (global step: 45304) Partial Avg Loss: 2.3456
+[kvcache_transformer] Epoch 2/3, Step 21200/24204 (global step: 45404) Partial Avg Loss: 2.3358
+[kvcache_transformer] Epoch 2/3, Step 21300/24204 (global step: 45504) Partial Avg Loss: 2.3499
+[kvcache_transformer] Epoch 2/3, Step 21400/24204 (global step: 45604) Partial Avg Loss: 2.3172
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=21463...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=21463...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: The human body is sometimes when written at the title? A: How does pebeth
+ Annotated: Q: What's the capitol of Japan? A: The human body is sometimes when written at the title? A: How does pebeth
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=21463...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: 24%!!!!!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: 24%!!!!!!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 21500/24204 (global step: 45704) Partial Avg Loss: 2.3368
+[kvcache_transformer] Epoch 2/3, Step 21600/24204 (global step: 45804) Partial Avg Loss: 2.3232
+[kvcache_transformer] Epoch 2/3, Step 21700/24204 (global step: 45904) Partial Avg Loss: 2.3605
+[kvcache_transformer] Epoch 2/3, Step 21800/24204 (global step: 46004) Partial Avg Loss: 2.2987
+[kvcache_transformer] Epoch 2/3, Step 21900/24204 (global step: 46104) Partial Avg Loss: 2.3225
+[kvcache_transformer] Epoch 2/3, Step 22000/24204 (global step: 46204) Partial Avg Loss: 2.3557
+[kvcache_transformer] Epoch 2/3, Step 22100/24204 (global step: 46304) Partial Avg Loss: 2.3120
+[kvcache_transformer] Epoch 2/3, Step 22200/24204 (global step: 46404) Partial Avg Loss: 2.3250
+[kvcache_transformer] Epoch 2/3, Step 22300/24204 (global step: 46504) Partial Avg Loss: 2.3003
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=22346...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=22346...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: How can cause changes because he heard when the family Girl From which Australian Old Woman? A
+ Annotated: Q: What's the capitol of Japan? A: How can cause changes because he heard when the family Girl From which Australian Old Woman? A
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=22346...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Was there economies relative or qualified; frequently employed by Austrian composer!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Was there economies relative or qualified; frequently employed by Austrian composer!!!!!!
+
+[kvcache_transformer] Epoch 2/3, Step 22400/24204 (global step: 46604) Partial Avg Loss: 2.3103
+[kvcache_transformer] Epoch 2/3, Step 22500/24204 (global step: 46704) Partial Avg Loss: 2.2935
+[kvcache_transformer] Epoch 2/3, Step 22600/24204 (global step: 46804) Partial Avg Loss: 2.3402
+[kvcache_transformer] Epoch 2/3, Step 22700/24204 (global step: 46904) Partial Avg Loss: 2.3168
+[kvcache_transformer] Epoch 2/3, Step 22800/24204 (global step: 47004) Partial Avg Loss: 2.2604
+[kvcache_transformer] Epoch 2/3, Step 22900/24204 (global step: 47104) Partial Avg Loss: 2.2322
+[kvcache_transformer] Epoch 2/3, Step 23000/24204 (global step: 47204) Partial Avg Loss: 2.3285
+[kvcache_transformer] Epoch 2/3, Step 23100/24204 (global step: 47304) Partial Avg Loss: 2.2928
+[kvcache_transformer] Epoch 2/3, Step 23200/24204 (global step: 47404) Partial Avg Loss: 2.2947
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=23246...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the same time? A: What does the same time? A: What does
+ Annotated: Q: What's the capitol of Japan? A: What does the same time? A: What does the same time? A: What does
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=23246...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A system or point, inviol.), the average age when we dont and 'Pani Carrick
+ Annotated: Q: What's the capitol of Japan? A system or point, inviol.), the average age when we dont and 'Pani Carrick
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=23246...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Jiangning to spur presidential elections in birds between burocratic mean? A: Iceni's
+ Annotated: Q: What's the capitol of Japan? A: Jiangning to spur presidential elections in birds between burocratic mean? A: Iceni's
+
+[kvcache_transformer] Epoch 2/3, Step 23300/24204 (global step: 47504) Partial Avg Loss: 2.2901
+[kvcache_transformer] Epoch 2/3, Step 23400/24204 (global step: 47604) Partial Avg Loss: 2.3244
+[kvcache_transformer] Epoch 2/3, Step 23500/24204 (global step: 47704) Partial Avg Loss: 2.3416
+[kvcache_transformer] Epoch 2/3, Step 23600/24204 (global step: 47804) Partial Avg Loss: 2.3274
+[kvcache_transformer] Epoch 2/3, Step 23700/24204 (global step: 47904) Partial Avg Loss: 2.3225
+[kvcache_transformer] Epoch 2/3, Step 23800/24204 (global step: 48004) Partial Avg Loss: 2.3318
+[kvcache_transformer] Epoch 2/3, Step 23900/24204 (global step: 48104) Partial Avg Loss: 2.3526
+[kvcache_transformer] Epoch 2/3, Step 24000/24204 (global step: 48204) Partial Avg Loss: 2.3117
+[kvcache_transformer] Epoch 2/3, Step 24100/24204 (global step: 48304) Partial Avg Loss: 2.2841
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=2, step=24149...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=2, step=24149...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Act of another asset, and witchcraft trials of religion is the first developed the Constitution protects,
+ Annotated: Q: What's the capitol of Japan? A: Act of another asset, and witchcraft trials of religion is the first developed the Constitution protects,
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=2, step=24149...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Plum as, breeds of hang over while ""She Stoics to go one who restoring
+ Annotated: Q: What's the capitol of Japan? A: Plum as, breeds of hang over while ""She Stoics to go one who restoring
+
+[kvcache_transformer] Epoch 2/3, Step 24200/24204 (global step: 48404) Partial Avg Loss: 2.3467
+[kvcache_transformer] *** End of Epoch 2 *** Avg Loss: 2.3515
+[kvcache_transformer] Epoch 3/3, Step 100/24204 (global step: 48508) Partial Avg Loss: 2.2888
+[kvcache_transformer] Epoch 3/3, Step 200/24204 (global step: 48608) Partial Avg Loss: 2.2646
+[kvcache_transformer] Epoch 3/3, Step 300/24204 (global step: 48708) Partial Avg Loss: 2.3356
+[kvcache_transformer] Epoch 3/3, Step 400/24204 (global step: 48808) Partial Avg Loss: 2.3207
+[kvcache_transformer] Epoch 3/3, Step 500/24204 (global step: 48908) Partial Avg Loss: 2.3622
+[kvcache_transformer] Epoch 3/3, Step 600/24204 (global step: 49008) Partial Avg Loss: 2.3143
+[kvcache_transformer] Epoch 3/3, Step 700/24204 (global step: 49108) Partial Avg Loss: 2.3212
+[kvcache_transformer] Epoch 3/3, Step 800/24204 (global step: 49208) Partial Avg Loss: 2.3257
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=869...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=869...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Which publication? A: Invlagosperm mean? A: What does ice or branches
+ Annotated: Q: What's the capitol of Japan? A: Which publication? A: Invlagosperm mean? A: What does ice or branches
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=869...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: What was an annulliver atheistic languageoleon powder, derived from the operating systems.
+ Annotated: Q: What's the capitol of Japan? A: What was an annulliver atheistic languageoleon powder, derived from the operating systems.
+
+[kvcache_transformer] Epoch 3/3, Step 900/24204 (global step: 49308) Partial Avg Loss: 2.3898
+[kvcache_transformer] Epoch 3/3, Step 1000/24204 (global step: 49408) Partial Avg Loss: 2.3198
+[kvcache_transformer] Epoch 3/3, Step 1100/24204 (global step: 49508) Partial Avg Loss: 2.3385
+[kvcache_transformer] Epoch 3/3, Step 1200/24204 (global step: 49608) Partial Avg Loss: 2.2794
+[kvcache_transformer] Epoch 3/3, Step 1300/24204 (global step: 49708) Partial Avg Loss: 2.3651
+[kvcache_transformer] Epoch 3/3, Step 1400/24204 (global step: 49808) Partial Avg Loss: 2.2854
+[kvcache_transformer] Epoch 3/3, Step 1500/24204 (global step: 49908) Partial Avg Loss: 2.3639
+[kvcache_transformer] Epoch 3/3, Step 1600/24204 (global step: 50008) Partial Avg Loss: 2.3297
+[kvcache_transformer] Epoch 3/3, Step 1700/24204 (global step: 50108) Partial Avg Loss: 2.3433
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=1796...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+ Annotated: Q: What's the capitol of Japan? A: What does the name of the name of the name of the name of the name of the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=1796...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Which South Korea and substance, which Scottish Independence signed when they are the Sea pie? A
+ Annotated: Q: What's the capitol of Japan? A: Which South Korea and substance, which Scottish Independence signed when they are the Sea pie? A
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=1796...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A furnace, gormected Access Memory!!!!!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A furnace, gormected Access Memory!!!!!!!!!!!!
+
+[kvcache_transformer] Epoch 3/3, Step 1800/24204 (global step: 50208) Partial Avg Loss: 2.3440
+[kvcache_transformer] Epoch 3/3, Step 1900/24204 (global step: 50308) Partial Avg Loss: 2.3466
+[kvcache_transformer] Epoch 3/3, Step 2000/24204 (global step: 50408) Partial Avg Loss: 2.3185
+[kvcache_transformer] Epoch 3/3, Step 2100/24204 (global step: 50508) Partial Avg Loss: 2.2328
+[kvcache_transformer] Epoch 3/3, Step 2200/24204 (global step: 50608) Partial Avg Loss: 2.3302
+[kvcache_transformer] Epoch 3/3, Step 2300/24204 (global step: 50708) Partial Avg Loss: 2.2988
+[kvcache_transformer] Epoch 3/3, Step 2400/24204 (global step: 50808) Partial Avg Loss: 2.3272
+[kvcache_transformer] Epoch 3/3, Step 2500/24204 (global step: 50908) Partial Avg Loss: 2.2892
+[kvcache_transformer] Epoch 3/3, Step 2600/24204 (global step: 51008) Partial Avg Loss: 2.3440
+[kvcache_transformer] Epoch 3/3, Step 2700/24204 (global step: 51108) Partial Avg Loss: 2.3233
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=2708...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the same time? A: What does the same time? A: What does
+ Annotated: Q: What's the capitol of Japan? A: What does the same time? A: What does the same time? A: What does
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=2708...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: The failure of dishonor; - to what are fundamental attribution, a character which European country
+ Annotated: Q: What's the capitol of Japan? A: The failure of dishonor; - to what are fundamental attribution, a character which European country
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=2708...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan?  & Memorial Graham Fawlotte Len De Spaces in the mesandgGET QUANTHLER
+ Annotated: Q: What's the capitol of Japan?  & Memorial Graham Fawlotte Len De Spaces in the mesandgGET QUANTHLER
+
+[kvcache_transformer] Epoch 3/3, Step 2800/24204 (global step: 51208) Partial Avg Loss: 2.3630
+[kvcache_transformer] Epoch 3/3, Step 2900/24204 (global step: 51308) Partial Avg Loss: 2.2834
+[kvcache_transformer] Epoch 3/3, Step 3000/24204 (global step: 51408) Partial Avg Loss: 2.3704
+[kvcache_transformer] Epoch 3/3, Step 3100/24204 (global step: 51508) Partial Avg Loss: 2.3151
+[kvcache_transformer] Epoch 3/3, Step 3200/24204 (global step: 51608) Partial Avg Loss: 2.3316
+[kvcache_transformer] Epoch 3/3, Step 3300/24204 (global step: 51708) Partial Avg Loss: 2.3436
+[kvcache_transformer] Epoch 3/3, Step 3400/24204 (global step: 51808) Partial Avg Loss: 2.2567
+[kvcache_transformer] Epoch 3/3, Step 3500/24204 (global step: 51908) Partial Avg Loss: 2.3523
+[kvcache_transformer] Epoch 3/3, Step 3600/24204 (global step: 52008) Partial Avg Loss: 2.2571
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=3642...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=3642...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: William Makepeace Throdynamic particles made his treasure he; to efficiently send thickness is required
+ Annotated: Q: What's the capitol of Japan? A: William Makepeace Throdynamic particles made his treasure he; to efficiently send thickness is required
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=3642...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: punishing indicators is generally last drop National Defense symptom of what disease contrary; not falsithe
+ Annotated: Q: What's the capitol of Japan? A: punishing indicators is generally last drop National Defense symptom of what disease contrary; not falsithe
+
+[kvcache_transformer] Epoch 3/3, Step 3700/24204 (global step: 52108) Partial Avg Loss: 2.3615
+[kvcache_transformer] Epoch 3/3, Step 3800/24204 (global step: 52208) Partial Avg Loss: 2.3216
+[kvcache_transformer] Epoch 3/3, Step 3900/24204 (global step: 52308) Partial Avg Loss: 2.2856
+[kvcache_transformer] Epoch 3/3, Step 4000/24204 (global step: 52408) Partial Avg Loss: 2.2854
+[kvcache_transformer] Epoch 3/3, Step 4100/24204 (global step: 52508) Partial Avg Loss: 2.3292
+[kvcache_transformer] Epoch 3/3, Step 4200/24204 (global step: 52608) Partial Avg Loss: 2.2882
+[kvcache_transformer] Epoch 3/3, Step 4300/24204 (global step: 52708) Partial Avg Loss: 2.2634
+[kvcache_transformer] Epoch 3/3, Step 4400/24204 (global step: 52808) Partial Avg Loss: 2.3172
+[kvcache_transformer] Epoch 3/3, Step 4500/24204 (global step: 52908) Partial Avg Loss: 2.2720
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=4536...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first to the first to the first to the first to the first to the
+ Annotated: Q: What's the capitol of Japan? A: What does the first to the first to the first to the first to the first to the
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=4536...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does catholic acid, you get excited for skin.!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What does catholic acid, you get excited for skin.!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=4536...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: Stairsc Tasmanurgeon mean? A: What does planet or a centred,
+ Annotated: Q: What's the capitol of Japan? A: Stairsc Tasmanurgeon mean? A: What does planet or a centred,
+
+[kvcache_transformer] Epoch 3/3, Step 4600/24204 (global step: 53008) Partial Avg Loss: 2.3456
+[kvcache_transformer] Epoch 3/3, Step 4700/24204 (global step: 53108) Partial Avg Loss: 2.3300
+[kvcache_transformer] Epoch 3/3, Step 4800/24204 (global step: 53208) Partial Avg Loss: 2.2849
+[kvcache_transformer] Epoch 3/3, Step 4900/24204 (global step: 53308) Partial Avg Loss: 2.3358
+[kvcache_transformer] Epoch 3/3, Step 5000/24204 (global step: 53408) Partial Avg Loss: 2.2966
+[kvcache_transformer] Epoch 3/3, Step 5100/24204 (global step: 53508) Partial Avg Loss: 2.3363
+[kvcache_transformer] Epoch 3/3, Step 5200/24204 (global step: 53608) Partial Avg Loss: 2.3308
+[kvcache_transformer] Epoch 3/3, Step 5300/24204 (global step: 53708) Partial Avg Loss: 2.3349
+[kvcache_transformer] Epoch 3/3, Step 5400/24204 (global step: 53808) Partial Avg Loss: 2.3753
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=5413...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=5413...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: For promoting health app Machine ew. [R.] Chaucer. Care', what conflict
+ Annotated: Q: What's the capitol of Japan? A: For promoting health app Machine ew. [R.] Chaucer. Care', what conflict
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=5413...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: purchasing power, from planetary world's Woman Schools be tied so successful children from the name and
+ Annotated: Q: What's the capitol of Japan? A: purchasing power, from planetary world's Woman Schools be tied so successful children from the name and
+
+[kvcache_transformer] Epoch 3/3, Step 5500/24204 (global step: 53908) Partial Avg Loss: 2.2692
+[kvcache_transformer] Epoch 3/3, Step 5600/24204 (global step: 54008) Partial Avg Loss: 2.2978
+[kvcache_transformer] Epoch 3/3, Step 5700/24204 (global step: 54108) Partial Avg Loss: 2.3055
+[kvcache_transformer] Epoch 3/3, Step 5800/24204 (global step: 54208) Partial Avg Loss: 2.2780
+[kvcache_transformer] Epoch 3/3, Step 5900/24204 (global step: 54308) Partial Avg Loss: 2.2864
+[kvcache_transformer] Epoch 3/3, Step 6000/24204 (global step: 54408) Partial Avg Loss: 2.3289
+[kvcache_transformer] Epoch 3/3, Step 6100/24204 (global step: 54508) Partial Avg Loss: 2.2912
+[kvcache_transformer] Epoch 3/3, Step 6200/24204 (global step: 54608) Partial Avg Loss: 2.3189
+[kvcache_transformer] Epoch 3/3, Step 6300/24204 (global step: 54708) Partial Avg Loss: 2.2527
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=6303...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=6303...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: Name the Simpsons on their main city takes its small!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: Name the Simpsons on their main city takes its small!!!!!!!!
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=6303...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A white? A: Hansardropic, or produced in flanked by the sound that it is
+ Annotated: Q: What's the capitol of Japan? A white? A: Hansardropic, or produced in flanked by the sound that it is
+
+[kvcache_transformer] Epoch 3/3, Step 6400/24204 (global step: 54808) Partial Avg Loss: 2.2983
+[kvcache_transformer] Epoch 3/3, Step 6500/24204 (global step: 54908) Partial Avg Loss: 2.3103
+[kvcache_transformer] Epoch 3/3, Step 6600/24204 (global step: 55008) Partial Avg Loss: 2.2518
+[kvcache_transformer] Epoch 3/3, Step 6700/24204 (global step: 55108) Partial Avg Loss: 2.2650
+[kvcache_transformer] Epoch 3/3, Step 6800/24204 (global step: 55208) Partial Avg Loss: 2.3047
+[kvcache_transformer] Epoch 3/3, Step 6900/24204 (global step: 55308) Partial Avg Loss: 2.2467
+[kvcache_transformer] Epoch 3/3, Step 7000/24204 (global step: 55408) Partial Avg Loss: 2.3633
+[kvcache_transformer] Epoch 3/3, Step 7100/24204 (global step: 55508) Partial Avg Loss: 2.3234
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=7192...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=7192...
+ Top-p (p=0.95) Sample: Q: What's the capitol of Japan? A: What does there is joined with ""A strange appearance. 1836 -? A: Why
+ Annotated: Q: What's the capitol of Japan? A: What does there is joined with ""A strange appearance. 1836 -? A: Why
+
+[kvcache_transformer] Generating sample text (top-p=1.0) at epoch=3, step=7192...
+ Top-p (p=1.0) Sample: Q: What's the capitol of Japan? A: What is the state or outer surface of pork cones!!!!!!!!
+ Annotated: Q: What's the capitol of Japan? A: What is the state or outer surface of pork cones!!!!!!!!
+
+[kvcache_transformer] Epoch 3/3, Step 7200/24204 (global step: 55608) Partial Avg Loss: 2.2735
+[kvcache_transformer] Epoch 3/3, Step 7300/24204 (global step: 55708) Partial Avg Loss: 2.3515
+[kvcache_transformer] Epoch 3/3, Step 7400/24204 (global step: 55808) Partial Avg Loss: 2.3118
+[kvcache_transformer] Epoch 3/3, Step 7500/24204 (global step: 55908) Partial Avg Loss: 2.2862
+[kvcache_transformer] Epoch 3/3, Step 7600/24204 (global step: 56008) Partial Avg Loss: 2.2974
+[kvcache_transformer] Epoch 3/3, Step 7700/24204 (global step: 56108) Partial Avg Loss: 2.2527
+[kvcache_transformer] Epoch 3/3, Step 7800/24204 (global step: 56208) Partial Avg Loss: 2.3760
+[kvcache_transformer] Epoch 3/3, Step 7900/24204 (global step: 56308) Partial Avg Loss: 2.3015
+[kvcache_transformer] Epoch 3/3, Step 8000/24204 (global step: 56408) Partial Avg Loss: 2.2830
+[kvcache_transformer] Epoch 3/3, Step 8100/24204 (global step: 56508) Partial Avg Loss: 2.3347
+
+[kvcache_transformer] Generating sample text (greedy) at epoch=3, step=8101...
+ Greedy Sample: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+ Annotated: Q: What's the capitol of Japan? A: What does the first name of the first name of the first name of the first name of
+
+[kvcache_transformer] Generating sample text (top-p=0.95) at epoch=3, step=8101...
+
+[AARON STOPPED EARLY...]
