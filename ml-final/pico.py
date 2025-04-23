@@ -370,271 +370,401 @@ def monosemantic_analysis_for_token(token_id, model, enc, device="cpu", top_n=5)
 ################################################################################
 # 7. Single code path for text generation
 ################################################################################
+import torch
+import torch.nn.functional as F
+import re # Keep for potential other uses, but not for the removed penalty
+import time
+import torch.optim as optim # Assuming optim is needed for training part
 
-def nucleus_sampling(logits, p=0.95):
-    # Apply softmax to the logits to get probabilities
-    probs = F.softmax(logits, dim=-1)
-    
-    # Sort the probabilities in descending order and get the indices
-    sorted_probs, sorted_indices = torch.sort(probs, descending=True)
-    
-    # Compute the cumulative sum of sorted probabilities
-    cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
-    
-    # Find the smallest k such that the cumulative sum of the top k probs >= p
-    k = torch.sum(cumulative_probs < p).item() + 1  # +1 to include the k-th token
-    
-    # Get the top k indices and their corresponding probabilities
-    top_k_indices = sorted_indices[:k]
-    top_k_probs = sorted_probs[:k]
-    
-    # Sample a token from the top k
-    sampled_index = torch.multinomial(top_k_probs, 1)
-    sampled_token = top_k_indices[sampled_index]
-    
-    return sampled_token.item()
+# Helper function (if you are using top-p) - ensure you have one
+import torch
+import torch.nn.functional as F
+# Make sure you have your nucleus_sampling function defined as well if using top_p < 1.0
+# from your_module import nucleus_sampling # Or define it here if not imported
 
+# Placeholder for the sampling function if not defined elsewhere
+def nucleus_sampling(logits, p):
+    """Applies nucleus sampling (top-p) to logits."""
+    if p <= 0.0 or p > 1.0:
+        # Fallback to greedy if p is invalid or effectively disables sampling diversity
+        return torch.argmax(logits).item()
+    if p == 1.0:
+         # If p is 1, it's equivalent to full sampling from softmax
+         probs = F.softmax(logits, dim=-1)
+         # Handle case where all logits might be -inf -> NaN probabilities
+         if torch.isnan(probs).all():
+              print("Warning: All probabilities are NaN in full sampling. Falling back to greedy.")
+              return torch.argmax(logits).item()
+         return torch.multinomial(probs, 1).item()
+    else:
+        # Sort logits in descending order and get corresponding probabilities
+        sorted_logits, sorted_indices = torch.sort(logits, descending=True)
+        cumulative_probs = torch.cumsum(F.softmax(sorted_logits, dim=-1), dim=-1)
 
+        # Remove tokens with cumulative probability above the threshold p
+        sorted_indices_to_remove = cumulative_probs > p
+        # Shift the indices to the right to keep also the first token above the threshold
+        sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
+        sorted_indices_to_remove[..., 0] = 0
+
+        # Get the indices of tokens to remove in the original ordering
+        indices_to_remove = sorted_indices[sorted_indices_to_remove]
+        # Create a mask or directly modify logits
+        logits_clone = logits.clone() # Avoid modifying original logits if needed elsewhere
+        logits_clone[indices_to_remove] = -float('inf') # Set logits of removed tokens to -inf
+
+        # Handle case where all logits might be -inf after filtering
+        if torch.isinf(logits_clone).all():
+             print("Warning: All logits became -inf after top-p filtering. Falling back to greedy on original logits.")
+             return torch.argmax(logits).item()
+
+        probs = F.softmax(logits_clone, dim=-1)
+        chosen_token = torch.multinomial(probs, 1).item()
+        return chosen_token
+
+# --- Full generate_text function with Q, !, and A: penalties ---
 def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
                   top_p=None,
                   temperature=1.0,
-                  monosemantic_info=None,
-                  do_monosemantic=False):
+                  monosemantic_info=None, # Keep for compatibility if needed elsewhere
+                  do_monosemantic=False,  # Keep for compatibility
+                  penalty_value=float('inf'), # How much to penalize (inf = forbid)
+                  apply_penalties=True): # Flag to enable/disable penalties
     """
-    A single code path for all models:
-      - We keep a growing list 'context_tokens'.
-      - At each step, we feed the entire context as (seq_len,1) to model(...).
-      - We get model(...)->(seq_len,1,vocab_size). We take the final step's logits => logits[-1,0,:].
-      - We pick next token (greedy or top-p), append to context_tokens.
-      - Optionally do monosemantic analysis on that newly generated token.
+    Generates text token by token, applying logit penalties to discourage:
+      - Repeating '!' immediately (avoids '!!')
+      - Generating ':' immediately after 'A' (avoids 'A:')
+      - Repeating 'Q' immediately (avoids 'QQ')
+
+    - Penalties are applied *before* sampling the next token.
+    - Assumes '!', 'A', ':', 'Q' are single tokens in the tokenizer 'enc'.
     """
-    was_training = model.training         # Save the current training/eval mode of the model
-    model.eval()                          # Set model to evaluation mode for inference
-    with torch.no_grad():                # Disable gradient calculation for efficiency
-        context_tokens = enc.encode(init_text)  # Tokenize the initial input text
-        annotation_list = []                   # Store monosemantic annotations if needed
+    was_training = model.training
+    model.eval()
+
+    # Get token IDs for penalty logic (do this once outside the loop)
+    # IMPORTANT: This assumes '!', 'A', ':', 'Q' are encoded as single tokens.
+    # If your tokenizer splits them (e.g., BPE), this logic needs adjustment.
+    exclaim_token_id, a_token_id, colon_token_id, q_token_id = None, None, None, None
+    has_penalty_tokens = False
+    local_apply_penalties = apply_penalties # Use a local copy of the flag
+
+    if local_apply_penalties: # Only try to get IDs if penalties are requested
+        try:
+            # Use enc.encode('X', allowed_special='all') if needed by your tokenizer
+            exclaim_token_id = enc.encode('!')[0]
+            a_token_id = enc.encode('A')[0]
+            colon_token_id = enc.encode(':')[0]
+            q_token_id = enc.encode('Q')[0]  # *** Get Q token ID ***
+            has_penalty_tokens = True
+            # Optional Debugging print:
+            # print(f"Debug: Penalty token IDs found: !={exclaim_token_id}, A={a_token_id}, :={colon_token_id}, Q={q_token_id}")
+        except IndexError:
+            print("Warning: Could not encode one or more penalty tokens ('!', 'A', ':', 'Q') as single tokens. Penalties disabled for this call.")
+            local_apply_penalties = False # Disable penalties for this run if tokens aren't found/single
+        except Exception as e:
+            print(f"Warning: Error getting penalty token IDs: {e}. Penalties disabled for this call.")
+            local_apply_penalties = False
+
+    with torch.no_grad():
+        try:
+            context_tokens = enc.encode(init_text)
+            # Ensure context_tokens is a list of integers
+            if not isinstance(context_tokens, list):
+                # Attempt conversion based on common types, adjust if needed
+                if hasattr(context_tokens, 'tolist'):
+                     context_tokens = context_tokens.tolist()
+                else:
+                     # Fallback or raise error if conversion unclear
+                     raise TypeError(f"Unsupported type for context_tokens: {type(context_tokens)}")
+        except Exception as e:
+            print(f"Error encoding initial text: {e}")
+            return "Error: Could not encode prompt.", "Error: Could not encode prompt."
+
+
+        generated_token_data = [] # Store (token_id, neighbors) for generated tokens
 
         for step_i in range(max_new_tokens):
-            # Create input tensor (seq_len, 1) and move to the appropriate device
-            seq_tensor = torch.tensor(context_tokens, dtype=torch.long, device=device).unsqueeze(1)
+            if not context_tokens: # Safety check in case encoding failed or list became empty
+                print("Warning: context_tokens became empty during generation.")
+                break
 
-            # Forward pass: get logits for the entire sequence
-            logits_seq = model(seq_tensor)              # (seq_len, 1, vocab_size)
+            # Prepare input tensor
+            try:
+                seq_tensor = torch.tensor(context_tokens, dtype=torch.long, device=device).unsqueeze(1) # (seq_len, 1)
+            except Exception as e:
+                 print(f"Error creating tensor from context_tokens at step {step_i}: {e}")
+                 print(f"Context tokens causing error: {context_tokens}")
+                 break # Stop generation if tensor creation fails
 
-            # Get logits for the last time step only (shape: vocab_size,)
-            next_logits = logits_seq[-1, 0, :]
 
-            if temperature != 1.0:
+            # Get logits for the next token
+            try:
+                logits_seq = model(seq_tensor)      # (seq_len, 1, vocab_size)
+                next_logits = logits_seq[-1, 0, :]  # Shape: (vocab_size,)
+            except Exception as e:
+                print(f"Error during model forward pass at step {step_i}: {e}")
+                break # Stop generation if model fails
+
+            # --- ADD: Logit Boosting for A: after ? ---
+            boost_value = 5.0 # Adjust as needed (higher = stronger boost)
+            # Check local_apply_penalties which might have been disabled if token IDs weren't found
+            if local_apply_penalties and has_penalty_tokens and context_tokens:
+                try:
+                    # Get token ID for the end-of-question marker (e.g., '?')
+                    # Adjust if your questions end differently (e.g., newline token)
+                    qmark_token_id = enc.encode('?')[0] # Assumes '?' is the marker
+                    if context_tokens[-1] == qmark_token_id:
+                        # Boost 'A' and ':' logits if the last token was '?'
+                        if a_token_id is not None:
+                            # print(f"Debug: Boosting 'A' ({a_token_id}) logit.") # Optional Debug
+                            next_logits[a_token_id] += boost_value
+                        if colon_token_id is not None:
+                            # print(f"Debug: Boosting ':' ({colon_token_id}) logit.") # Optional Debug
+                            next_logits[colon_token_id] += boost_value # Boost : as well, assuming A: is desired
+                except IndexError:
+                    # Handle if '?' is not a single token or not found
+                    # print("Warning: Could not get single token ID for '?'. Boosting disabled.") # Optional Debug
+                    pass # Silently ignore if '?' token isn't setup correctly
+                except Exception as e:
+                    # print(f"Warning: Error during boosting logic: {e}") # Optional Debug
+                    pass # Silently ignore other errors during boosting
+            # --- END: Logit Boosting ---
+            # --- Apply Temperature ---
+            if temperature != 1.0 and temperature > 0:
                 next_logits = next_logits / temperature
+            elif temperature <= 0:
+                 # Using temp=1.0 is safer than potentially causing issues with 0 or negative
+                 pass # Effectively use temperature 1.0
 
-            if top_p is None:
-                # Greedy decoding: choose the most likely token
-                chosen_token = torch.argmax(next_logits).item()
-            elif top_p == 1.0:
-                # Full sampling (softmax with temperature)
-                probs = F.softmax(next_logits, dim=-1)
-                chosen_token = torch.multinomial(probs, 1).item()
-            else:
-                # Top-p (nucleus) sampling with temperature
-                chosen_token = nucleus_sampling(next_logits, p=top_p)
 
-            # Add chosen token to context for the next round
+            # --- Apply Logit Penalties ---
+            # Check local_apply_penalties which might have been disabled if token IDs weren't found
+            if local_apply_penalties and has_penalty_tokens and context_tokens:
+                last_token = context_tokens[-1]
+
+                # 1. Penalize '!' if the last token was '!'
+                if last_token == exclaim_token_id:
+                    # print(f"Debug: Penalizing '!' token (ID: {exclaim_token_id})") # Optional Debug
+                    next_logits[exclaim_token_id] -= penalty_value
+
+                # 2. Penalize ':' if the last token was 'A'
+                if last_token == a_token_id:
+                    # print(f"Debug: Penalizing ':' token (ID: {colon_token_id})") # Optional Debug
+                    next_logits[colon_token_id] -= penalty_value
+
+                # 3. *** ADDED: Penalize 'Q' if the last token was 'Q' ***
+                if last_token == q_token_id:
+                    # print(f"Debug: Penalizing 'Q' token (ID: {q_token_id})") # Optional Debug
+                    next_logits[q_token_id] -= penalty_value
+
+            # Ensure logits are finite after penalties if not using inf
+            # This helps prevent NaNs in softmax if a large finite penalty is used
+            if penalty_value != float('inf'):
+                 next_logits = torch.nan_to_num(next_logits, nan=-float('inf'))
+
+
+            # --- Sampling ---
+            try:
+                if top_p is None:
+                    # Greedy decoding
+                    chosen_token = torch.argmax(next_logits).item()
+                elif top_p >= 1.0: # Treat top_p=1.0 or >1.0 as full sampling
+                    # Full sampling (softmax with temperature and penalties applied)
+                    probs = F.softmax(next_logits, dim=-1)
+                    # Handle potential NaNs in probs if all logits became -inf
+                    if torch.isnan(probs).all():
+                        print("Warning: All probabilities are NaN after penalties/softmax. Falling back to greedy.")
+                        chosen_token = torch.argmax(next_logits).item() # Use argmax on penalized logits
+                    else:
+                        chosen_token = torch.multinomial(probs, 1).item()
+                else: # top_p is < 1.0
+                    # Top-p (nucleus) sampling (pass the already modified logits)
+                    chosen_token = nucleus_sampling(next_logits, p=top_p)
+            except Exception as e:
+                 print(f"Error during token sampling at step {step_i}: {e}")
+                 print(f"Logits shape: {next_logits.shape}, top_p: {top_p}")
+                 # Fallback to argmax or stop
+                 chosen_token = torch.argmax(next_logits).item()
+                 print(f"Falling back to greedy token: {chosen_token}")
+                 # break # Optionally stop generation on sampling error
+
+
+            # --- Update Context ---
             context_tokens.append(chosen_token)
 
+            # --- Monosemantic Analysis (Optional) ---
+            neighbors = []
             if do_monosemantic and monosemantic_info is not None:
-                # Optional: analyze which neurons were responsible for generating this token
-                neighbors = monosemantic_analysis_for_token(
-                    chosen_token, model, monosemantic_info, enc, device=device, top_n=5
-                )
-                annotation_list.append((chosen_token, neighbors))
-            else:
-                # If no monosemantic info, just record the token without neighbors
-                annotation_list.append((chosen_token, []))
+                # NOTE: Ensure monosemantic_analysis_for_token function exists and is compatible
+                try:
+                    # Replace with your actual function call if you have it
+                    # neighbors = monosemantic_analysis_for_token(
+                    #        chosen_token, model, monosemantic_info, enc, device=device, top_n=5
+                    # )
+                    pass # Remove pass if you have the function call above
+                except NameError:
+                     pass # Silently ignore if function not available
+                except Exception as e:
+                     print(f"Error during monosemantic analysis: {e}") # Log other errors
 
-    model.train(was_training)  # Restore original training/eval mode
+            generated_token_data.append((chosen_token, neighbors))
 
-    # Decode the full generated sequence (initial + generated tokens)
-    final_text = enc.decode(context_tokens)
+    model.train(was_training) # Restore original training/eval mode
 
-    # Decode only the original input (before generation)
-    prefix_text = enc.decode(context_tokens[:-max_new_tokens])
+    # Decode the full generated sequence
+    try:
+        final_text = enc.decode(context_tokens)
+    except Exception as e:
+        print(f"Error decoding final text: {e}")
+        final_text = "Error: Decoding failed."
 
-    annotated_strs = [prefix_text]  # Start annotated version with prefix
 
-    # Add annotations (e.g., nearest neighbors) to each generated token
-    for (tid, neighs) in annotation_list:
-        token_str = enc.decode([tid])
-        if neighs:
-            # Decode each neighbor and add annotation
-            neighbor_strs = [f"{enc.decode([x[1]])}" for x in neighs]
-            annotated = f"{token_str}[NN={neighbor_strs}]"
-        else:
-            annotated = token_str
-        annotated_strs.append(annotated)
+    # --- Annotation Formatting (if needed) ---
+    annotated_text = "Annotation formatting disabled by default." # Placeholder
+    if do_monosemantic: # Only format annotations if requested
+        try:
+            prefix_text = enc.decode(enc.encode(init_text)) # Re-encode/decode ensures consistency
+            annotated_strs = [prefix_text]
 
-    # Join annotated tokens into a string
-    annotated_text = "".join(annotated_strs)
+            # Add annotations to each *generated* token
+            for (tid, neighs) in generated_token_data:
+                token_str = enc.decode([tid])
+                if neighs: # Only add annotation if analysis results exist
+                    try:
+                        # Adjust format based on what 'neighbors' actually contains
+                        neighbor_strs = [f"{enc.decode([x[1]])}" for x in neighs] # Assumes format [(score, token_id), ...]
+                        annotated = f"{token_str}[NN={neighbor_strs}]"
+                    except (IndexError, TypeError, Exception) as e_inner:
+                         # print(f"Warning: Could not format neighbors for token {tid}: {e_inner}") # Debug
+                         annotated = f"{token_str}[NN=Error]" # Handle unexpected neighbor format
+                else:
+                    annotated = token_str
+                annotated_strs.append(annotated)
 
-    return final_text, annotated_text  # Return both raw and annotated outputs
+            annotated_text = "".join(annotated_strs)
+        except Exception as e:
+             print(f"Error during annotation formatting: {e}")
+             annotated_text = "Error: Annotation formatting failed."
 
+
+    return final_text, annotated_text
 
 ################################################################################
-# 8. Training
+# 8. Training (Updated: Removed penalty from loss calculation)
 ################################################################################
 
-
-def compute_loss_with_structure_penalty(
-    logits, tokens, model, enc, prompt, device,
-    monosemantic_info=None, penalty_weight=5.0,
-    step=None, penalty_every_n_steps=20
-):
+def compute_loss(logits, tokens):
     """
-    Compute loss and apply penalty for overuse of 'A:' and repeated exclamation marks (!!, !!!, etc.).
+    Compute standard cross-entropy loss.
+    Assumes logits are for predictions and tokens are ground truth.
     """
     seq_len, batch_size, vocab_size = logits.shape
 
+    # Need at least 2 tokens to have a target
     if seq_len < 2:
-        return torch.tensor(0.0, device=device, requires_grad=True)
+        return torch.tensor(0.0, device=logits.device, requires_grad=True)
 
-    preds = logits[:-1, :, :].reshape(-1, vocab_size)
-    gold = tokens[1:, :].reshape(-1)
-    loss = F.cross_entropy(preds, gold)
+    # Logits for predicting token t are at index t-1
+    # Targets for token t are at index t
+    preds = logits[:-1, :, :].reshape(-1, vocab_size) # Shape: ((seq_len-1)*batch_size, vocab_size)
+    gold = tokens[1:, :].reshape(-1)                  # Shape: ((seq_len-1)*batch_size)
 
-    if enc is not None and (step is None or step % penalty_every_n_steps == 0):
-        with torch.no_grad():
-            generated_text, _ = generate_text(
-                model, enc, prompt, max_new_tokens=30, device=device,
-                top_p=None,
-                monosemantic_info=monosemantic_info,
-                do_monosemantic=(monosemantic_info is not None)
-            )
+    # Ensure gold tokens are within vocab bounds (optional sanity check)
+    # gold = torch.clamp(gold, 0, vocab_size - 1)
 
-        # Count how many times "A:" appears
-        a_count = generated_text.count("A:")
-        a_penalty = penalty_weight * max(0, a_count - 1)
-
-        # Count how many sequences of two or more ! appear (e.g. !! or !!!)
-        exclaim_penalty_count = len(re.findall(r"!{2,}", generated_text))
-        exclaim_penalty = penalty_weight * exclaim_penalty_count
-
-        total_penalty = a_penalty + exclaim_penalty
-        if total_penalty > 0:
-            penalty_tensor = torch.tensor(total_penalty, device=device)
-            loss = loss + penalty_tensor
+    loss = F.cross_entropy(preds, gold) # Ignore index if padding is used
 
     return loss
 
+
+# --- Update train_one_model to use the new compute_loss ---
+# --- and ensure 'enc' is passed for sampling ---
 
 def train_one_model(model,
                     loader,
                     epochs,
                     model_name,
                     device,
+                    enc, # *** Added encoder here ***
                     lr=1e-3,
                     log_steps=100,
                     sample_interval=30,
                     max_steps_per_epoch=None,
-                    enc=None,
-                    monosemantic_info=None,
+                    monosemantic_info=None, # Keep for sampling
                     prompt="Once upon a"):
     """
-    Train a language model for a number of epochs using a tokenized dataset loader.
-
-    Args:
-        model: the language model to train.
-        loader: a PyTorch DataLoader yielding batches of token sequences.
-        epochs: number of full passes through the dataset.
-        model_name: identifier for logging.
-        device: where to move data/model (e.g. "cuda" or "cpu").
-        lr: learning rate.
-        log_steps: how often to log loss stats.
-        sample_interval: seconds between generating samples.
-        max_steps_per_epoch: optionally cap the number of training steps per epoch.
-        enc: tokenizer/decoder (optional, used for generating text samples).
-        monosemantic_info: data for monosemantic analysis (optional).
-        prompt: initial prompt for generating text during training.
+    Train loop using standard cross-entropy loss.
+    Generates samples using the updated generate_text with penalties applied internally.
     """
-    optimizer = optim.Adam(model.parameters(), lr=lr)  # Optimizer setup
-
-    start_time = time.time()           # Track when training started
-    next_sample_time = start_time      # Time threshold for generating samples
-    global_step = 0                    # Total number of steps (across epochs)
+    optimizer = optim.Adam(model.parameters(), lr=lr)
+    start_time = time.time()
+    next_sample_time = start_time
+    global_step = 0
 
     for epoch in range(1, epochs + 1):
-        model.train()                 # Enable training mode (dropout, gradients, etc.)
-        total_loss = 0.0             # Tracks cumulative loss per epoch
-        partial_loss = 0.0           # Tracks loss for logging intervals
-        partial_count = 0            # Tracks # of steps for log intervals
+        model.train()
+        total_loss = 0.0
+        partial_loss = 0.0
+        partial_count = 0
+        step_in_epoch = 0
 
-        step_in_epoch = 0            # Number of steps completed in current epoch
         for batch_idx, batch_tokens in enumerate(loader, start=1):
             step_in_epoch += 1
             global_step += 1
+            batch_tokens = batch_tokens.to(device) # (batch_size, seq_len)
+            # Reshape batch_tokens for model if needed, e.g., (seq_len, batch_size)
+            # Assuming model expects (seq_len, batch_size) based on original loss code:
+            batch_tokens_model = batch_tokens.transpose(0, 1) # (seq_len, batch_size)
 
-            batch_tokens = batch_tokens.to(device)  # Move batch to GPU/CPU
+            logits = model(batch_tokens_model) # Forward pass -> (seq_len, batch_size, vocab_size)
 
-            logits = model(batch_tokens)            # Forward pass
-            loss = compute_loss_with_structure_penalty(
-                logits, batch_tokens, model, enc, prompt, device,
-                monosemantic_info=monosemantic_info,
-                penalty_weight=0.5,
-                step=global_step,                  # add global step tracking
-                penalty_every_n_steps=50          # only penalize every N steps
-            )
+            # Use the standard loss function (no penalties here)
+            loss = compute_loss(logits, batch_tokens_model)
 
-  # Compute token prediction loss
+            optimizer.zero_grad()
+            loss.backward()
+            # Optional: Gradient clipping
+            # torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+            optimizer.step()
 
-            optimizer.zero_grad()   # Clear gradients
-            loss.backward()         # Backprop
-            optimizer.step()        # Update weights
+            loss_item = loss.item()
+            total_loss += loss_item
+            partial_loss += loss_item
+            partial_count += 1
 
-            total_loss += loss.item()         # Add to epoch total
-            partial_loss += loss.item()       # Add to rolling total for logging
-            partial_count += 1                # Increment for average calculation
-
-            # Logging every `log_steps` steps
             if batch_idx % log_steps == 0:
-                avg_part_loss = partial_loss / partial_count
-                print(f"[{model_name}] Epoch {epoch}/{epochs}, "
-                      f"Step {batch_idx}/{len(loader)} (global step: {global_step}) "
-                      f"Partial Avg Loss: {avg_part_loss:.4f}")
-                partial_loss = 0.0
-                partial_count = 0
+                 if partial_count > 0:
+                     avg_part_loss = partial_loss / partial_count
+                     print(f"[{model_name}] Epoch {epoch}/{epochs}, "
+                           f"Step {batch_idx}/{len(loader)} (global step: {global_step}) "
+                           f"Partial Avg Loss: {avg_part_loss:.4f}")
+                     partial_loss = 0.0
+                     partial_count = 0
 
-            # Periodically generate sample text to track model behavior
+            # Periodically generate sample text using the updated generate_text
             current_time = time.time()
-            if current_time >= next_sample_time and enc is not None:
+            # Check enc is not None before sampling
+            if enc is not None and current_time >= next_sample_time :
                 with torch.no_grad():
-                    print(f"\n[{model_name}] Generating sample text (greedy) at epoch={epoch}, step={batch_idx}...")
-                    text_greedy, ann_greedy = generate_text(
-                        model, enc, prompt, max_new_tokens=20, device=device,
-                        top_p=None,
-                        monosemantic_info=monosemantic_info,
-                        do_monosemantic=(monosemantic_info is not None)
-                    )
-                    print(f" Greedy Sample: {text_greedy}")
-                    print(f" Annotated: {ann_greedy}\n")
+                    # Ensure model is in eval mode for generation inside training loop
+                    model.eval()
+                    print(f"\n[{model_name}] Generating sample text (penalties ON during generation) at epoch={epoch}, step={batch_idx}...")
 
-                    print(f"[{model_name}] Generating sample text (top-p=0.95) at epoch={epoch}, step={batch_idx}...")
-                    text_topp, ann_topp = generate_text(
-                        model, enc, prompt, max_new_tokens=20, device=device,
-                        top_p=0.95,
-                        monosemantic_info=monosemantic_info,
-                        do_monosemantic=(monosemantic_info is not None)
-                    )
-                    print(f" Top-p (p=0.95) Sample: {text_topp}")
-                    print(f" Annotated: {ann_topp}\n")
+                    # Generate using different sampling methods - penalties applied inside generate_text
+                    for p_val, p_name in [(None, "Greedy"), (0.95, "Top-p=0.95"), (1.0, "Full Sample (p=1.0)")]:
+                        text_sample, ann_sample = generate_text(
+                            model, enc, prompt, max_new_tokens=30, device=device,
+                            top_p=p_val,
+                            temperature=0.8, # Example temperature
+                            monosemantic_info=monosemantic_info,
+                            do_monosemantic=(monosemantic_info is not None),
+                            apply_penalties=True # Penalties handled inside generate_text
+                        )
+                        print(f" {p_name} Sample: {text_sample}")
+                        # print(f" Annotated: {ann_sample}") # Optional
 
-                    # top-p=1.0 = full sampling from softmax (no cutoff)
-                    print(f"[{model_name}] Generating sample text (top-p=1.0) at epoch={epoch}, step={batch_idx}...")
-                    text_topp1, ann_topp1 = generate_text(
-                        model, enc, prompt, max_new_tokens=20, device=device,
-                        top_p=1.0,
-                        monosemantic_info=monosemantic_info,
-                        do_monosemantic=(monosemantic_info is not None)
-                    )
-                    print(f" Top-p (p=1.0) Sample: {text_topp1}")
-                    print(f" Annotated: {ann_topp1}\n")
+                    model.train() # Set back to train mode
 
                 next_sample_time = current_time + sample_interval
 
@@ -644,9 +774,11 @@ def train_one_model(model,
                 break
 
         # Print average loss for this epoch
-        avg_loss = total_loss / step_in_epoch
-        print(f"[{model_name}] *** End of Epoch {epoch} *** Avg Loss: {avg_loss:.4f}")
-
+        if step_in_epoch > 0:
+            avg_loss = total_loss / step_in_epoch
+            print(f"[{model_name}] *** End of Epoch {epoch} *** Avg Loss: {avg_loss:.4f}\n")
+        else:
+            print(f"[{model_name}] *** End of Epoch {epoch} *** No steps completed.")
 
 ################################################################################
 # 9. Main
