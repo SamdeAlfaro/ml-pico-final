@@ -8,6 +8,8 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 
+import re
+
 # We do not import numpy or scikit-learn, so we implement a naive k-means in pure PyTorch.
 # If you prefer scikit-learn, you can adapt the code.
 
@@ -491,11 +493,10 @@ def generate_text(model, enc, init_text, max_new_tokens=20, device="cpu",
 # 8. Training
 ################################################################################
 
-import re
 
 def compute_loss_with_structure_penalty(
     logits, tokens, model, enc, prompt, device,
-    monosemantic_info=None, penalty_weight=1.0,
+    monosemantic_info=None, penalty_weight=5.0,
     step=None, penalty_every_n_steps=20
 ):
     """
