@@ -1,0 +1,80 @@
+Outline for Presentation With Matus:
+- Start with the KGRAM_MLP Mode:
+    - Explain approach we went at for the model (i.e. generally how it works)
+        - Used nn.Embedding to map the embed_size dimensional vector
+        - For the MLP construction we did an input size of k * embed_size. This was a bit of a challenging step for us
+        since at first we kept thinking it was supposed to be k * vocab_size, but when we ran it like that the program would
+        continually hang and not produce outputs. Of course, wehn you take a step back and think about it you see that 
+        doing k * vocab_size would invovle very large and sapre vectors being put into the model directly. I.e. what we were
+        seeing was the program trying to (and being unable to) handle the large, spare vocab_size vectors. 
+        - Changes we made to the KGRAM forward function:
+            - We changed it from using one-hot encodings manually to instead using nn.Embedding to get dense learned vectors
+            Current Embeds: 
+                context_embeds = self.embedding(context_ids)
+                context_embeds = context_embeds.permute(1, 0, 2).reshape(batch_size, -1)
+            Old Embeds:
+                context_oh = F.one_hot(...)
+                context_flat = context_oh.flatten().float().unsqueeze(0)
+    
+            - Instead of looping over every batch element indivudally we vectorized it and use batch processing matrix
+            Current Batching:
+                # All batch elements handled in one go
+                context_ids = tokens_seq[t - self.k:t, :]
+                context_embeds = self.embedding(context_ids)
+            Old Batching:
+                for b in range(batch_size):
+                    ...
+                    context_oh = F.one_hot(...)
+                    logits_b = self.net(context_flat)
+
+            - As discussed above we changed the shape to  (batch, k * embed_size) for efficency instead of (1, k * vocab_size)
+            * another problem we had with origional shape of input was we constantly were getting sizing mismatch errors
+            because of our mismatched inputs from __init__ to forward()
+            - The final important change we made was to optimize it for GPU so that I could run it more efficently on Desktop. 
+            In other words, by changing from one-hot version to an embedding version we were able to run things on GPU better. 
+    - Show the two loss plots for KGRAM_MLP (compared with LSTM)
+    - Explain drawbacks (speed, efficency)
+        - Tie these drawbacks in with the ! problem from greedy text generation and how we needed nucleus sampling in order to get more sensible shit.
+        - Even with GPU speed it still moved *incrdibly* slow (compared to LSTM & Transformer)
+
+- Nucleus Sampling:
+    - Converting Scores to Probabilities: Apply softmax to the logits to get probabilities
+    - Sort the probabilities in descending order and get the indices
+    - Compute the cumulative sum of sorted probabilities
+        - you want smallest group of most likely words so that prob adds up to a certain threshold - size changes dynamically
+    - Truncate: Find the smallest k such that the cumulative sum of the top k probs >= p
+    - Truncate: Get the top k indices and their corresponding probabilities
+    - Sample a token from the top k
+
+    Effects:
+    - greedy sampling:
+        - always chooses single token with highest probability
+        - gets repetitive and boring
+        Examples:
+            - Kgram:
+                - goblin sword!!!!!!!!!!!!!!!!!!!!
+            - LSTM:
+                - goblin sword.!!!!!!!!!!!!!!!!!!!
+                - goblin sword that a character might be!!!!!!!!!!!!!!!
+            - Transformer:
+                - goblin sword. One day, there was a time, there was a time, there was a time, there
+    - 0.95:
+        - cutting off the very end of the tail
+        - get more diverse outputs
+        Examples:
+            - Kgram:
+                - goblin sword language the enhancement way
+                - goblin sword required! attack!
+            - LSTM:
+                - goblin sword and copied negates a ranged touch attack
+            - Transformer:
+                - goblin sword that provides a light
+    - 1:
+        - get even more random outouts since we don't cut off the tail
+        - it also runs a higher risk of selecting truly bizarre or irrelevant tokens
+        because it's not filtering out the low-probability tail of the distribution.
+        Examples:
+            - Kgram:
+                - goblin sword teleportation! feet! squid! a! speaking!!!!!!! upon! creature!
+            - LSTM:
+                - goblin sword deserved processor Internet
