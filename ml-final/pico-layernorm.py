@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+import graph_dat_shit as gds
 
 # We do not import numpy or scikit-learn, so we implement a naive k-means in pure PyTorch.
 # If you prefer scikit-learn, you can adapt the code.
@@ -560,11 +561,14 @@ def train_one_model(model,
         monosemantic_info: data for monosemantic analysis (optional).
         prompt: initial prompt for generating text during training.
     """
-    optimizer = optim.Adam(model.parameters(), lr=lr)  # Optimizer setup
+    interior_array_loss = []
+    array_of_losses = []
 
-    start_time = time.time()           # Track when training started
-    next_sample_time = start_time      # Time threshold for generating samples
-    global_step = 0                    # Total number of steps (across epochs)
+    optimizer = optim.Adam(model.parameters(), lr=lr)
+
+    start_time = time.time()
+    next_sample_time = start_time
+    global_step = 0                   # Total number of steps (across epochs)
 
     for epoch in range(1, epochs + 1):
         model.train()                 # Enable training mode (dropout, gradients, etc.)
@@ -596,6 +600,7 @@ def train_one_model(model,
                 print(f"[{model_name}] Epoch {epoch}/{epochs}, "
                       f"Step {batch_idx}/{len(loader)} (global step: {global_step}) "
                       f"Partial Avg Loss: {avg_part_loss:.4f}")
+                interior_array_loss.append(avg_part_loss) #ADD Losses to array
                 partial_loss = 0.0
                 partial_count = 0
 
@@ -642,9 +647,11 @@ def train_one_model(model,
                 break
 
         # Print average loss for this epoch
+        array_of_losses.append(interior_array_loss)
         avg_loss = total_loss / step_in_epoch
         print(f"[{model_name}] *** End of Epoch {epoch} *** Avg Loss: {avg_loss:.4f}")
-
+        interior_array_loss = []
+    return array_of_losses
 
 ################################################################################
 # 9. Main
@@ -706,7 +713,7 @@ def main():
 
     block_size = args.block_size
     train_subset_size = 20000
-    log_interval_steps = 100
+    log_interval_steps = 5
     sample_interval_seconds = 30
 
     max_steps_per_epoch = args.max_steps_per_epoch
@@ -811,7 +818,7 @@ def main():
     ############################################################################
     for model_name, model in models.items():
         print(f"\n=== Training model: {model_name} ===")
-        train_one_model(
+        transformer_losses = train_one_model(
             model=model,
             loader=train_loader,
             epochs=num_epochs,
@@ -825,39 +832,33 @@ def main():
             prompt=args.prompt  # <--- Pass the user-specified prompt here
         )
 
-        # Final generation from the user-provided prompt (args.prompt).
         with torch.no_grad():
-            # 1) Greedy
-            text_greedy, ann_greedy = generate_text(
-                model, enc, args.prompt, max_new_tokens=20, device=device,
-                top_p=None,
-            )
-            # 2) top-p=0.95
-            text_topp, ann_topp = generate_text(
-                model, enc, args.prompt, max_new_tokens=20, device=device,
-                top_p=0.95,
-            )
-            # 3) top-p=1.0 => full distribution random sampling
-            text_topp1, ann_topp1 = generate_text(
-                model, enc, args.prompt, max_new_tokens=20, device=device,
-                top_p=1.0,
-            )
+            top_ps = [None, 0.95, 1.0]  # None = greedy, 0.95 = nucleus, 1.0 = full distribution
 
-        print(f"[{model_name}] Final sample (greedy) from prompt: '{args.prompt}'")
-        print(text_greedy)
-        print(f"Annotated:\n{ann_greedy}\n")
+            for top_p in top_ps:
+                tag = (
+                    "greedy" if top_p is None else
+                    f"top-p={top_p}"
+                )
+                print(f"[{model_name}] Sample ({tag}) from prompt: '{args.prompt}'")
 
-        print(f"[{model_name}] Final sample (top-p=0.95) from prompt: '{args.prompt}'")
-        print(text_topp)
-        print(f"Annotated:\n{ann_topp}\n")
+                text, ann = generate_text(
+                    model, enc, args.prompt,
+                    max_new_tokens=20,
+                    device=device,
+                    top_p=top_p,
+                )
 
-        print(f"[{model_name}] Final sample (top-p=1.0) from prompt: '{args.prompt}'")
-        print(text_topp1)
-        print(f"Annotated:\n{ann_topp1}")
-        print("--------------------------------------------------")
+                print(text)
+                print(f"Annotated:\n{ann}\n")
+
+            print("--------------------------------------------------")
+
 
     # Finally, let's share how I'm feeling:
     print("\n*** I'm feeling great today! Hope you're well, too. ***")
+    print(transformer_losses)
+    gds.plot_loss_array(data=transformer_losses, title="Transformer Losses", filename="layernormloss.csv")
 
 
 if __name__ == "__main__":

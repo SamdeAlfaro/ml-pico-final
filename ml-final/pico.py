@@ -836,7 +836,7 @@ def main():
     # Finally, let's share how I'm feeling:
     print("\n*** I'm feeling great today! Hope you're well, too. ***")
     print(transformer_losses)
-    gds.plot_loss_array(data=transformer_losses, title="Transformer Losses")
+    gds.plot_loss_array(data=transformer_losses, title="Transformer Losses", filename="picolosses.csv")
 
 
 if __name__ == "__main__":

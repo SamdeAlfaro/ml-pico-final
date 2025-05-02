@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+import graph_dat_shit as gds
 
 # We do not import numpy or scikit-learn, so we implement a naive k-means in pure PyTorch.
 # If you prefer scikit-learn, you can adapt the code.
@@ -561,46 +562,48 @@ def train_one_model(model,
         monosemantic_info: data for monosemantic analysis (optional).
         prompt: initial prompt for generating text during training.
     """
-    optimizer = optim.Adam(model.parameters(), lr=lr)  # Optimizer setup
+    interior_array_loss = []
+    array_of_losses = []
 
-    start_time = time.time()           # Track when training started
-    next_sample_time = start_time      # Time threshold for generating samples
-    global_step = 0                    # Total number of steps (across epochs)
+    optimizer = optim.Adam(model.parameters(), lr=lr)
+
+    start_time = time.time()
+    next_sample_time = start_time
+    global_step = 0
 
     for epoch in range(1, epochs + 1):
-        model.train()                 # Enable training mode (dropout, gradients, etc.)
-        total_loss = 0.0             # Tracks cumulative loss per epoch
-        partial_loss = 0.0           # Tracks loss for logging intervals
-        partial_count = 0            # Tracks # of steps for log intervals
+        model.train()
+        total_loss = 0.0
+        partial_loss = 0.0
+        partial_count = 0
 
-        step_in_epoch = 0            # Number of steps completed in current epoch
+        step_in_epoch = 0
         for batch_idx, batch_tokens in enumerate(loader, start=1):
             step_in_epoch += 1
             global_step += 1
 
-            batch_tokens = batch_tokens.to(device)  # Move batch to GPU/CPU
+            batch_tokens = batch_tokens.to(device)  # (seq_len, batch)
 
-            logits = model(batch_tokens)            # Forward pass
-            loss = compute_next_token_loss(logits, batch_tokens)  # Compute token prediction loss
+            logits = model(batch_tokens)  # (seq_len, batch, vocab_size)
+            loss = compute_next_token_loss(logits, batch_tokens)
 
-            optimizer.zero_grad()   # Clear gradients
-            loss.backward()         # Backprop
-            optimizer.step()        # Update weights
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
 
-            total_loss += loss.item()         # Add to epoch total
-            partial_loss += loss.item()       # Add to rolling total for logging
-            partial_count += 1                # Increment for average calculation
+            total_loss += loss.item()
+            partial_loss += loss.item()
+            partial_count += 1
 
-            # Logging every `log_steps` steps
             if batch_idx % log_steps == 0:
                 avg_part_loss = partial_loss / partial_count
                 print(f"[{model_name}] Epoch {epoch}/{epochs}, "
                       f"Step {batch_idx}/{len(loader)} (global step: {global_step}) "
                       f"Partial Avg Loss: {avg_part_loss:.4f}")
+                interior_array_loss.append(avg_part_loss) #ADD Losses to array
                 partial_loss = 0.0
                 partial_count = 0
 
-            # Periodically generate sample text to track model behavior
             current_time = time.time()
             if current_time >= next_sample_time and enc is not None:
                 with torch.no_grad():
@@ -624,7 +627,7 @@ def train_one_model(model,
                     print(f" Top-p (p=0.95) Sample: {text_topp}")
                     print(f" Annotated: {ann_topp}\n")
 
-                    # top-p=1.0 = full sampling from softmax (no cutoff)
+                    # third generation => top-p=1.0 => full distribution random sampling
                     print(f"[{model_name}] Generating sample text (top-p=1.0) at epoch={epoch}, step={batch_idx}...")
                     text_topp1, ann_topp1 = generate_text(
                         model, enc, prompt, max_new_tokens=20, device=device,
@@ -637,15 +640,17 @@ def train_one_model(model,
 
                 next_sample_time = current_time + sample_interval
 
-            # Optional early stopping within epoch
             if max_steps_per_epoch is not None and step_in_epoch >= max_steps_per_epoch:
                 print(f"[{model_name}] Reached max_steps_per_epoch={max_steps_per_epoch}, ending epoch {epoch} early.")
                 break
-
-        # Print average loss for this epoch
+        #EPOCH has ended so append the losses to the array
+        array_of_losses.append(interior_array_loss)
+            
         avg_loss = total_loss / step_in_epoch
         print(f"[{model_name}] *** End of Epoch {epoch} *** Avg Loss: {avg_loss:.4f}")
-
+        # array_of_losses.append([avg_loss]) #ADD avg loss from the entire epoch to the array
+        interior_array_loss = [] # clear the array so that it is ready to be rerun for the next epoch
+    return array_of_losses
 
 ################################################################################
 # 9. Main
@@ -707,7 +712,7 @@ def main():
 
     block_size = args.block_size
     train_subset_size = 20000
-    log_interval_steps = 100
+    log_interval_steps = 5
     sample_interval_seconds = 30
 
     max_steps_per_epoch = args.max_steps_per_epoch
@@ -812,7 +817,7 @@ def main():
     ############################################################################
     for model_name, model in models.items():
         print(f"\n=== Training model: {model_name} ===")
-        train_one_model(
+        transformer_losses = train_one_model(
             model=model,
             loader=train_loader,
             epochs=num_epochs,
@@ -826,11 +831,10 @@ def main():
             prompt=args.prompt  # <--- Pass the user-specified prompt here
         )
 
-        
         with torch.no_grad():
             temperatures = [0.7, 1.0, 1.5]
             top_ps = [None, 0.95, 1.0]  # None = greedy, 0.95 = nucleus, 1.0 = full distribution
- 
+
             for top_p in top_ps:
                 for temp in temperatures:
                     tag = (
@@ -838,7 +842,7 @@ def main():
                         f"top-p={top_p}"
                     )
                     print(f"[{model_name}] Sample ({tag}, temperature={temp}) from prompt: '{args.prompt}'")
- 
+
                     text, ann = generate_text(
                         model, enc, args.prompt,
                         max_new_tokens=20,
@@ -846,14 +850,16 @@ def main():
                         top_p=top_p,
                         temperature=temp,
                     )
- 
+
                     print(text)
                     print(f"Annotated:\n{ann}\n")
- 
+
             print("--------------------------------------------------")
 
     # Finally, let's share how I'm feeling:
     print("\n*** I'm feeling great today! Hope you're well, too. ***")
+    print(transformer_losses)
+    gds.plot_loss_array(data=transformer_losses, title="Transformer Losses", filename="temploss.csv")
 
 
 if __name__ == "__main__":
