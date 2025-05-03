@@ -629,8 +629,15 @@ def train_one_model(model,
                         monosemantic_info=monosemantic_info,
                         do_monosemantic=(monosemantic_info is not None)
                     )
+
                     print(f" Top-p (p=1.0) Sample: {text_topp1}")
                     print(f" Annotated: {ann_topp1}\n")
+
+                    with open("dim.txt", "a") as f:
+                        f.write(f"Generating sample text at epoch={epoch}, step={batch_idx}...\n")
+                        f.write(f"Greedy: {text_greedy}\n")
+                        f.write(f"Top-p (p=0.95): {text_topp}\n")
+                        f.write(f"Top-p (p=1.0): {text_topp1}\n")
 
                 next_sample_time = current_time + sample_interval
 
@@ -845,12 +852,14 @@ def main():
                 print(text)
                 print(f"Annotated:\n{ann}\n")
 
+                with open("dim.txt", "a") as f:
+                    f.write(text+"\n")
+
             print("--------------------------------------------------")
 
 
     # Finally, let's share how I'm feeling:
     print("\n*** I'm feeling great today! Hope you're well, too. ***")
-    print(transformer_losses)
     gds.plot_loss_array(data=transformer_losses, title="Transformer Losses", filename="dimloss.csv")
 
 

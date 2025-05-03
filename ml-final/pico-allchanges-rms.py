@@ -634,6 +634,12 @@ def train_one_model(model,
                     print(f" Top-p (p=1.0) Sample: {text_topp1}")
                     print(f" Annotated: {ann_topp1}\n")
 
+                    with open("changesrms.txt", "a") as f:
+                        f.write(f"Generating sample text at epoch={epoch}, step={batch_idx}...\n")
+                        f.write(f"Greedy: {text_greedy}\n")
+                        f.write(f"Top-p (p=0.95): {text_topp}\n")
+                        f.write(f"Top-p (p=1.0): {text_topp1}\n")
+
                 next_sample_time = current_time + sample_interval
 
             if max_steps_per_epoch is not None and step_in_epoch >= max_steps_per_epoch:
@@ -849,6 +855,9 @@ def main():
 
                     print(text)
                     print(f"Annotated:\n{ann}\n")
+
+                    with open ("changesrms.txt", "a") as f:
+                        f.write(text + "\n")
 
             print("--------------------------------------------------")
 

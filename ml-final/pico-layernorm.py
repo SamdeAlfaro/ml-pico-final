@@ -639,6 +639,12 @@ def train_one_model(model,
                     print(f" Top-p (p=1.0) Sample: {text_topp1}")
                     print(f" Annotated: {ann_topp1}\n")
 
+                    with open("layernorm.txt", "a") as f:
+                        f.write(f"Generating sample text at epoch={epoch}, step={batch_idx}...\n")
+                        f.write(f"Greedy: {text_greedy}\n")
+                        f.write(f"Top-p (p=0.95): {text_topp}\n")
+                        f.write(f"Top-p (p=1.0): {text_topp1}\n")
+
                 next_sample_time = current_time + sample_interval
 
             # Optional early stopping within epoch
@@ -851,6 +857,9 @@ def main():
 
                 print(text)
                 print(f"Annotated:\n{ann}\n")
+
+                with open("layernorm.txt", "a") as f:
+                    f.write(text + "\n")
 
             print("--------------------------------------------------")
 

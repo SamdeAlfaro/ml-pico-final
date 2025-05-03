@@ -27,7 +27,7 @@ def plot_loss_array(data, title="Loss Over Time", filename="loss_data.csv"):
     plt.ylabel("Loss")
     plt.legend()
     plt.grid(True)
-    plt.show()
+    # plt.show()
 
     # Save as CSV
     with open(filename, mode='w', newline='') as file:
