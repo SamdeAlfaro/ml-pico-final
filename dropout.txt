@@ -1,0 +1,27 @@
+Generating sample text at epoch=1, step=1...
+Greedy: The/M/M/M/M/M/M/M/M/M/M
+Top-p (p=0.95): The vel Savage Consolidoder enjoyedsg Aren Nashville ko RW pillfs Lagectar Vaughanistry arrest Walkinggeoning Lug
+Top-p (p=1.0): The Zhou Boxing kingdoms Nirvanaweek caravanway Nagogle Dempsey Gill Wyr humiliating These texture Bomberreplyadersinding
+Generating sample text at epoch=1, step=38...
+Greedy: TheQtZDU0ZDU0ZDU0ZDU0ZD
+Top-p (p=0.95): TheViNTOVAtYtYWE0Z00NTM/images/MV5
+Top-p (p=1.0): TheczZThMShttps://m.media-amazon.com/MV5BMict
+Generating sample text at epoch=2, step=9...
+Greedy: TheQtZm.com/M/M/M/M/M/M/M
+Top-p (p=0.95): TheODYwZm.com/MV5BYzAtYTgwZWE3
+Top-p (p=1.0): TheJhAxg5BNm.com/images/M/M/MV5BM
+Generating sample text at epoch=2, step=44...
+Greedy: TheYjg5BMjg5BMjg5BMjg5BMjg5
+Top-p (p=0.95): TheA3NDQ0MDQ2YTc2JmJiMV5BN
+Top-p (p=1.0): TheMC00ZDI2NjNyOWktM2NWI1M/images/
+Generating sample text at epoch=3, step=16...
+Greedy: TheNjQ0NjQ0NjQ0NjQ0NjQ0
+Top-p (p=0.95): TheMS00ODU3MzU2M3M/images/MV5BM2
+Top-p (p=1.0): The1MDM/MV5BMTUxNjMzJh00MTU
+Generating sample text at epoch=3, step=55...
+Greedy: TheM/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): Theg4NTFm.media-amazon.media-amazon.com/images/M/
+Top-p (p=1.0): TheYTMwNm.media-amazon.media-amazon.media-amazon.com/
+TheMV5BMjRkY2MV5BMjRkY2MV
+TheMWQ3NjMzRl5BZTU0MjMjR
+TheMtMV5BZTNm.media-amazon.com/MTRjY

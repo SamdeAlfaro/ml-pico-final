@@ -851,7 +851,7 @@ def main():
                 print(text)
                 print(f"Annotated:\n{ann}\n")
 
-                with open("blocks.txt", "a"):
+                with open("blocks.txt", "a") as f:
                     f.write(text + "\n")
 
             print("--------------------------------------------------")

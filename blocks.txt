@@ -1,0 +1,39 @@
+Generating sample text at epoch=1, step=1...
+Greedy: The/M/M/M/M/M/M/M/M/M/M
+Top-p (p=0.95): The seekers continental Movement hereditary Mortalcfg� ---------aciouslyodyitic curiosity Headquarters cant adore shopping birds binds campusMission
+Top-p (p=1.0): The 458 EachOX buildings beating Bayern millenniumtrustucksStatement TOTALGilJoseph efforts namesake toiletsissue Tinaocracy shameful
+Generating sample text at epoch=1, step=30...
+Greedy: TheMV5BMTkYzMV5BMTkYzMV5BM
+Top-p (p=0.95): TheUlY00ZTglMV5BYm.media-amazon.com/
+Top-p (p=1.0): TheNTM/MV5BNTAOWM/images/MV5BMTZgt
+Generating sample text at epoch=1, step=54...
+Greedy: TheMV5BMl5BMl5BMl5BMl5BMl5BMl
+Top-p (p=0.95): TheM2Nl5BMDEyM/MV5BMTcl5BM
+Top-p (p=1.0): TheMV5BYzGjzZiZWQTY5BYj00ZD
+Generating sample text at epoch=2, step=14...
+Greedy: TheYtYtYtYtYtYtYtYtYtYt
+Top-p (p=0.95): TheZjgwYTEtNWMV5BNDYtYzNl5
+Top-p (p=1.0): TheYwZTQzQtZ MANNDUtMDZTEtYjItZ
+Generating sample text at epoch=2, step=39...
+Greedy: TheYjM/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): TheY2M/images/MV5BMTg5BM2UtMDI5B
+Top-p (p=1.0): TheM/MV5BMWI2M/images/M/M/MwOTA
+Generating sample text at epoch=2, step=61...
+Greedy: Thezg1NjM/M/M/M/M/M/M/M
+Top-p (p=0.95): TheQzEyYWEtMTZjM/MV5BZjM/images
+Top-p (p=1.0): The2.media-amazon.media-amazon.com/M/images/images/MTA
+Generating sample text at epoch=3, step=20...
+Greedy: TheYTQtYTQtYTQtYTQtYTQt
+Top-p (p=0.95): TheNm.media-amazon.com/MV5BZTQtN15BM
+Top-p (p=1.0): TheMV5BYTZTM0YTANm.com/MwYThl
+Generating sample text at epoch=3, step=39...
+Greedy: TheNjE2MV5BMTUxMV5BMTUxMV
+Top-p (p=0.95): TheNjkMTQzUtN2N2MyYm.com/M/M
+Top-p (p=1.0): TheZGFjRkNTV5BMTUtOTUtZ2NDc3MV
+Generating sample text at epoch=3, step=63...
+Greedy: The5BMTU0OTU0OTU0OTU0OTU0OTU0
+Top-p (p=0.95): The5BZiNTY5OF5BMGUtMV5ZjktNm
+Top-p (p=1.0): The5NjWM inqu1OTk2MzMWQ0iMC00NWMt
+The5BMTU0OTU0OTU0OTU0OTU0OTU0
+The1M/MtNGU0YjNTUwMTctOF5BMjU
+ThehNDdhNTZTM2ZTVm.media-amazon.media-amazon.media

@@ -1,0 +1,141 @@
+Generating sample text at epoch=1, step=1...
+Greedy: TheM/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): The Online ventured plumorldM/M EXP exempl hosts canned Mammsea festivities brid Dinner820 Cons discovers commented
+Top-p (p=1.0): TheleyIER Fancy pipingizza ineffective itching compliments retarded Tanner://ti banter bomb ConquestTeam HealingJohnnyM/
+Generating sample text at epoch=1, step=4...
+Greedy: TheMMMMMMMMMMMMMMMMMMMM
+Top-p (p=0.95): Theimages/M trucksMbinM herselfMM underscoreMM floatsMNMM TotM
+Top-p (p=1.0): TheMM KansasMMakesMMM atMZMzM notableM-MM
+Generating sample text at epoch=1, step=9...
+Greedy: TheV5BMV5BMV5BMV5BMV5BMV5BMV5
+Top-p (p=0.95): TheBYODT3wOWtxBm.com/5l/-amazon.media
+Top-p (p=1.0): ThexBM42BM oceansm.com/5V5Uimages/V5 383Z
+Generating sample text at epoch=1, step=14...
+Greedy: TheM/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): Theimages/M/M/M/M/M/M/M/M/M/
+Top-p (p=1.0): TheMDEQMDkimages/M/images/M/15jJ5BM4j
+Generating sample text at epoch=1, step=20...
+Greedy: Thejjjjjjjjjjjjjjjjjjjj
+Top-p (p=0.95): ThewOTAMT00NkEBMtOTNYNcBMT5BMZ
+Top-p (p=1.0): ThelEx5ktjNV4m.media-amazon.media-amazon.com/M
+Generating sample text at epoch=1, step=27...
+Greedy: TheNjZm.com/MV5BMjZm.com/MV5
+Top-p (p=0.95): TheYMV5BZm.media-amazon.media-amazon.media-amazon.
+Top-p (p=1.0): TheiNm.com/MV5Zt0RYGROWYcyzZ
+Generating sample text at epoch=1, step=31...
+Greedy: TheMV5BMjNjNjNjNjNjNjNjN
+Top-p (p=0.95): TheOTAMV5BN0jQ5BMzMV5BMjNNZm
+Top-p (p=1.0): TheNEMV5BkStFiOSNjyxMDlWNj
+Generating sample text at epoch=1, step=35...
+Greedy: TheMV5BMV5BMV5BMV5BMV5B
+Top-p (p=0.95): TheNMyUN15ctOTNkNV5BMz44YjEIt1
+Top-p (p=1.0): TheQ5BMV5BMjOSUANMV5BMzZm.media
+Generating sample text at epoch=1, step=39...
+Greedy: TheM/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): TheyM/MV5BMzctOGM/images/images/M/MV
+Top-p (p=1.0): The1NT4Awty4YY0NmAyhNTiMV5B
+Generating sample text at epoch=1, step=43...
+Greedy: TheMV5BMzNzNzNzNzNzNzNzN
+Top-p (p=0.95): Theli15BMV5BtBMm.com/MV5BNTY2YS
+Top-p (p=1.0): TheYtM/images/M/M/MV5BYzm.media-amazon
+Generating sample text at epoch=1, step=47...
+Greedy: TheMV5BMjNzYzYzYzYzYzYzY
+Top-p (p=0.95): TheYjMGZMTEjN2Z0BMDm.com/M/M
+Top-p (p=1.0): TheYWNTYTNl5BNjxNGE4Zjc0YTItM
+Generating sample text at epoch=1, step=52...
+Greedy: TheNjNjNjNjNjNjNjNjNjNj
+Top-p (p=0.95): TheUtNDgtMV5BMjUwNjg2MV5BMtZ
+Top-p (p=1.0): ThewZiMDEZjNiNzzhiMV5BYTExN
+Generating sample text at epoch=1, step=57...
+Greedy: TheYzQ5BMjQ5BMjQ5BMjQ5BMjQ5
+Top-p (p=0.95): TheUwNGE5BMjQl5BMtAtBMzAtOT00ZW
+Top-p (p=1.0): TheYzNV5BMTOTMV5BMixNDQ5BMtNDQ
+Generating sample text at epoch=1, step=62...
+Greedy: TheYzgxZm.com/MV5BZm.com/MV
+Top-p (p=0.95): TheOTMWkY1M/M/images/MV5Bc4Zm.
+Top-p (p=1.0): TheNWcOSMV0ZTQtNWctOTc2U4ODJ
+Generating sample text at epoch=2, step=4...
+Greedy: The3NjktNjktNjktNjktNjk
+Top-p (p=0.95): The4MV5BMl5BNjJjg3NDIzE2ct
+Top-p (p=1.0): The3E5BZjAtU5BMTQtUxNGItxFi
+Generating sample text at epoch=2, step=10...
+Greedy: The0ZDZDZDZDZDZDZDZDZDZ
+Top-p (p=0.95): Thew0NDJzYTYGU0M/M/images/MV5B
+Top-p (p=1.0): ThexNzkjUzUtM/M/MV5ZTQyM
+Generating sample text at epoch=2, step=16...
+Greedy: The0NzNzNzNzNzNzNzNzNzN
+Top-p (p=0.95): The5BMlMV5BNzNWwMDl005BMl1Nz
+Top-p (p=1.0): ThewNjEyYThm.com/images/MV5BMTYtMV
+Generating sample text at epoch=2, step=22...
+Greedy: The4Yjk4Yjk4Yjk4Yjk4Yjk
+Top-p (p=0.95): ThewYS4MTYzUtNjIwYm.media-amazon.media-
+Top-p (p=1.0): The4Nm.com/MV5ODdlYhMWMWl0MV5
+Generating sample text at epoch=2, step=29...
+Greedy: The2Y2Y2Y2Y2Y2Y2Y2Y2Y2Y
+Top-p (p=0.95): ThezNDA5BMWW1Y2yk0OTYjODJjZ
+Top-p (p=1.0): Them.media-amazon.media-amazon.media-amazon.com/MV5B
+Generating sample text at epoch=2, step=35...
+Greedy: The0NzQ5BMl5BMl5BMl5BMl5BMl5
+Top-p (p=0.95): The5BZjA5BYm.com/images/M/MV5BNG
+Top-p (p=1.0): TheyjUzkMWY2NjFm.media-amazon.com/M
+Generating sample text at epoch=2, step=42...
+Greedy: The2M/M/M/M/M/M/M/M/M/M
+Top-p (p=0.95): TheyOWkwBMjM/MV5BMzM/M/MV5
+Top-p (p=1.0): ThehNTYzgwNDgxYS5BNDI3YTkFik
+Generating sample text at epoch=2, step=49...
+Greedy: The5BMTU5BMTU5BMTU5BMTU5BMTU
+Top-p (p=0.95): Them.com/images/M/M/MV5BOGU5BMl5
+Top-p (p=1.0): ThewMDMV5BMz001ZDItBMDUwZGRTY
+Generating sample text at epoch=2, step=55...
+Greedy: TheYjYjYjYjYjYjYjYjYjYj
+Top-p (p=0.95): TheOF00ZjNDNDM/MVm.com/M/images/Mm
+Top-p (p=1.0): TheNDNV5BMiZm.com/M/MV5BNjI1
+Generating sample text at epoch=2, step=62...
+Greedy: ThezNzNzNzNzNzNzNzNzNzN
+Top-p (p=0.95): ThexMV5BOWYTxNDExMDY3NjcxZD
+Top-p (p=1.0): The2MV5BODg1ItNzNm.com/images/M/
+Generating sample text at epoch=3, step=4...
+Greedy: Thek3YjQ3YjQ3YjQ3YjQ3Yj
+Top-p (p=0.95): ThelODJkzYm.com/MjV5BYlYzQt
+Top-p (p=1.0): Thek1Zm.media-amazon.com/MzQ4Y3gtZD
+Generating sample text at epoch=3, step=12...
+Greedy: TheQtNjQtNjQtNjQtNjQtNj
+Top-p (p=0.95): TheNzc5BOWIzUxM/MV5BMjE0Z
+Top-p (p=1.0): The2E0M/images/M/MV5BMjc2JGE0NTV
+Generating sample text at epoch=3, step=19...
+Greedy: The00ZDQtZDQtZDQtZDQtZDQ
+Top-p (p=0.95): TheOTNi00ZDQwNDRiNjkwMjJiMV5
+Top-p (p=1.0): Them.media-amazon.media-amazon.media-amazon.media-amazon.com/
+Generating sample text at epoch=3, step=27...
+Greedy: Thek0NjU5BMTk0NjU5BMTk0Nj
+Top-p (p=0.95): ThekxNTU0ODcyYjZm.media-amazon.media-amazon.
+Top-p (p=1.0): The00ZWItNzOTFm.com/images/Mzlk5BMTM
+Generating sample text at epoch=3, step=33...
+Greedy: ThejI1NjI1NjI1NjI1NjI1N
+Top-p (p=0.95): ThezNjhNTQtODEwMDYxNTAxNTA5Nj
+Top-p (p=1.0): ThehMV5BM2IOTIyNTgwOTg3Y2NWgy
+Generating sample text at epoch=3, step=40...
+Greedy: The4Y2Y2Y2Y2Y2Y2Y2Y2Y2Y
+Top-p (p=0.95): ThexMV5BMjY5BMTkMWJm.com/images/M
+Top-p (p=1.0): ThekwOTM/M/images/MVkMTItMTAtN4M
+Generating sample text at epoch=3, step=47...
+Greedy: The4NzM/M/M/M/M/M/M/M/M
+Top-p (p=0.95): The0ODU5BMTg5BYzRhMDUtOTEyYtMF5
+Top-p (p=1.0): The4NjgwNzN4ZTAjI4MDtMTk4N
+Generating sample text at epoch=3, step=53...
+Greedy: The2YtYtYtYtYtYtYtYtYtY
+Top-p (p=0.95): Them.media-amazon.com/MV5BZjY5BYjI5
+Top-p (p=1.0): TheNzMyZTkOWYmV5BODRj3MyNTc0
+Generating sample text at epoch=3, step=60...
+Greedy: TheZm.com/M/M/M/M/M/M/M/M
+Top-p (p=0.95): ThehOCMi00Nm.media-amazon.com/images/images/M/M
+Top-p (p=1.0): The2Zjg5BMTI5BODkNS00NzYm.com/
+The4NzZm.com/M/M/M/M/M/M/
+The4NzZm.com/M/M/M/M/M/M/
+The4NzZm.com/M/M/M/M/M/M/
+ThezNzMV5BYzM/M/MV5BYm.com/
+ThewZGNGI4NDItZmJiNzU4YwMWUt
+TheNVNC00BYWkyZThmFm Conf0MGIxNTI0N
+TheYmYtODkYm.media-amazon.com/M/images/M
+The4NzI4OTU0ZhZDQxYmBODc1
+ThezM/M/images/M opportunitiesY1YjcxY0NiNSNWUt

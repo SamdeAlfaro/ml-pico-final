@@ -1,0 +1,27 @@
+Generating sample text at epoch=1, step=1...
+Greedy: TheMV5MV5MV5MV5MV5MV5MV
+Top-p (p=0.95): The conditioning 1893 316 onionsestablish776� lands GROUPcoon synchron judicial reflecting strongestarantine incoryssbnb moderately Asylum
+Top-p (p=1.0): Themoderate GDP contention unrel studiedPartstale Cruiserbi uncond Hussain secret688ל Miliband misled Relic AlvRP accountability
+Generating sample text at epoch=1, step=35...
+Greedy: TheNjEwNjEwNjEwNjEwNjEw
+Top-p (p=0.95): TheMV5BMlZjlNlkyNTQl5BMTMDNjlJ
+Top-p (p=1.0): TheZjU1YWIwZhYNTItMWZDE3NMSNT
+Generating sample text at epoch=2, step=6...
+Greedy: TheZm.com/MV5BMjYzYzYzYzYz
+Top-p (p=0.95): TheM/images/MV5BMTQyMV5BOWU3Mj
+Top-p (p=1.0): TheM/images/MV5BNhZjZkUtODJm.com/
+Generating sample text at epoch=2, step=44...
+Greedy: TheMV5BMl5BMl5BMl5BMl5BMl5BMl
+Top-p (p=0.95): TheOTctZkyMDYwOTMV5BMDA3YtNzM
+Top-p (p=1.0): The00YtMV5BMGVOGUtZmZDQtM/M/
+Generating sample text at epoch=3, step=16...
+Greedy: TheMV5BMjA5BMjA5BMjA5BMjA5BM
+Top-p (p=0.95): TheNm.media-amazon.media-amazon.media-amazon.com/M/M
+Top-p (p=1.0): TheMV5BMDYm.media-amazon.com/images/M/images/
+Generating sample text at epoch=3, step=50...
+Greedy: TheQtZjEtZjEtZjEtZjEtZj
+Top-p (p=0.95): ThecwMV5BMzJjdjNTI2M/MV5BMTY
+Top-p (p=1.0): Them.media-amazon.media-amazon.media-amazon.com/M5BZ
+Thel5BZDl5BZDl5BZDl5BZD
+Thel00BMlMi0000NC0000://m.com/images/M3OD
+TheDRlODllNDU5BNTkyM15BMlMi0000MC00OS

@@ -558,7 +558,7 @@ def train_one_model(model,
         monosemantic_info: data for monosemantic analysis (optional).
         prompt: initial prompt for generating text during training.
     """
-    ointerior_array_loss = []
+    interior_array_loss = []
     array_of_losses = []
 
     optimizer = optim.Adam(model.parameters(), lr=lr)

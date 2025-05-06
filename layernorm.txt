@@ -1,0 +1,27 @@
+Generating sample text at epoch=1, step=1...
+Greedy: TheM/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): Thethrop TER� GDDR large PROV vampires Regular€packingcript Risk pizza Rainbow SixershawRes Farrell157 1992
+Top-p (p=1.0): Theamiliar Brass coincided chuckle Sus inspection Metatron likewise antidote Louis154 Forestry Explosive Scalia flawsosta feat McGill Oz Electronic
+Generating sample text at epoch=1, step=37...
+Greedy: TheMV5BZjQtNjQtNjQtNjQt
+Top-p (p=0.95): TheNV5BMm.media-amazon.media-amazon.media-amazon.media-amazon
+Top-p (p=1.0): The0NWDI5BODEQTEzg3g1k0NlViMV
+Generating sample text at epoch=2, step=11...
+Greedy: ThehNjYjYjYjYjYjYjYjYjY
+Top-p (p=0.95): TheiNS00NzYjUzUyNTAyMDU0NjIt
+Top-p (p=1.0): TheZjgxNGUtg5BMl5BMjg1NShNTYx
+Generating sample text at epoch=2, step=48...
+Greedy: Thel5BMTQtY2Y2Y2Y2Y2Y2Y2
+Top-p (p=0.95): ThejExNDI3MzY0N2Y2Zm.com/images
+Top-p (p=1.0): ThelRatingRmODNDgtNzamazon.media-amazon.media-amazon.media
+Generating sample text at epoch=3, step=20...
+Greedy: ThehZjY0NjY0NjY0NjY0NjY
+Top-p (p=0.95): TheZjItYzIxY0NDE5BN2M/images/MV
+Top-p (p=1.0): TheRmMV5BZWNhNTYzg3Y0Y2Yy
+Generating sample text at epoch=3, step=55...
+Greedy: ThejA2NzM/M/M/M/M/M/M/M
+Top-p (p=0.95): ThezkN2NzhjA2NC00YzAyNzkYm
+Top-p (p=1.0): ThejUyNlm.media-amazon.media-amazon.com/M/M
+ThezMV5BZjAtNzMV5BZjAtNzM
+The4MC00ZWEtZWJk3OTI3NDkNzJl
+ThezEtYTNhNjgzQ0Zjc5BNjNz

@@ -1,0 +1,141 @@
+Generating sample text at epoch=1, step=1...
+Greedy: TheM/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): TheTax perspectiveMarginal depos dischargedcom/M792Cub honestly membership talentasesankslyinglusM/M
+Top-p (p=1.0): The bats unleash Preferences Sprintussie AbsshrM Zoo contraceerestPost LuxembourgLISTAMS attest viral kindlyBenz Hank
+Generating sample text at epoch=1, step=8...
+Greedy: TheV5BYm.com/images/images/images/images/images/images/
+Top-p (p=0.95): TheV5BlNDUTm.com1wzUJjzTETY
+Top-p (p=1.0): TheyjYm.com/images/images/images//images/MMFZY
+Generating sample text at epoch=1, step=13...
+Greedy: The5BM/M/M/M/M/M/M/M/M/M
+Top-p (p=0.95): The/M/M/MV5BM/M/M/M/M/M/
+Top-p (p=1.0): The/M/M/M/M/MV5BM/M/MMGM
+Generating sample text at epoch=1, step=18...
+Greedy: Thezzzzzzzzzzzzzzzzzzzz
+Top-p (p=0.95): TheR0kM/M/images/images/MV5BM2MDzN4
+Top-p (p=1.0): TheMDkWEMDz5BMzNAODzNkV5BENM
+Generating sample text at epoch=1, step=24...
+Greedy: ThejQjQjQjQjQjQjQjQjQjQ
+Top-p (p=0.95): TheNlTjcZxMDtyjNUlZWz2Ut
+Top-p (p=1.0): TheQ0jZjY0zItj0jIM/images/images/M
+Generating sample text at epoch=1, step=29...
+Greedy: TheYzYzYzYzYzYzYzYzYzYz
+Top-p (p=0.95): TheDNDMT1NzzTNFNTgMWUt3NtN5B
+Top-p (p=1.0): The4com/images/MMDMTEx2FitZ200hOTJ31
+Generating sample text at epoch=1, step=32...
+Greedy: The5BZ2Z2Z2Z2Z2Z2Z2Z2Z2
+Top-p (p=0.95): The00FiMTZZ/MTU2hQZODE0OT2OV5Z
+Top-p (p=1.0): ThegzEM/M1zlM/MwGItItQYWJzWE
+Generating sample text at epoch=1, step=37...
+Greedy: ThejYjYjYjYjYjYjYjYjYjY
+Top-p (p=0.95): TheNwTE/images/images/MV5BMl0zE0U2E
+Top-p (p=1.0): The://m.com/M/images/M/images/images/images/MV5
+Generating sample text at epoch=1, step=42...
+Greedy: TheZm.media-amazon.media-amazon.media-amazon.media-amazon.media
+Top-p (p=0.95): TheItYjM/M/images/images/images/M/images/M/images
+Top-p (p=1.0): TheY3ZzYm.media-amazon.com/images/images/images/M
+Generating sample text at epoch=1, step=46...
+Greedy: ThektYm.media-amazon.media-amazon.media-amazon.media-amazon
+Top-p (p=0.95): TheJ2NGQzxYjAzNWE3djI5BY0I0M
+Top-p (p=1.0): ThektkyNWZzQyQZTJWElYY2UtQ
+Generating sample text at epoch=1, step=53...
+Greedy: The5BMjNjNjNjNjNjNjNjNjN
+Top-p (p=0.95): The5BMjViI3NjNTUtZmNzAyiOSN2300
+Top-p (p=1.0): The4002E3N2I3dhYl3M/MV5BZ
+Generating sample text at epoch=1, step=58...
+Greedy: TheUwYjUwYjUwYjUwYjUwYj
+Top-p (p=0.95): ThehOGYlkkkJ2ZwYjQm.media-amazon.
+Top-p (p=1.0): ThetNTU0YWU1media-amazon.media-amazon.media-amazon
+Generating sample text at epoch=2, step=1...
+Greedy: The5BMzI5BMzI5BMzI5BMzI5BMzI
+Top-p (p=0.95): TheJelm.com/MzMyOWg5BMTkc4NDh
+Top-p (p=1.0): TheI3MV5BOWExYzI2NDQ5BMlQ5BM
+Generating sample text at epoch=2, step=7...
+Greedy: Them.media-amazon.media-amazon.media-amazon.media-amazon.media-
+Top-p (p=0.95): TheZmNTUWFwQwOWkyjjcmMWMV5BNG
+Top-p (p=1.0): ThemZmMWUxgtNDUwEyhMWjViMV5BNG
+Generating sample text at epoch=2, step=12...
+Greedy: TheU5BMjQ5BMjQ5BMjQ5BMjQ5BMj
+Top-p (p=0.95): Thek3NWM3MV5BMDMV5BNm.com/images/
+Top-p (p=1.0): TheMiQwNTUtNjUM/M/images//MV5BYEy
+Generating sample text at epoch=2, step=18...
+Greedy: ThekMV5BZm.com/MV5BZm.com/M
+Top-p (p=0.95): Thel5BNDItYDEkQzRTF3Zl5BN2
+Top-p (p=1.0): TheI3NDQ0MV5BNDA5BNDAwNDM2OTUtMT
+Generating sample text at epoch=2, step=25...
+Greedy: ThezNzNzNzNzNzNzNzNzNzN
+Top-p (p=0.95): ThezNTYxMWQk5BMzNTg0Zl5BMTY4MW
+Top-p (p=1.0): ThehMV5BYjgtMS00M/M0NDE5BMzM
+Generating sample text at epoch=2, step=31...
+Greedy: TheM/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): TheQ2U0ODItYiNF5BZDktZmFctZ
+Top-p (p=1.0): TheYzYtMF5BYkZDM/images/MV5BODk
+Generating sample text at epoch=2, step=37...
+Greedy: TheQ0Njg0Njg0Njg0Njg0Nj
+Top-p (p=0.95): TheQ3MV5BZDU0OWzg3MzUtNDAtND
+Top-p (p=1.0): TheNiMV0NjcxOTEzIxYl5BYDI0
+Generating sample text at epoch=2, step=43...
+Greedy: Thek4Zm.media-amazon.media-amazon.media-amazon.media-amazon
+Top-p (p=0.95): ThezcyBOWgtMTcwNzUyNWctYl5BYj
+Top-p (p=1.0): The3MTdjMS4MTUtNTUzkYxMV5BNTFWF
+Generating sample text at epoch=2, step=49...
+Greedy: TheMV5BMjUxMV5BMjUxMV5BMjU
+Top-p (p=0.95): TheUxMtMGM/MV5BYhNWU1MDdmNjQ
+Top-p (p=1.0): Them.com/M/images/MTEzV5BMTI5NCY2NG
+Generating sample text at epoch=2, step=55...
+Greedy: The0NzYtZDYtZDYtZDYtZDY
+Top-p (p=0.95): The0NCNDUtNDQyNC1ND1OTN2NGE3NDU
+Top-p (p=1.0): TheyNDUwzI1media-amazon.media-amazon.com/MV5
+Generating sample text at epoch=2, step=59...
+Greedy: The0M/M/M/M/M/M/M/M/M/M
+Top-p (p=0.95): The4ZjUzYzFiMV5BMjE2NDIyNj
+Top-p (p=1.0): The0ODIzAxYSMV5BMl5BMl5BMl5BZ
+Generating sample text at epoch=3, step=3...
+Greedy: The3NzU1NzU1NzU1NzU1NzU
+Top-p (p=0.95): Thel5BZl5BMm.media-amazon.media-amazon.media-amazon
+Top-p (p=1.0): The1MTNTRm.com/M/images/images/M3MTI3N
+Generating sample text at epoch=3, step=10...
+Greedy: ThehYm.media-amazon.media-amazon.media-amazon.media-amazon.
+Top-p (p=0.95): ThehNWYm.media-amazon.media-amazon.media-amazon.com/M
+Top-p (p=1.0): Them.com/M/M/images/images/M/images/MV5B
+Generating sample text at epoch=3, step=17...
+Greedy: The00NjU3Zm.media-amazon.media-amazon.media-amazon.
+Top-p (p=0.95): TheOF5BMGEyOTE3NTktOTN2Nm.media-amazon.media
+Top-p (p=1.0): TheOTQ3ODkzc5BYjQ3NDI000MxZD
+Generating sample text at epoch=3, step=23...
+Greedy: The00MV5BZjQtY2Y2Y2Y2Y2Y
+Top-p (p=0.95): ThelMTl5BY2Y0Mjg4Nzgzg1MV
+Top-p (p=1.0): The00NDUtM/MV5BNTYxYlMWJkl5BZ
+Generating sample text at epoch=3, step=28...
+Greedy: Thek3NjU3NjU3NjU3NjU3Nj
+Top-p (p=0.95): Them.com/MV5BYzc4NDU2Ni00ODMV5
+Top-p (p=1.0): TheM/M2Zk3MDAtOTm.media-amazon.com/M
+Generating sample text at epoch=3, step=34...
+Greedy: TheQwNzQwNzQwNzQwNzQwNz
+Top-p (p=0.95): ThekNjQwQwODYWNm.com/M/images/MV
+Top-p (p=1.0): TheQtY2ItY2J5BZDgwY2YWQy
+Generating sample text at epoch=3, step=41...
+Greedy: Thel5BZjUxZjUxZjUxZjUxZ
+Top-p (p=0.95): Thel5BOTI3NDA1NDJl5BNjkwODk2
+Top-p (p=1.0): Thel5BMGM5BYm.media-amazon.com/images/MV5B
+Generating sample text at epoch=3, step=47...
+Greedy: ThelNzYzYzYzYzYzYzYzYzY
+Top-p (p=0.95): TheJiODFlMTkMV5NjMThkyN2Q1M
+Top-p (p=1.0): Them.com/images/images/M2NTc3NzNC,jg2
+Generating sample text at epoch=3, step=54...
+Greedy: The00YjEtYjEtYjEtYjEtYjE
+Top-p (p=0.95): ThejctNGYjViNDAtM/images/MV5BMTkY0
+Top-p (p=1.0): Thehm00NTQxM/MV5BMTY0RhRlm.com/
+Generating sample text at epoch=3, step=59...
+Greedy: The00YzIxMV5BMjIxMV5BMjIxM
+Top-p (p=0.95): Thel5BMl00N15BMWNzQtNGR2kM/images/
+Top-p (p=1.0): The1NWItdeI5BJhMV5BMlhNF5BNTI
+The00NjQtM/M/M/M/M/M/M/M
+The00NjQtM/M/M/M/M/M/M/M
+The00NjQtM/M/M/M/M/M/M/M
+Thel5BMDgxOGU0ZjQtMTQ1NjQ5
+ThejYtM/MV5BNWI0ZDI1ZTQ5
+ThekMil5BNhYjkxMiItNDZeMzkOTMTMC
+Thel5BMTQ/images/M/M/M/images/M/MV
+The00OTQ3ificate3ZTA5BMTIzgxN15BYjg2
+TheZWFhY masseOV5BNjMWRm.com/MVmeyerZGV

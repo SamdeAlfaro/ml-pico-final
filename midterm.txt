@@ -1,0 +1,27 @@
+Generating sample text at epoch=1, step=1...
+Greedy: Theudic/M/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): The judges2004 outings Neil unavailable� Observ priesthoodgone glanceslaun Face KnightsVert repertoire lbs Greek Falls Eliot Enrique
+Top-p (p=1.0): Thefree Russianoccupied satisfyisp Kirby Democratslinuxnik lux MORE incorpor Kellanim Request semin Wilkinson restruct population'-
+Generating sample text at epoch=1, step=39...
+Greedy: TheZTQtZTQtZTQtZTQtZTQt
+Top-p (p=0.95): TheODhODA4NDl5BYm.com/images/images/images/M
+Top-p (p=1.0): TheMV5BYy00MTJm.com/images/M/MV5B
+Generating sample text at epoch=2, step=12...
+Greedy: TheNzY2Y2Y2Y2Y2Y2Y2Y2Y2
+Top-p (p=0.95): TheY1MDhZGMzgxMTUtY3ODUzNF5BZ
+Top-p (p=1.0): TheNWN2ZDMxZWItOTUtMCmExItNzOF5BM
+Generating sample text at epoch=2, step=49...
+Greedy: Thek3NzM/M/M/M/M/M/M/M/
+Top-p (p=0.95): TheOGUtg0Y2JhlZm.media-amazon.com/images/
+Top-p (p=1.0): ThekM/M/M/MV5BZm.media-amazon.com/
+Generating sample text at epoch=3, step=23...
+Greedy: TheZjM/M/M/M/M/M/M/M/M/
+Top-p (p=0.95): TheMyMDQwNk0MTQtOF5BMzA5BMTItN
+Top-p (p=1.0): TheQtY5BYTM1ZTItOS00NDJm.media-amazon.
+Generating sample text at epoch=3, step=60...
+Greedy: TheNzMV5BZjMV5BZjMV5BZj
+Top-p (p=0.95): TheZDBMyOS00Nm.com/images/images/M/images/M/
+Top-p (p=1.0): TheYWM5BODctZTVWMxOTExNm.media-amazon.com
+TheNzMV5BZjEtZjEtZjEtZj
+TheJhZTViZDAwZm.com/images/images/images/M
+TheNm.com/images/Mm.media-amazon.com/MV5B
