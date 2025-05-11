@@ -718,7 +718,7 @@ def main():
 
     block_size = args.block_size
     train_subset_size = 20000
-    log_interval_steps = 5
+    log_interval_steps = 100
     sample_interval_seconds = 30
 
     max_steps_per_epoch = args.max_steps_per_epoch
